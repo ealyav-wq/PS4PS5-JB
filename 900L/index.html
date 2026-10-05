@@ -1,0 +1,352 @@
+<html manifest="Cache.manifest">
+<head>
+<meta charset="utf-8">
+<title>Karo Host Auto Exploit Light + New Webkit 9.00 fw</title>
+<script>
+if (window.applicationCache.status=='0'){window.location.replace("cache.html");}
+</script>
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js" defer></script>
+<script src="exploit.js" defer></script>
+<script>
+var PLfile, LoadedMSG, out_jb;
+
+function load_poc(){
+ var req = new XMLHttpRequest();
+ req.responseType = "arraybuffer";
+ req.open('GET', PLfile);
+ req.send();
+ req.onreadystatechange = function () {
+  if (req.readyState == 4) {
+   PLD = req.response;
+   var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+   var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+   var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+   var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+   tmp.set(new Uint8Array(req.response), 0);
+   tmp.set(padding, req.response.byteLength);
+   var shellcode = new Uint32Array(tmp.buffer);
+   pl.set(shellcode,0);
+   var pthread = p.malloc(0x10);
+   chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+   allset();
+  }
+ };
+}
+
+function jbdone() {
+document.getElementById("input").remove();
+window.progress.innerHTML="Jailbreak Done";
+all.style.display = "block";
+}
+
+function allset() {
+window.progress.innerHTML= LoadedMSG;
+}
+
+function Binset() {
+window.progress.innerHTML="Payload Loaded. Send payloads to port 9020";
+alert("Payload Loaded. Send payloads to port 9020");
+}
+
+function Mset() {
+window.progress.innerHTML="Payload Loaded. Send payloads to port 9021";
+alert("Payload Loaded. Send payloads to port 9021");
+}
+
+function goldhen212(){
+    progress.innerHTML="Goldhen 2.1.2 loading... please wait";
+    LoadedMSG="GoldHEN 2.1.2 Loaded";
+    PLfile = "goldhen_212_900.bin";
+    out_jb = "AllPL";
+    load_poc();
+}
+
+function goldhen23(){
+    progress.innerHTML="Goldhen 2.3 loading... please wait";
+    LoadedMSG="GoldHEN 2.3 Loaded";
+    PLfile = "goldhen_2.3_900.bin";
+    out_jb = "AllPL";
+    load_poc();
+}
+
+function goldhen24(){
+    progress.innerHTML="Goldhen V2.4b18.9 loading... please wait";
+    LoadedMSG="GoldHEN V2.4b18.9 Loaded";
+    PLfile = "goldhen.bin";
+    out_jb = "AllPL";
+    load_poc();
+}
+
+function load_PS4Debug(){
+    progress.innerHTML="PS4Debug loading... please wait"; LoadedMSG="PS4Debug Loaded";
+    PLfile = "ps4debug.bin";
+    out_jb = "AllPL";
+    load_poc();
+}
+
+function load_App2USB(){
+    progress.innerHTML="app2usb loading... please wait"; LoadedMSG="app2usb Loaded";
+    PLfile = "app2usb.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_DumperG(){
+    progress.innerHTML="Dumper Game loading... please wait"; LoadedMSG="Dumper Game Loaded";
+    PLfile = "DumperG.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_DumperU(){
+    progress.innerHTML="Dumper Game Update loading... please wait"; LoadedMSG="Dumper Game Update Loaded";
+    PLfile = "DumperU.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_DumperMGU(){
+    progress.innerHTML="Dumper Merged Games and Update loading... please wait"; LoadedMSG="Dumper Merged Games and Update Loaded";
+    PLfile = "DumperMGU.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_DumperSGU(){
+    progress.innerHTML="Dumper Seperate Games and Update loading... please wait"; LoadedMSG="Dumper Seperate Games and Update Loaded";
+    PLfile = "DumperSGU.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_DisableUpdates(){
+    progress.innerHTML="DisableUpdates loading... please wait"; LoadedMSG="DisableUpdates Loaded";
+    PLfile = "disableupdates.bin";
+    out_jb = "AllPL";
+    load_poc();
+}
+
+function load_EnableUpdates(){
+    progress.innerHTML="EnableUpdates loading... please wait"; LoadedMSG="EnableUpdates Loaded";
+    PLfile = "enableupdates.bin";
+    out_jb = "AllPL";     load_poc();
+}
+  
+function load_Orbis(){
+    progress.innerHTML="Orbis-Toolbox loading... please wait"; LoadedMSG="Orbis-Toolbox Loaded";
+    PLfile = "Orbis-Toolbox-900.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_WebRTE(){
+    progress.innerHTML="WebRTE loading... please wait"; LoadedMSG="WebRTE Loaded";
+    PLfile = "WebRTE.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function Mloader(){
+    progress.innerHTML="Payload loading... please wait"; LoadedMSG="MiraLoader Loaded. Send payloads to port 9021";
+    PLfile = "MiraLoader.bin";
+    out_jb = "MLD";
+    load_poc();
+}
+
+function Bloader(){
+ progress.innerHTML="Payload loading... please wait";
+ var payload_buffer = chain.syscall(477, 0x0, 0x300000, 0x7, 0x1000, 0xFFFFFFFF, 0);
+ var payload_loader = p.malloc32(0x1000);
+ var BLDR = payload_loader.backing;
+ BLDR[0]=0x56415741;BLDR[1]=0x83485541;BLDR[2]=0x894818EC;BLDR[3]=0xC748243C;BLDR[4]=0x10082444;BLDR[5]=0x483C2302;BLDR[6]=0x102444C7;BLDR[7]=0x00000000;BLDR[8]=0x000002BF;BLDR[9]=0x0001BE00;BLDR[10]=0xD2310000;BLDR[11]=0x00009CE8;BLDR[12]=0xC7894100;BLDR[13]=0x8D48C789;BLDR[14]=0xBA082474;BLDR[15]=0x00000010;BLDR[16]=0x000095E8;BLDR[17]=0xFF894400;BLDR[18]=0x000001BE;BLDR[19]=0x0095E800;BLDR[20]=0x89440000;BLDR[21]=0x31F631FF;BLDR[22]=0x0062E8D2;BLDR[23]=0x89410000;BLDR[24]=0x2C8B4CC6;BLDR[25]=0x45C64124;BLDR[26]=0x05EBC300;BLDR[27]=0x01499848;BLDR[28]=0xF78944C5;BLDR[29]=0xBAEE894C;BLDR[30]=0x00001000;BLDR[31]=0x000025E8;BLDR[32]=0x7FC08500;BLDR[33]=0xFF8944E7;BLDR[34]=0x000026E8;BLDR[35]=0xF7894400;BLDR[36]=0x00001EE8;BLDR[37]=0x2414FF00;BLDR[38]=0x18C48348;BLDR[39]=0x5E415D41;BLDR[40]=0x31485F41;BLDR[41]=0xC748C3C0;BLDR[42]=0x000003C0;BLDR[43]=0xCA894900;BLDR[44]=0x48C3050F;BLDR[45]=0x0006C0C7;BLDR[46]=0x89490000;BLDR[47]=0xC3050FCA;BLDR[48]=0x1EC0C748;BLDR[49]=0x49000000;BLDR[50]=0x050FCA89;BLDR[51]=0xC0C748C3;BLDR[52]=0x00000061;BLDR[53]=0x0FCA8949;BLDR[54]=0xC748C305;BLDR[55]=0x000068C0;BLDR[56]=0xCA894900;BLDR[57]=0x48C3050F;BLDR[58]=0x006AC0C7;BLDR[59]=0x89490000;BLDR[60]=0xC3050FCA;
+ chain.syscall(74, payload_loader, 0x4000, (0x1 | 0x2 | 0x4));
+ var pthread = p.malloc(0x10); {
+  chain.fcall(window.syscalls[203], payload_buffer, 0x300000);
+  chain.fcall(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_loader, payload_buffer);
+ }
+ chain.run();
+ Binset();
+}
+
+function load_ToDexE(){
+    progress.innerHTML="ToDEX Enabling... please wait"; LoadedMSG="ToDex Enabled";
+    PLfile = "todex-enable.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_ToDexD(){
+    progress.innerHTML="ToDEX Disabling... please wait"; LoadedMSG="ToDex Disabled";
+    PLfile = "todex-disable.bin";
+    out_jb = "AllPL";     load_poc();
+}
+
+function load_copych(){
+    progress.innerHTML="Payload loading... please wait"; LoadedMSG="Payload Loaded";
+    PLfile = "CopyCH.bin";
+    out_jb = "AllPL";     load_poc();
+}
+</script>
+
+<style>
+    :root {
+        --bg-color: #1a1920;
+        --card-bg: rgba(20, 23, 35, 0.75);
+        --border-color: rgba(255, 255, 255, 0.1);
+        --accent-yellow: #f1c40f;
+        --accent-glow: rgba(241, 196, 15, 0.3);
+        --text-color: #ffffff;
+        --text-muted: #a0aec0;
+    }
+
+    html, body {
+        margin: auto;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 16px;
+        text-align: center;
+        color: var(--text-color);
+        background: var(--bg-color);
+        background-image: radial-gradient(circle at 50% 10%, #292735 0%, var(--bg-color) 80%);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        font-weight: 700;
+    }
+
+    .main-title {
+        font-size: 30px;
+        color: var(--accent-yellow);
+        margin-top: 30px;
+        letter-spacing: 0.5px;
+    }
+
+    #progress {
+        font-size: 20px;
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-bottom: 25px;
+    }
+
+    #all {
+        max-width: 960px;
+        margin: 0 auto 100px auto;
+        padding: 30px 20px;
+        background: var(--card-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        text-align: center;
+        display: none; /* Controlled by exploit chain script */
+    }
+
+    .content {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background: rgba(15, 17, 26, 0.9);
+        backdrop-filter: blur(10px);
+        color: white;
+        font-size: 14px;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        padding: 12px 20px;
+        box-sizing: border-box;
+        z-index: 10;
+    }
+
+    .yellow { color: var(--accent-yellow); font-weight: 600; }
+    
+    .hue {
+        color: white;
+        padding: 4px 10px;
+        border-radius: 6px;
+        animation: hue 5s linear infinite;
+        box-shadow: 0px 0px 15px var(--accent-yellow);
+        background: rgba(241, 196, 15, 0.2);
+        display: inline-block;
+    }
+    @keyframes hue {
+        0% { filter: hue-rotate(0deg); }
+        50% { box-shadow: 0px 0px 25px #3498db; }
+        100% { filter: hue-rotate(360deg); }
+    }
+
+    .text { padding-bottom: 5px; }
+
+    button {
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        width: 210px;
+        height: 50px;
+        text-align: center;
+        color: var(--text-color);
+        font-size: 15px;
+        font-weight: 500;
+        margin: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px var(--accent-glow);
+        color: var(--accent-yellow);
+        border-color: var(--accent-yellow);
+        background: rgba(241, 196, 15, 0.12);
+    }
+
+    .btn-goldhen { color: #f1c40f !important; font-weight: bold; width: 270px !important; }
+    .btn-webrte { background-color: rgba(41, 128, 185, 0.25) !important; border-color: #2980b9 !important; }
+    .btn-debug { background-color: rgba(39, 174, 96, 0.25) !important; border-color: #27ae60 !important; }
+    .btn-orbis { background-color: rgba(192, 57, 43, 0.25) !important; border-color: #c0392b !important; }
+
+    .credits-text {
+        font-size: 13px;
+        color: #cbd5e1;
+        opacity: 0.85;
+    }
+</style>
+</head>
+<body>
+
+<h1 class="main-title">Karo Host Auto Exploit Light 9.00 fw</h1>
+<h1 id="progress">Jailbreaking... Wait</h1>
+<br>
+
+<div id="all">
+    <button onMouseOver="progress.innerHTML='GoldHen v2.1.2 by SISTR0 for PS4 9.00 Fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="goldhen212()" class="btn-goldhen"> GoldHen V2.1.2 </button>
+    <button onMouseOver="progress.innerHTML='GoldHen v2.3 by SISTR0 for PS4 9.00 Fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="goldhen23()" class="btn-goldhen"> GoldHen V2.3 </button>
+    <button onMouseOver="progress.innerHTML='GoldHen v2.4b18.9 by SISTR0 for PS4 9.00 Fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="goldhen24()" class="btn-goldhen"> GoldHen V2.4b18.9 </button>
+    <br><br>
+    <button onMouseOver="progress.innerHTML='WebRTE for PS4 9.00 fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_WebRTE()" class="btn-webrte"> WebRTE </button>
+    <button onMouseOver="progress.innerHTML='ps4debug for PS4 9.00 fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_PS4Debug()" class="btn-debug"> Ps4debug </button>
+    <button onMouseOver="progress.innerHTML='Orbis Toolbox Loader Alfa 1190 for PS4 9.00 fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_Orbis()" class="btn-orbis"> Orbis Toolbox </button>
+    <br><br>
+    <button onMouseOver="progress.innerHTML='unlocks some debug features available on testkit'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_ToDexE()"> ToDex Enable </button>
+    <button onMouseOver="progress.innerHTML='Disable ToDEX'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_ToDexD()"> ToDex Disable </button>
+    <button onMouseOver="progress.innerHTML='Creates dummy files in the PS4 update folder'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_DisableUpdates()"> Disable Updates </button>
+    <button onMouseOver="progress.innerHTML='Removes the dummy files in the PS4 update folder'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_EnableUpdates()"> Enable Update </button>
+    <br><br>
+    <button onMouseOver="progress.innerHTML='Move installed games to an external USB drive'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_App2USB()"> App2USB </button>
+    <button onMouseOver="progress.innerHTML='Binloader Port 9020 for PS4 9.00 Fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="Bloader()"> BinLoader </button>
+    <button onMouseOver="progress.innerHTML='Mira loader Port 9021 for PS4 9.00 Fw'" onmouseout="progress.innerHTML='Status'" type="button" onclick="Mloader()"> MiraLoader </button>
+    <button onMouseOver="progress.innerHTML='Copy json and shn files from USB to PS4'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_copych()"> Cheat Copy </button>
+    <br><br>
+    <button onMouseOver="progress.innerHTML='Dump Games only to a USB drive by Leeful'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_DumperG()"> Dumper Game </button>
+    <button onMouseOver="progress.innerHTML='Dump Games Update only to a USB drive by Leeful'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_DumperU()"> Dumper Update </button>
+    <button onMouseOver="progress.innerHTML='Dump Merged Games and Update to a USB drive by Leeful'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_DumperMGU()"> Dumper MGU </button>
+    <button onMouseOver="progress.innerHTML='Dump Seperate Games and Update to a USB drive by Leeful'" onmouseout="progress.innerHTML='Status'" type="button" onclick="load_DumperSGU()"> Dumper SGU </button>
+</div>
+
+<div class="content">
+    <div class="text">
+        <span class="yellow">Designed, Compiled by :</span>&nbsp;&nbsp; <span class="hue">Karo Sharifi</span>
+        <br>
+        <span class="credits-text"><span class="yellow">Super Special Thanks To :</span> Sleirsgoevy , Al Azif , ChendoChap , SiSTRo , Specter , Abc , Znullptr ...</span>
+    </div>
+</div>
+
+</body>
+</html>

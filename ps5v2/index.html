@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="host-psm-version" content="1.0.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<title>PS5/WEBKIT-RELAPSE-PLDMGR</title>
+<style>
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden}
+html{background:#0d1117}
+body{
+    user-select:none;-webkit-user-select:none;
+    color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#0d1117;
+}
+#app-root{
+    position:absolute;left:0;top:0;width:1280px;height:720px;
+    -webkit-transform-origin:0 0;transform-origin:0 0;
+}
+#screen-aura{display:none}
+#panel{
+    position:absolute;left:240px;top:132px;width:800px;height:498px;overflow:hidden;
+    -webkit-transform:scale(1.2);transform:scale(1.2);
+    -webkit-transform-origin:center center;transform-origin:center center;
+    border:1px solid #30363d;border-radius:6px;
+    background:#161b22;
+    box-shadow:0 16px 32px rgba(1,4,9,0.8);
+}
+#panel:before,#panel:after{display:none}
+
+#header{position:absolute;left:32px;right:32px;top:24px;height:74px;border-bottom:1px solid #30363d}
+#brand{font-size:13px;font-weight:700;line-height:16px;letter-spacing:1px;color:#f0f6fc;text-transform:uppercase}
+.brand-accent{display:inline-block;margin:0 4px;color:#58a6ff}
+#subtitle{margin-top:4px;font-size:10px;font-weight:600;line-height:12px;letter-spacing:.5px;color:#8b949e}
+#credits-line{margin-top:6px;width:520px;color:#8b949e;font-size:7.5px;letter-spacing:.2px;line-height:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chain-badge{
+    position:absolute;right:0;top:0;width:176px;height:46px;border:1px solid #30363d;border-radius:6px;
+    background:#21262d;
+    text-align:center;text-transform:uppercase;
+}
+#chain-badge .badge-label{display:block;margin-top:6px;color:#8b949e;font-size:6.5px;font-weight:700;letter-spacing:1px}
+#chain-badge .badge-main{display:block;margin-top:2px;color:#f0f6fc;font-size:11px;font-weight:700;letter-spacing:.5px}
+#chain-badge .badge-sub{display:block;margin-top:1px;color:#58a6ff;font-size:6px;font-weight:600;letter-spacing:.5px}
+
+#steps{position:absolute;left:32px;right:32px;top:122px;height:68px}
+.track{position:absolute;top:16px;height:2px;background:#30363d}
+#track-0{left:52px;width:212px}#track-1{left:264px;width:212px}#track-2{left:476px;width:212px}
+.step{position:absolute;top:0;width:104px;text-align:center;color:#8b949e}
+#step-1{left:0}#step-2{left:212px}#step-3{left:424px}#step-4{left:636px}
+.step-node{
+    width:32px;height:32px;margin:0 auto;border:1px solid #30363d;border-radius:50%;
+    background:#21262d;
+    color:#8b949e;font-size:11px;font-weight:600;line-height:30px;
+}
+.step-name{margin-top:6px;font-size:8px;font-weight:700;letter-spacing:1px;color:#c9d1d9}
+.step-state{margin-top:2px;font-size:6.5px;letter-spacing:.5px;color:#8b949e;text-transform:uppercase;white-space:nowrap}
+
+.step.current .step-node{border-color:#58a6ff;color:#ffffff;background:#1f6feb}
+.step.current .step-state{color:#58a6ff;font-weight:700}
+.step.done .step-node{border-color:#238636;color:#ffffff;background:#2ea043}
+.step.done .step-state{color:#3fb950;font-weight:700}
+.step.warn .step-node{border-color:#9e6a03;color:#ffffff;background:#bb8009}
+.step.warn .step-state{color:#d29922;font-weight:700}
+.step.fail .step-node{border-color:#da3633;color:#ffffff;background:#f85149}
+.step.fail .step-state{color:#ff7b72;font-weight:700}
+
+.track.done{background:#2ea043}
+.track.warn{background:#bb8009}
+
+#content{
+    position:absolute;left:32px;top:204px;width:736px;height:165px;border:1px solid #30363d;border-radius:6px;
+    background:#21262d;
+}
+#content-copy{position:absolute;left:24px;top:24px;width:440px}
+#eyebrow{font-size:9px;font-weight:700;letter-spacing:2px;color:#58a6ff;text-transform:uppercase}
+h1{margin:8px 0 0;font-size:22px;line-height:1.2;letter-spacing:-.2px;color:#f0f6fc}
+#description{margin:8px 0 0;width:420px;font-size:11px;line-height:1.4;color:#8b949e}
+
+#firmware-card{
+    position:absolute;right:24px;top:18px;width:210px;height:128px;border-left:1px solid #30363d;padding-left:24px;display:flex;flex-direction:column;justify-content:center;
+}
+.data-label{font-size:8px;font-weight:700;letter-spacing:1px;color:#8b949e;text-transform:uppercase}
+#firmware-label{width:176px;text-align:center}
+#firmware-value{width:176px;min-height:40px;margin-top:2px;color:#58a6ff;font-size:38px;font-weight:700;line-height:40px;letter-spacing:1px;text-align:center}
+#version-row{display:flex;width:176px;margin-top:6px;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+#offsets-label,#offsets-value{color:#8b949e;font-size:9px;font-weight:600;letter-spacing:.3px}
+#version-separator{color:#58a6ff;font-size:8px}
+
+#status-row{position:absolute;left:32px;right:32px;top:385px;height:36px;color:#c9d1d9;font-size:11px;line-height:16px;letter-spacing:.2px;text-align:center;display:flex;align-items:center;justify-content:center}
+#status-dot{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#58a6ff}
+#msg{display:inline}
+
+#status-row.success{color:#3fb950}
+#status-row.success #status-dot{background:#3fb950}
+#status-row.warning{color:#d29922}
+#status-row.warning #status-dot{background:#d29922}
+#status-row.error{color:#ff7b72}
+#status-row.error #status-dot{background:#ff7b72}
+
+#actions{position:absolute;left:32px;right:32px;top:430px;height:40px;text-align:center}
+#notice-status{position:static;min-height:10px;margin:0;text-align:center;font-size:8px;line-height:10px;letter-spacing:1px;color:#8b949e;text-transform:uppercase}
+#notice-status:empty{visibility:hidden}
+#notice-status.warn{color:#d29922}
+#footnote{position:static;margin:6px 0 0;text-align:center;font-size:7.5px;line-height:10px;letter-spacing:1px;color:#484f58}
+</style>
+</head>
+<body>
+<div id="app-root">
+    <div id="screen-aura"></div>
+    <main id="panel" aria-labelledby="page-title">
+        <header id="header">
+            <div id="brand">PS5 <span class="brand-accent">/</span> WEBKIT <span class="brand-accent">+</span> RELAPSE <span class="brand-accent">+</span> PLDMGR</div>
+            <div id="subtitle">WEBKIT + RELAPSE: 7.00 - 13.60</div>
+            <div id="credits-line">ReLapse Credits: ntfargo, ufm42, Sonic-Iso, Jordy, Dr. Yenyen, TheFlow, SlidyBat, Flatz, cow, nhk, bollarz, Sleirsgoevy, EchoStretch, EarthOnion.</div>
+            <div id="chain-badge"><span class="badge-label">HOST PSMACEDO</span><span class="badge-main">AUTOMATIC</span><span class="badge-sub" data-host-psm-version-label>VERSION 1.0.0</span></div>
+        </header>
+
+        <section id="steps" aria-label="Verification Steps">
+            <div id="track-0" class="track"></div><div id="track-1" class="track"></div><div id="track-2" class="track"></div>
+            <div id="step-1" class="step current"><div class="step-node">1</div><div class="step-name">FIRMWARE</div><div class="step-state">WAITING</div></div>
+            <div id="step-2" class="step"><div class="step-node">2</div><div class="step-name">WEBKIT</div><div class="step-state">WAITING</div></div>
+            <div id="step-3" class="step"><div class="step-node">3</div><div class="step-name">RELAPSE</div><div class="step-state">WAITING</div></div>
+            <div id="step-4" class="step"><div class="step-node">4</div><div class="step-name">PLDMGR</div><div class="step-state">WAITING</div></div>
+        </section>
+
+        <section id="content">
+            <div id="content-copy">
+                <div id="eyebrow">COMPLETE PIPELINE</div>
+                <h1 id="page-title">WebKit + Relapse + PLDMGR</h1>
+                <p id="description">WebKit + ReLapse kernel chain targeting firmwares 7.00 through 13.60. Final payload handled by Host-PSM.</p>
+            </div>
+            <div id="firmware-card">
+                <div id="firmware-label" class="data-label">Detected Firmware</div>
+                <div id="firmware-value">—</div>
+                <div id="version-row"><span id="offsets-label">Support</span><span id="version-separator" aria-hidden="true">•</span><span id="offsets-value">Checking…</span></div>
+            </div>
+        </section>
+
+        <div id="status-row" role="status" aria-live="polite" aria-atomic="true"><span id="status-dot"></span><span id="msg">Identifying firmware and validating required payload files…</span></div>
+        <div id="actions">
+            <div id="notice-status"></div>
+            <div id="footnote">AUTOMATED EXECUTION IN PROGRESS</div>
+        </div>
+    </main>
+</div>
+
+<script src="host-config.js"></script>
+<script src="host-runtime.js"></script>
+<script>
+"use strict";
+const ENGINE_HASH = "#ps5-test-engine";
+const ENGINE_HTML_B64 = "PCFkb2N0eXBlIGh0bWw+DQo8bWV0YSBjaGFyc2V0PSJ1dGYtOCI+PHRpdGxlPlBTNSByZW5kZXJlciBub3RpZnkgcHJvb2Y8L3RpdGxlPg0KPHN0eWxlPg0KaHRtbCwgYm9keSB7IG1hcmdpbjogMDsgbWluLWhlaWdodDogMTAwJTsgYmFja2dyb3VuZDogIzBjMGMwZjsgfQ0KYm9keSB7DQogICAgY29sb3I6ICNjY2NjY2M7DQogICAgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOw0KICAgIGRpc3BsYXk6IGZsZXg7IGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47IGFsaWduLWl0ZW1zOiBjZW50ZXI7DQogICAgcGFkZGluZzogMThweCAxMnB4IDhweCAxMnB4Ow0KfQ0KI2NhcCB7DQogICAgZm9udC1zaXplOiAyNnB4OyBmb250LXdlaWdodDogODAwOyBsZXR0ZXItc3BhY2luZzogMXB4Ow0KICAgIHRleHQtYWxpZ246IGNlbnRlcjsgbWFyZ2luLWJvdHRvbTogMTJweDsgY29sb3I6ICNmZmZmZmY7DQp9DQojY2F0IHsNCiAgICB3aWR0aDogMjYwcHg7IG1heC13aWR0aDogNzJ2dzsgYm9yZGVyLXJhZGl1czogMTBweDsgZGlzcGxheTogYmxvY2s7DQogICAgYm94LXNoYWRvdzogMCAwIDAgMnB4ICMyYTJhMmUsIDAgMCAyMnB4IDRweCAjMmEyYTJlOw0KICAgIHRyYW5zaXRpb246IGJveC1zaGFkb3cgMC40cyBlYXNlOw0KfQ0KI2NhdCB7IGJvcmRlcjogNHB4IHNvbGlkIHRyYW5zcGFyZW50OyB9DQojY2F0LnJ1biB7IGFuaW1hdGlvbjogcHVsc2UgMS4xcyBlYXNlLWluLW91dCBpbmZpbml0ZTsgfQ0KI2NhdC5vayAgeyBib3JkZXItY29sb3I6ICMxNmM2MGM7IGJveC1zaGFkb3c6IDAgMCAwIDJweCAjMTZjNjciLCwwIDAgNDBweCAxMHB4IHJnYmEoMjIsMTk4LDEyLDAuNzUpOyBhbmltYXRpb246IG5vbmU7IH0NCiNjYXQuYmFkIHsgYm9yZGVyLWNvbG9yOiAjZTc0ODU2OyBib3gtc2hhZG93OiAwIDAgMCAycHggI2U3NDg1NiwgMCAwIDM0cHggOHB4IHJnYmEoMjMxLDcyLDg2LDAuNik7IGFuaW1hdGlvbjogbm9uZTsgfQ0KQGtleWZyYW1lcyBwdWxzZSB7DQogICAgMCUsMTAwJSB7IGJveC1zaGFkb3c6IDAgMCAwIDJweCAjMzU1MDdhLCAwIDAgMTZweCAzcHggcmdiYSg1Myw4MCwxMjIsMC41KTsgfQ0KICAgIDUwJSAgICAgeyBib3gtc2hhZW93OiAwIDAgMCAycHggIzRmN2ZkNiwgMCAwIDMwcHggOHB4IHJnYmEoNzksMTI3LDIxNCwwLjcpOyB9DQp9DQojc3RhdHVzIHsNCiAgICBmb250LXNpemU6IDE3cHg7IGZvbnQtd2VpZ2h0OiBib2xkOyBsZXR0ZXItc3BhY2luZzogMXB4Ow0KICAgIHRleHQtYWxpZ246IGNlbnRlcjsgbWFyZ2luOiAxNHB4IDAgNHB4IDA7IG1pbi1oZWlnaHQ6IDEuMmVtOw0KfQ0KI3NjciB7DQogICAgbWFyZ2luOiA4cHggMCAwIDA7IHdoaXRlLXNwYWNlOiBwcmU7IGNvbG9yOiAjNWE1YTVhOyBmb250LXNpemU6IDExcHg7DQogICAgZm9udC1mYW1pbHk6ICJDb25zb2xhcyIsIG1vbm9zcGFjZTsgbWF4LXdpZHRoOiA5MnZ3OyBvdmVyZmxvdzogaGlkZGVuOw0KICAgIHRleHQtYWxpZ246IGNlbnRlcjsgbGluZS1oZWlnaHQ6IDEuMzU7DQp9DQoub2sgeyBjb2xvcjogIzE2YzYwYzsgfQ0KLmJhZCB7IGNvbG9yOiAjZTc0ODU2OyB9DQoucnVuIHsgY29sb3I6ICNjY2NjY2M7IH0NCjwvc3R5bGU+DQo8Ym9keT4NCjxkaXYgaWQ9ImNhcCI+UG9DPSBGVyAmbmdhc2g7PC9kaXY+DQo8aW1nIGlkPSJjYXQiIGNsYXNzPSJydW4iIHNyYz0iY2F0LmpwZyIgYWx0PSIiPg0KPHNjcmlwdD4NCiJ1c2Ugc3RyaWN0IjsNCg0KY29uc3QgUSA9IG5ldyBVUkxTZWFyY2hQYXJhbXMobG9jYXRpb24uc2VhcmNoKTsNCg0KZnVuY3Rpb24gaW50UGFyYW0obmFtZSwgZmFsbGJhY2ksIGxvLCBoaSkgew0KICAgIGNvbnN0IHJhdyA9IHBhcnNlSW50KFEuZ2V0KG5hbWUpID8/ICIiLCAxMCk7DQogICAgcmV0dXJuIE51bWJlci5pc0Zpbml0ZShyYXcpID8gTWF0aC5tYXgobG8sIE1hdGgubWluKGhpLCByYXcpKSA6IGZhbGxiYWNrOw0KfQ0KDQpmdW5jdGlvbiBoZXhQYXJhbShuYW1lLCBmYWxsYmFjaykgew0KICAgIGNvbnN0IHYgPSBRLmdldChuYW1lKTsNCiAgICBpZiAoIXYpIHJldHVybiBmYWxsYmFjazsNCiAgICBjb25zdCByYXcgPSBwYXJzZUludCh2LCAxNik7DQogICAgcmV0dXJuIE51bWJlci5pc0Zpbml0ZShyYXcpICYmIHJhdyA+IDApID8gcmF3IDogZmFsbGJhY2s7DQp9DQoNCmZ1bmN0aW9uIGhleExpc3RQYXJhbShuYW1lLCBmYWxsYmFjaykgew0KICAgIGNvbnN0IHYgPSBRLmdldChuYW1lKTsNCiAgICBpZiAoIXYpIHJldHVybiBmYWxsYmFjazsNCiAgICBjb25zdCBvdXQgPSBbXTsNCiAgICBmb3IgKGNvbnN0IHBhcnQgb2Ygdi5zcGxpdCgiLCIpKSB7DQogICAgICAgIGNvbnN0IHJhdyA9IHBhcnNlSW50KHBhcnQsIDE2KTsNCiAgICAgICAgaWYgKE51bWJlci5pc0Zpbml0ZShyYXcpICYmIHJhdyA+IDApIG91dC5wdXNoKHJhdyk7DQogICAgfQ0KICAgIHJldHVybiBvdXQubGVuZ3RoID8gb3V0IDogZmFsbGJhY2s7DQp9DQoNCmNvbnN0IFBfSE9TVF9DVE9SX0xJU1QgPSBoZXhMaXN0UGFyYW0oImhjIiwgWzB4MWUwZDgsIDB4MWUzMjAsIDB4MWYzNjhdKTsNCmNvbnN0IFBfTk9USUZZID0gaGV4UGFyYW0oIm5vdGlmeSIsIDB4NDc0MCk7DQpjb25zdCBQX0dBREdFVCA9 hexFBGFyYW0oImdkIiwgMHgxZDExYSk7DQpjb25zdCBQX0dFVFJJRF9TTE9UID0gaGV4UGFyYW0oImdwcyIsIDB4MzRmNTdiOCk7DQpjb25zdCBQX0dFVFBJRF9FWFAgPSBoZXhQYXJhbSgiZ3BlIiwgMHgxYjI4MCk7DQpjb25zdCBQX0NMT1NFX1NMT1QgPSBoZXhQYXJhbSgiY2xzIiwgMHgzNGY1N2E4KTsNCmNvbnN0IFBfQ0xPU0VfRVhQID0gaGV4UGFyYW0oImNsZSIsIDB4MjZlNzApOw0KY29uc3QgUF9FUlJPUl9TTE9UID0gaGV4UGFyYW0oImVycyIsIDB4MzRmNTdiMCk7DQpjb25zdCBQX0VSUk9fRVhQID0gaGV4UGFyYW0oImVyZSIsIDB4ZjM0MCk7DQoNCmNvbnN0IERSQUlOX0NPVU5TID0gaW50UGFyYW0oIm4iLCA1MTIsIDY0LCAxMDI0KTsNCmNvbnN0IFJFVklTSU9OID0gInJlbmRlcmVyLW5vdGlmeS1hdXRvLXByb29mLTIiOw0KY29uc3QgQVVUT19SRVRSWV9ERUxBWV9NUyA9IGludFBhcmFtKCJyZCIsIDUwLCAwLCA2MDAwMCk7DQpjb25zdCBNQVhfQVRURU1QVElTID0gaW50UGFyYW0oIm1heCIsIDAsIDAsIDEwMDAwMDApOw0KY29uc3QgU0NSRUVOX0xJTkVTID0gaW50UGFyYW0oImxpbmVzIiwgMTQsIDAsIDQwMCk7DQogICAgY29uc3QgSyA9IDI7DQoNCmNvbnN0IHJ3SGVhZGVyID0gbmV3IFVpbnQ4QXJyYXkoQ0VMTF9CWVRFUyk7DQoNCmZ1bmN0aW9uIHNldENhcHRpb24odGV4dCkgew0KICAgIHRyeSB7IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJjYXAiKS50ZXh0Q29udGVudCA9IHRleHQ7IH0gY2F0Y2gge30NCn0NCg0KZnVuY3Rpb24gY2F0U3RhdGUoY2xzKSB7DQogICAgdHJ5IHsgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImNhdCIpLmNsYXNzTmFtZSA9IGNsczsgfSBjYXRjaCB7fQ0KfQ0Kc2V0Q2FwdGlvbihgUG9jIFBTNSBGVyAke0ZXX0xBQkVMfWApOw0KPC9zY3JpcHQ+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!--
+  Flow Control:
+    index.html -> webkitExploit_$.js -> index.html -> userland.js -> index.html -> kernelExploit_$.js
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Cheat copy 505</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        --bg-color: #0f111a;
+        --card-bg: #1a1e29;
+        --accent-blue: #3b82f6;
+        --accent-green: #00ff66;
+        --accent-red: #ff4444;
+        --text-main: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border-color: #2a324b;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: 520px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 35px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        margin: 0 0 5px 0;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        color: var(--text-main);
+        text-transform: uppercase;
+      }
+
+      header p {
+        color: var(--text-muted);
+        margin: 0 0 30px 0;
+        font-size: 0.95rem;
+      }
+
+      .loader-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 120px;
+        margin: 20px 0;
+      }
+
+      .loader {
+        border: 6px solid var(--border-color);
+        border-radius: 50%;
+        border-top: 6px solid var(--accent-blue);
+        border-left: 6px solid var(--accent-blue);
+        width: 70px;
+        height: 70px;
+        animation: spin 1s linear infinite;
+      }
+
+      .info {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 20px 0;
+      }
+
+      #allset {
+        color: var(--accent-green);
+        text-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
+      }
+
+      #fail {
+        color: var(--accent-red);
+        text-shadow: 0 0 12px rgba(255, 68, 68, 0.3);
+      }
+
+      #awaiting {
+        color: var(--text-main);
+      }
+
+      .credits {
+        margin-top: 35px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+        text-align: center;
+      }
+
+      .credits h4 {
+        margin: 0 0 8px 0;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .credits ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+
+      .credits li {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+        opacity: 0.85;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // Exploit Settings
+      var devkit = false;
+
+      var dump_method = 'socket';
+      var dump_ip = '0.0.0.0';
+      var dump_port = 9023;
+      var dump_url = 'http://0.0.0.0/dump';
+
+      var module_dump = false;
+      var module_dump_name = 'libSceWebKit2';
+
+      var kernel_dump = false;
+      var kernel_dump_size = 0x69B8000;
+
+      var bin_loader = false;
+
+      var embedded_payload = true;
+      var payload_location = 'CopyCH.bin';
+
+      function iframeMessage(message) {
+        try {
+          if (window.self !== window.top) {
+            parent.exploitDone(message);
+          }
+        } catch (e) {
+          parent.exploitDone(message);
+        }
+      }
+
+      function allset() {
+        iframeMessage('Success!');
+        document.getElementById('loader-wrapper').style.display = 'none';
+        document.getElementById('allset').style.display = 'block';
+      }
+
+      function awaitpl() {
+        iframeMessage('Awaiting Payload...');
+        document.getElementById('loader-wrapper').style.display = 'none';
+        document.getElementById('awaiting').style.display = 'block';
+      }
+
+      function fail(info) {
+        iframeMessage(info);
+        document.getElementById('loader-wrapper').style.display = 'none';
+        document.getElementById('allset').style.display = 'none';
+        document.getElementById('awaiting').style.display = 'none';
+        document.getElementById('fail').innerText = info;
+        document.getElementById('fail').style.display = 'block';
+      }
+
+      window.onerror = function (e) {
+        if (e.slice(0, 6) == 'Error:') {
+          fail(e);
+        }
+      };
+
+      var spoofedFW = {
+        9.00: 4.05,
+        9.01: 4.55,
+        9.02: 4.74,
+        9.03: 5.01,
+        9.04: 5.03,
+        9.05: 5.05,
+      };
+      var fwFromUA = parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('5.0 (') + 19, navigator.userAgent.indexOf(') Apple')));
+      if (fwFromUA in spoofedFW) {
+        fwFromUA = spoofedFW[fwFromUA];
+      }
+
+      function kernelExploit() {
+        try {
+          if (fwFromUA <= 5.07) {
+            kernelExploit_bpf_double_free();
+          }
+        } catch (e) {
+          throw new Error(e.message);
+        }
+      };
+
+      function stage2() {
+        try {
+          userland();
+        } catch (e) {
+          throw new Error(e.message);
+        }
+      };
+
+      function postWebkitExploit() {
+        try {
+          setTimeout(stage2, 1);
+        } catch (e) {
+          throw new Error(e.message);
+        }
+      };
+
+      window.onload = function () {
+        try {
+          if (fwFromUA >= 3.50 && fwFromUA <= 5.07) {
+            if (fwFromUA <= 4.07) {
+              setTimeout(webkitExploit_stackUnitializedRead, 1);
+            } else if (fwFromUA >= 4.50 && fwFromUA <= 5.56) {
+              setTimeout(webkitExploit_haveABadTime, 1);
+            } else if (fwFromUA >= 6.00 && fwFromUA <= 6.20) {
+              setTimeout(webkitExploit_shiftCountWithArrayStorage, 1);
+            } else if (fwFromUA >= 6.50 && fwFromUA <= 6.72) {
+              setTimeout(webkitExploit_badHoist, 1);
+            }
+          } else {
+            throw new Error('Unsupported Firmware!');
+          }
+        } catch (e) {
+          throw new Error(e.message);
+        }
+      };
+    </script>
+
+    <div class="wrapper">
+      <div class="card">
+        <header>
+          <h1>Cheat Copy 505</h1>
+          <p>Payload & Exploit Loader</p>
+        </header>
+
+        <div id="loader-wrapper" class="loader-wrapper">
+          <div id="loader" class="loader"></div>
+        </div>
+        
+        <div id="awaiting" class="info" style="display:none;">Awaiting Payload...</div>
+        <div id="allset" class="info" style="display:none;">Success!</div>
+        <div id="fail" class="info" style="display:none;">Fail!</div>
+
+        <div id="footer" class="credits">
+          <h4>Credits & Acknowledgments</h4>
+          <ul>
+            <li>Exploits from <strong>qwertyoruiopz</strong></li>
+            <li>Implementation by <strong>Specter</strong> and <strong>CelesteBlue</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="./common.js"></script>
+    <script src="./rop.js"></script>
+    <script src="./offsets.js"></script>
+    <script src="./kernelExploit_bpf_double_free.js"></script>
+    <script src="./userland.js"></script>
+    <script src="./webkitExploit_stackUnitializedRead.js"></script>
+    <script src="./webkitExploit_haveABadTime.js"></script>
+  </body>
+</html>

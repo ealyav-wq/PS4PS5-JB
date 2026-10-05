@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Loading...</title>
+<style>
+  /* Keep preloaded elements completely hidden from view */
+  .preload-container {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+<h2>Loading...</h2>
+
+<!-- Preload necessary fonts and DOM elements before exploit -->
+<div class="preload-container">
+  <p><i>Italic text</i></p>
+  <table>
+    <tr>
+      <th>H1</th>
+      <th>H2</th>
+      <th>H3</th>
+    </tr>
+    <tr>
+      <td>text</td>
+      <td><input value="text"></td>
+      <td><button>text</button></td>
+    </tr>
+  </table>
+</div>
+
+<script>
+function loadScript(path)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", path, false);
+    xhr.send('');
+    return xhr.responseText;
+}
+
+setTimeout(function(){
+eval.call(window, loadScript('netcat.js')
++loadScript('wexploit.js')
++loadScript('malloc.js')
++loadScript('ropb2.js')
++loadScript('syscalls.js')
++loadScript('syscalls2.js')
++loadScript('payload.js')
++loadScript('relocator.js')
++loadScript('frontend.js'));
+if(document.getElementById('q')) {
+    document.getElementById('q').innerHTML = 'Some other text';
+}
+}, 50);
+</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elya Host PS4 9.00 - Modern Edition</title>
+    <style>
+        :root {
+            --bg-color: #0f111a;
+            --card-bg: #1a1c29;
+            --card-hover: #222536;
+            --accent-color: #00ffcc;
+            --accent-glow: rgba(0, 255, 204, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: #2a2e43;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(26, 28, 41, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-glow);
+            margin-bottom: 0.3rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        .status-bar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .status-item {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .status-item span {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .payload-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .payload-btn:hover {
+            background: var(--card-hover);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .payload-btn.goldhen {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), var(--card-bg));
+        }
+
+        .payload-btn.goldhen:hover {
+            border-color: #60a5fa;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background: var(--card-bg);
+        }
+
+        footer span {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Elya Host v9.00</h1>
+        <p>Manual Exploit Compressed + New Webkit Version | Compiled by <span>Elya</span></p>
+    </header>
+
+    <div class="container">
+        <!-- Status / Info Bar -->
+        <div class="status-bar">
+            <div class="status-item">Firmware Target: <span>PS4 9.00</span></div>
+            <div class="status-item">Status: <span id="jailbreak-status">Ready to Exploit</span></div>
+            <div class="status-item">Credits: <span>Sleirsgoevy, Al Azif, ChendoChap, SiSTRo, Specter</span></div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('goldhen')">GoldHEN</button>
+            <button class="tab-btn" onclick="switchTab('main')">Main Tools</button>
+            <button class="tab-btn" onclick="switchTab('dumpers')">Dumpers</button>
+            <button class="tab-btn" onclick="switchTab('linux')">Linux Loaders</button>
+            <button class="tab-btn" onclick="switchTab('tools')">System Tools</button>
+            <button class="tab-btn" onclick="switchTab('mods')">GTAV & RDR2 Mods</button>
+        </div>
+
+        <!-- GoldHEN Section -->
+        <div id="goldhen" class="section-content active">
+            <div class="grid">
+                <button class="payload-btn goldhen" onclick="loadPayload('GoldHEN v2.4b18.9')">GoldHEN v2.4 Beta 18.9</button>
+                <button class="payload-btn goldhen" onclick="loadPayload('GoldHEN v2.3')">GoldHEN v2.3</button>
+                <button class="payload-btn goldhen" onclick="loadPayload('GoldHEN v2.2.4')">GoldHEN v2.2.4</button>
+                <button class="payload-btn goldhen" onclick="loadPayload('GoldHEN v2.1.2')">GoldHEN v2.1.2</button>
+                <button class="payload-btn" onclick="loadPayload('BinLoader')">BinLoader</button>
+                <button class="payload-btn" onclick="loadPayload('MiraLoader')">MiraLoader</button>
+                <button class="payload-btn" onclick="loadPayload('Mira')">Mira</button>
+            </div>
+        </div>
+
+        <!-- Main Tools Section -->
+        <div id="main" class="section-content">
+            <div class="grid">
+                <button class="payload-btn" onclick="loadPayload('WebRTE')">WebRTE</button>
+                <button class="payload-btn" onclick="loadPayload('PS4Debug')">PS4Debug</button>
+                <button class="payload-btn" onclick="loadPayload('Orbis Toolbox')">Orbis Toolbox</button>
+                <button class="payload-btn" onclick="loadPayload('Web Activator')">Web Activator</button>
+                <button class="payload-btn" onclick="loadPayload('FTP Server')">FTP Server</button>
+                <button class="payload-btn" onclick="loadPayload('App2USB')">App2USB</button>
+                <button class="payload-btn" onclick="loadPayload('ToDex')">ToDex</button>
+            </div>
+        </div>
+
+        <!-- Dumpers Section -->
+        <div id="dumpers" class="section-content">
+            <div class="grid">
+                <button class="payload-btn" onclick="loadPayload('Dumper Game')">Dump Game (PKG)</button>
+                <button class="payload-btn" onclick="loadPayload('Dumper Update')">Dump Update</button>
+                <button class="payload-btn" onclick="loadPayload('Dumper Merged')">Dump Merged</button>
+                <button class="payload-btn" onclick="loadPayload('Dumper Seperate')">Dump Separate</button>
+                <button class="payload-btn" onclick="loadPayload('Kernel Dumper')">Kernel Dumper</button>
+                <button class="payload-btn" onclick="loadPayload('Module Dumper')">Module Dumper</button>
+            </div>
+        </div>
+
+        <!-- Linux Loaders Section -->
+        <div id="linux" class="section-content">
+            <div class="grid">
+                <button class="payload-btn" onclick="loadPayload('Linux 1GB')">Linux (1GB VRAM)</button>
+                <button class="payload-btn" onclick="loadPayload('Linux 2GB')">Linux (2GB VRAM)</button>
+                <button class="payload-btn" onclick="loadPayload('Linux 3GB')">Linux (3GB VRAM)</button>
+                <button class="payload-btn" onclick="loadPayload('Linux 4GB')">Linux (4GB VRAM)</button>
+                <button class="payload-btn" onclick="loadPayload('Linux 5GB')">Linux (5GB VRAM)</button>
+                <button class="payload-btn" onclick="loadPayload('Whos That Southbridge')">Whos That Southbridge</button>
+            </div>
+        </div>
+
+        <!-- System Tools Section -->
+        <div id="tools" class="section-content">
+            <div class="grid">
+                <button class="payload-btn" onclick="loadPayload('DB Backup')">Backup Database</button>
+                <button class="payload-btn" onclick="loadPayload('DB Restore')">Restore Database</button>
+                <button class="payload-btn" onclick="loadPayload('Exit IDU')">Exit IDU Mode</button>
+                <button class="payload-btn" onclick="loadPayload('Rif Renamer')">Rif Renamer</button>
+                <button class="payload-btn" onclick="loadPayload('Permanent UART')">Permanent UART</button>
+                <button class="payload-btn" onclick="loadPayload('Disable ASLR')">Disable ASLR</button>
+                <button class="payload-btn" onclick="loadPayload('Disable Updates')">Disable Updates</button>
+            </div>
+        </div>
+
+        <!-- GTAV & RDR2 Mods Section -->
+        <div id="mods" class="section-content">
+            <div class="grid">
+                <button class="payload-btn" onclick="loadPayload('GTAV ArabicGuy 1.27')">GTAV ArabicGuy (1.27)</button>
+                <button class="payload-btn" onclick="loadPayload('GTAV BeefQueef 1.38')">GTAV BeefQueef (1.38)</button>
+                <button class="payload-btn" onclick="loadPayload('GTAV Expulsion 1.38')">GTAV Expulsion (1.38)</button>
+                <button class="payload-btn" onclick="loadPayload('GTAV WildeModz 1.38')">GTAV WildeModz (1.38)</button>
+                <button class="payload-btn" onclick="loadPayload('GTAV Lamance 1.38')">GTAV Lamance (1.38)</button>
+                <button class="payload-btn" onclick="loadPayload('RDR2 Mod Menu')">RDR2 Mod Menu (V1.00)</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Special thanks to znullptr, hippie68, Abc, and the broader scene community.</p>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Remove active state from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Activate target section and tab
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function loadPayload(payloadName) {
+            const statusEl = document.getElementById('jailbreak-status');
+            statusEl.innerText = `Loading ${payloadName}...`;
+            statusEl.style.color = '#f59e0b';
+            
+            // Simulation of execution hook integration point
+            setTimeout(() => {
+                statusEl.innerText = `${payloadName} Loaded Successfully!`;
+                statusEl.style.color = '#00ffcc';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

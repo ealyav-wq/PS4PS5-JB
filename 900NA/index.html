@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html manifest="Cache.manifest">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elya's Host Auto Exploit 9.00 fw</title>
+    <style>
+        :root {
+            --bg-base: #0f111a;
+            --bg-panel: rgba(18, 20, 32, 0.75);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --accent-yellow: #f39c12;
+            --accent-glow: rgba(243, 156, 18, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 16px;
+            color: var(--text-main);
+            background-color: var(--bg-base);
+            background-image: radial-gradient(circle at 50% 10%, #1e2238 0%, var(--bg-base) 70%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 960px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--accent-yellow);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin: 15px 0 5px 0;
+            letter-spacing: 0.5px;
+        }
+
+        #progress {
+            font-size: 1.15rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            min-height: 1.5rem;
+        }
+
+        /* Menu Panels / Grid Layout */
+        .panel {
+            width: 100%;
+            background: var(--bg-panel);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons Styling */
+        button, .btn-link {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 10px 18px;
+            min-width: 160px;
+            height: 44px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover, .btn-link:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Specific Button Color Overrides to Preserve Identity */
+        button[onclick*="goldhen"] {
+            color: #f1c40f;
+            border-color: rgba(241, 196, 15, 0.3);
+        }
+        button[onclick*="load_WebRTE()"] { background-color: rgba(41, 128, 185, 0.3); border-color: #2980b9; }
+        button[onclick*="load_PS4Debug()"] { background-color: rgba(39, 174, 96, 0.3); border-color: #27ae60; }
+        button[onclick*="load_Orbis()"] { background-color: rgba(192, 57, 43, 0.3); border-color: #c0392b; }
+        .btn-web-activator { background-color: rgba(118, 65, 29, 0.4); border-color: #a0522d; }
+        button[onclick*="load_Oysters"] { color: #e74c3c; border-color: rgba(231, 76, 60, 0.3); }
+
+        /* Form Controls */
+        select {
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            border: 1px solid var(--border-glass);
+            border-radius: 10px;
+            padding: 0 12px;
+            height: 44px;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+        }
+        select:focus {
+            border-color: var(--accent-yellow);
+        }
+
+        .fan-control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 6px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-glass);
+        }
+
+        hr {
+            width: 100%;
+            border: none;
+            height: 1px;
+            background: var(--border-glass);
+            margin: 10px 0;
+        }
+
+        /* Footer Credits Styling */
+        .content {
+            width: 100%;
+            max-width: 960px;
+            background: var(--bg-panel);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.95krem;
+            line-height: 1.6;
+        }
+
+        .yellow {
+            color: var(--accent-yellow);
+            font-weight: 600;
+        }
+
+        .hue {
+            color: #ffffff;
+            background: rgba(243, 156, 18, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(243, 156, 18, 0.4);
+            animation: hue 6s linear infinite;
+        }
+
+        @keyframes hue {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Modal Styles (Unchanged functionality) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            font-family: inherit;
+            font-size: 1rem;
+            position: relative;
+            background-color: #1e2238;
+            color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid var(--border-glass);
+            width: 50%;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Utility classes */
+        .pointer { cursor: pointer; }
+    </style>
+    <script>
+        window.applicationCache.ondownloading=function(){document.getElementById("progress").innerHTML="Page Caching Started!!";};
+        window.applicationCache.onprogress=function(a){document.getElementById("progress").innerHTML=(Math.round(100*(a.loaded/a.total)))+"%";};
+        window.applicationCache.oncached=function(){document.getElementById("progress").innerHTML="Page Cached Successfully!!";setTimeout(function(){document.getElementById("progress").innerHTML="Reopen the Page !!"; }, 1500);localStorage.cachedNA="yes";};
+        window.applicationCache.onnoupdate=function(){localStorage.cachedNA="yes";};
+        window.applicationCache.onerror=function(){localStorage.cachedNA="yes";};
+    </script>
+    <script>
+        function load_poc(){
+         var req = new XMLHttpRequest();
+         req.responseType = "arraybuffer";
+         req.open('GET', PLfile);
+         req.send();
+         req.onreadystatechange = function () {
+          if (req.readyState == 4) {
+           PLD = req.response;
+           var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+           var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+           var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+           var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+           tmp.set(new Uint8Array(req.response), 0);
+           tmp.set(padding, req.response.byteLength);
+           var shellcode = new Uint32Array(tmp.buffer);
+           pl.set(shellcode,0);
+           var pthread = p.malloc(0x10);
+           chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+           allset();
+          }
+         };
+        }
+
+        function jbdone() {
+        window.progress.innerHTML="Jailbreak Done";
+        localStorage.setItem('fanthreshold', tempC.value);
+        for(var i=50; i<=80; i=i+5){
+            var select = document.getElementById("tempC");
+            var option = document.createElement("OPTION");
+            select.options.add(option);
+            option.text = i;
+            option.value = i;
+        }
+        tempC.value=60;
+        all.style.display = "flex";
+        }
+
+        function allset() {
+        window.progress.innerHTML= LoadedMSG
+        }
+
+        function Binset() {
+        window.progress.innerHTML="Payload Loaded. Send payloads to port 9020";
+        alert("Payload Loaded. Send payloads to port 9020");
+        }
+
+        function Mset() {
+        window.progress.innerHTML="Payload Loaded. Send payloads to port 9021";
+        alert("Payload Loaded. Send payloads to port 9021");
+        }
+
+        function runScript(what)
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', what, false);
+            xhr.send('');
+            eval.call(window, xhr.responseText);
+        }
+
+        function print(){}
+
+        function load_poc2() {
+        var payload_buffer = chain.syscall(477, 0x0, 0x300000, 0x7, 0x1000, 0xFFFFFFFF, 0);
+         var payload_loader = p.malloc32(0x1000);
+         var BLDR = payload_loader.backing;
+         BLDR[0]=0x56415741;BLDR[1]=0x83485541;BLDR[2]=0x894818EC;BLDR[3]=0xC748243C;BLDR[4]=0x10082444;BLDR[5]=0x483C2302;BLDR[6]=0x102444C7;BLDR[7]=0x00000000;BLDR[8]=0x000002BF;BLDR[9]=0x0001BE00;BLDR[10]=0xD2310000;BLDR[11]=0x00009CE8;BLDR[12]=0xC7894100;BLDR[13]=0x8D48C789;BLDR[14]=0xBA082474;BLDR[15]=0x00000010;BLDR[16]=0x000095E8;BLDR[17]=0xFF894400;BLDR[18]=0x000001BE;BLDR[19]=0x0095E800;BLDR[20]=0x89440000;BLDR[21]=0x31F631FF;BLDR[22]=0x0062E8D2;BLDR[23]=0x89410000;BLDR[24]=0x2C8B4CC6;BLDR[25]=0x45C64124;BLDR[26]=0x05EBC300;BLDR[27]=0x01499848;BLDR[28]=0xF78944C5;BLDR[29]=0xBAEE894C;BLDR[30]=0x00001000;BLDR[31]=0x000025E8;BLDR[32]=0x7FC08500;BLDR[33]=0xFF8944E7;BLDR[34]=0x000026E8;BLDR[35]=0xF7894400;BLDR[36]=0x00001EE8;BLDR[37]=0x2414FF00;BLDR[38]=0x18C48348;BLDR[39]=0x5E415D41;BLDR[40]=0x31485F41;BLDR[41]=0xC748C3C0;BLDR[42]=0x000003C0;BLDR[43]=0xCA894900;BLDR[44]=0x48C3050F;BLDR[45]=0x0006C0C7;BLDR[46]=0x89490000;BLDR[47]=0xC3050FCA;BLDR[48]=0x1EC0C748;BLDR[49]=0x49000000;BLDR[50]=0x050FCA89;BLDR[51]=0xC0C748C3;BLDR[52]=0x00000061;BLDR[53]=0x0FCA8949;BLDR[54]=0xC748C305;BLDR[55]=0x000068C0;BLDR[56]=0xCA894900;BLDR[57]=0x48C3050F;BLDR[58]=0x006AC0C7;BLDR[59]=0x89490000;BLDR[60]=0xC3050FCA;
+         chain.syscall(74, payload_loader, 0x4000, (0x1 | 0x2 | 0x4));
+         var pthread = p.malloc(0x10); {
+          chain.fcall(window.syscalls[203], payload_buffer, 0x300000);
+          chain.fcall(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_loader, payload_buffer);
+         }
+         chain.run();
+         setTimeout(load_poc3,2000);
+        }
+
+        function load_poc3() {
+        var payload_buffer = chain.syscall(477, 0, 0x300000, 7, 0x1002, -1, 0);
+                    var buf = new Uint8Array(1);
+                    var buf_addr = p.leakval(buf);
+                    var old_buf = p.read8(buf_addr.add32(16));
+                    var old_sz = p.read4(buf_addr.add32(24));
+                    p.write8(buf_addr.add32(16), payload_buffer);
+                    p.write4(buf_addr.add32(24), PLS.length);
+                    for(var i = 0; i < PLS.length; i++) buf[i] = PLS[i];
+                    p.write8(buf_addr.add32(16), old_buf);
+                    p.write4(buf_addr.add32(24), old_sz);
+                    var pthread = p.malloc(0x10);
+                    chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+                    setTimeout(load_poc,2000);
+        }
+
+        function Linux1N(){
+        progress.innerHTML="LinuxLoader 1GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "payload-900-1gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux2N(){
+        progress.innerHTML="LinuxLoader 2GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "payload-900-2gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux3N(){
+        progress.innerHTML="LinuxLoader 3GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "payload-900-3gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux4N(){
+        progress.innerHTML="LinuxLoader 4GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "payload-900-4gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux5N(){
+        progress.innerHTML="LinuxLoader 5GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "payload-900-5gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux1(){
+        progress.innerHTML="LinuxLoader 1GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "LinuxLoader.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux2(){
+        progress.innerHTML="LinuxLoader 2GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "LinuxLoader2gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux3(){
+        progress.innerHTML="LinuxLoader 3GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "LinuxLoader3gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux4(){
+        progress.innerHTML="LinuxLoader 4GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "LinuxLoader4gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux5(){
+        progress.innerHTML="LinuxLoader 5GB loading... please wait";
+        LoadedMSG="LinuxLoader Loaded";
+        PLfile = "LinuxLoader5gb.bin";
+        var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+        load_poc2();
+        }
+
+        function Linux6(){
+        progress.innerHTML="Whos That Southbridge loading... please wait";
+        LoadedMSG="Whos That Southbridge Loaded";
+        out_jb = "AllPL";
+        PLfile = "wtsb.bin";
+        load_poc();
+        }
+
+        function Mira(){
+        progress.innerHTML="Mira loading... please wait";
+        LoadedMSG="Mira Loaded";
+        setTimeout(function(){
+        runScript('netcat.js');
+        runScript('malloc.js');
+        runScript('ropb2.js');
+        runScript('syscalls.js');
+        runScript('syscalls2.js');
+        runScript('mira2.js');
+        runScript('mira.js');
+        runScript('relocator.js');
+        }, 1000);
+        }
+
+        function goldhen(){
+            progress.innerHTML="Goldhen loading... please wait";
+            LoadedMSG="GoldHEN 2.0b Loaded";
+            PLfile = "goldhen2b.bin";
+            out_jb = "AllPL";
+            load_poc();
+        }
+
+        function goldhen2(){
+            progress.innerHTML="Goldhen 2.0b2 loading... please wait";
+            LoadedMSG="GoldHEN 2.0b2 Loaded";
+            PLfile = "goldhen2b2.bin";
+            out_jb = "AllPL";
+            load_poc();
+        }
+
+        function goldhen222(){
+            progress.innerHTML="Goldhen 2.2.2 loading... please wait";
+            LoadedMSG="GoldHEN 2.2.2 Loaded";
+            PLfile = "goldhen_2.2.2_900.bin";
+            out_jb = "AllPL";
+            load_poc();
+        }
+
+        function goldhen212(){
+            progress.innerHTML="Goldhen 2.1.2 loading... please wait";
+            LoadedMSG="GoldHEN 2.1.2 Loaded";
+            PLfile = "goldhen_212_900.bin";
+            out_jb = "AllPL";
+            load_poc();
+        }
+
+        function load_PS4Debug(){
+            progress.innerHTML="PS4Debug loading... please wait"; LoadedMSG="PS4Debug Loaded";
+            PLfile = "ps4debug.bin";
+            out_jb = "AllPL";
+            load_poc();
+        }
+
+        function load_permanentuart(){
+            progress.innerHTML="permanentuart loading... please wait"; LoadedMSG="permanentuart Loaded";
+            PLfile = "permanentuart.bin";
+            out_jb = "AllPL";     load_poc();
+        }
+
+        function load_App2USB(){
+            progress.innerHTML="app2usb loading... please wait"; LoadedMSG="app2usb Loaded";
+            PLfile = "app2usb.bin";
+            out_jb = "AllPL";     load_poc();
+        }
+
+        function load_BackupDB(){
+            progress.innerHTML="backupdb loading... please wait"; LoadedMSG="backupdb Loaded";
+            PLfile = "backupdb.bin";
+            out_jb = "AllPL";     load_poc();
+        }
+
+        function load_pkgb(){
+            progress.innerHTML="PKG Backup loading... please wait"; LoadedMSG="PKG Backup Loaded";
+            PLfile = "pkg-backup.bin";
+            out_jb = "AllPL";     load_poc();
+        }
+
+        function load_DumperG(){
+            progress.innerHTML="Dumper Game loading... please wait"; LoadedMSG="Dumper Game Loaded";
+            PLfile = "DumperG.bin";
+            out_jb = "AllPL";     load_poc();
+        }
+
+        function load_DumperU(){
+            progress.innerHTML="Dumper Game Update loading... please wait"; LoadedMSG="Dumper Game Update Loaded";
+            PLfile = "DumperU.bin";
+            out_jb = "AllPL";     load_poc();
+        }
+
+        function load_DumperMGU(){
+            progress.innerHTML="Dumper Merged Games and Update loading... please wait"; LoadedMSG="Dumper Merged Games and Update Loaded";
+            PLfile = 

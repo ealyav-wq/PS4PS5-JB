@@ -1,0 +1,234 @@
+<html manifest="Cache.manifest">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - PS4 Auto Exploit</title>
+<style>
+    :root {
+        --bg-color: #0b0e14;
+        --card-bg: #161b22;
+        --accent-blue: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.25);
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 100vh;
+        padding: 30px 20px;
+        overflow: hidden;
+    }
+
+    .header-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    h1.main-title {
+        color: var(--accent-blue);
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-shadow: 0 0 15px var(--accent-glow);
+        margin-bottom: 12px;
+    }
+
+    .status-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        padding: 10px 28px;
+        display: inline-block;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    #progress {
+        font-size: 20px;
+        font-weight: 600;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .content {
+        width: 100%;
+        max-width: 750px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-primary);
+        font-size: 16px;
+        text-align: center;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+    }
+
+    .credits-title {
+        color: var(--accent-blue);
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .credits-author {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .thanks-box {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 16px;
+    }
+
+    .thanks-title {
+        color: #e3b341;
+        font-weight: 700;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .thanks-list {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+</style>
+
+<script>
+      if (window.applicationCache.status === 0) {window.location.replace("cache.html");}
+</script>
+</head>
+
+<body>
+
+    <div class="header-container">
+        <h1 class="main-title">Elya Host</h1>
+        <div class="status-card">
+            <span id="progress">Jailbreaking....</span>
+        </div>
+    </div>
+
+    <div id="all" class="content">
+        <div class="credits-title">Designed & Compiled By</div>
+        <div class="credits-author">Elya</div>
+        
+        <div class="thanks-box">
+            <div class="thanks-title">★ Special Thanks To ★</div>
+            <div class="thanks-list">
+                Karo Sharifi, Sleirsgoevy, Al Azif, ChendoChap, SiSTRo, Abc, Xalfia, Specter, Znullptr, and the entire scene community.
+            </div>
+        </div>
+    </div>
+
+<script>
+var outputConsole = document.getElementById("progress");
+window.log = function (msg, color) {
+      if (color === undefined) color = "#cccccc";
+      outputConsole.innerHTML = '<span style="color:' + color + '">' + msg + '</span>';
+};
+window.logger = function (msg, color) {
+      if (color === undefined) color = "#cccccc";
+      outputConsole.innerHTML = '<span style="color:' + color + '">' + msg + '</span>';
+};
+window.addEventListener('error', function (event) {
+      var reason = event.error;
+      var msg = 'Unhandled error\n';
+      if (reason) {
+        msg += reason + '\n';
+        if (reason.sourceURL)
+          msg += reason.sourceURL;
+        if (reason.line)
+          msg += ':' + reason.line;
+        if (reason.column)
+          msg += ':' + reason.column;
+        if (reason.stack)
+          msg += '\n' + reason.stack;
+      } else {
+        msg += 'No error object';
+      }
+      alert(msg);
+      return true;
+});
+var uaFull = navigator.userAgent;
+var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+var isPS4 = match !== null;
+var fwVersion = isPS4 ? match[1] : "Unknown";
+var fwNum = parseFloat(fwVersion);
+
+function onScriptError() {
+    progress.innerHTML = "Content not Found! - Clear Browser Data and Re-Install Cache ...";
+}
+
+if (!isPS4) {
+    document.addEventListener("DOMContentLoaded", () => {
+        progress.innerHTML = "Only for PS4 with Firmware 5.05 and 7.00 to 13.52";
+    });
+} else {
+        if (fwNum == 5.05 || fwNum == 5.07) {
+            var script = document.createElement('script');
+            script.src = "exploit5.js";
+            script.onerror = onScriptError;
+            document.head.appendChild(script);
+        }
+        else if (fwNum >= 7.00 && fwNum <= 9.60) {
+            var script = document.createElement('script');
+            script.src = "exploit7_9.js";
+            script.onerror = onScriptError;
+            document.head.appendChild(script);
+             setTimeout(function() { window.log("Reloading...");try {
+                 doJailBreak();
+                } catch (error) {
+                 window.log("An error occured during exploit: " + error, "red");
+                 }; }, 500);
+             
+        }
+        else if (fwNum >= 10.00 && fwNum <= 11.02) {
+            var script = document.createElement('script');script.src = "exploit10.js";script.onerror = onScriptError;
+            script.onload = function () {
+                setTimeout(function () {
+                    doJb();
+                }, 1000);
+            };
+            document.head.appendChild(script);
+        }
+        else if (fwNum >= 11.50 && fwNum <= 12.02) {
+           var script = document.createElement('script');
+           script.src = "1150_1202.js";
+           script.onerror = onScriptError;
+           document.head.appendChild(script);
+       }
+       else if (fwNum >= 12.50 && fwNum <= 13.00) {
+           var script = document.createElement('script');
+           script.src = "1250_13.js";
+           script.onerror = onScriptError;
+           document.head.appendChild(script);
+       }
+       else if (fwNum >= 13.02 && fwNum <= 13.52) {
+           var script = document.createElement('script');
+           script.src = "1302_1352.js";
+           script.onerror = onScriptError;
+           document.head.appendChild(script);
+       }
+    }
+</script>
+</body>
+</html>

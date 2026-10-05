@@ -1,0 +1,419 @@
+<html manifest="offlinexmb.cache">
+<head>
+<meta charset="utf-8">
+<title>Elya Host Gold 5.05 FW</title>
+<style type="text/css">
+:root {
+  --bg-dark: #0f1015;
+  --card-bg: rgba(20, 21, 30, 0.75);
+  --accent-gold: #f39c12;
+  --accent-blue: #3498db;
+  --accent-green: #2ecc71;
+  --accent-red: #e74c3c;
+  --text-main: #f5f6fa;
+  --text-muted: #bdc3c7;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+body {
+  background-image: radial-gradient(circle at 50% 20%, #1a1c29 0%, var(--bg-dark) 100%);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+header {
+  height: 4em;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(15, 16, 21, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 3%;
+}
+
+#date, #clock {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-muted);
+  text-shadow: none;
+}
+
+.main-container {
+  margin-top: 5.5em;
+  width: 90%;
+  max-width: 1100px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  color: var(--accent-gold);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(243, 156, 18, 0.3);
+}
+
+#msgs2 {
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+  min-height: 24px;
+}
+
+button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  width: 220px;
+  height: 48px;
+  text-align: center;
+  padding: 0 15px;
+  margin: 6px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
+  background: rgba(52, 152, 219, 0.15);
+  border-color: rgba(52, 152, 219, 0.4);
+  color: #fff;
+}
+
+.btn-gold {
+  color: #f1c40f !important;
+  border-color: rgba(241, 196, 15, 0.3);
+  background: rgba(241, 196, 15, 0.06);
+}
+.btn-gold:hover {
+  background: rgba(241, 196, 15, 0.2);
+  box-shadow: 0 6px 20px rgba(241, 196, 15, 0.3);
+  border-color: rgba(241, 196, 15, 0.6);
+}
+
+.btn-blue {
+  background: rgba(52, 152, 219, 0.12);
+  border-color: rgba(52, 152, 219, 0.3);
+}
+.btn-blue:hover {
+  background: rgba(52, 152, 219, 0.25);
+}
+
+.btn-green {
+  background: rgba(46, 204, 113, 0.12);
+  border-color: rgba(46, 204, 113, 0.3);
+}
+.btn-green:hover {
+  background: rgba(46, 204, 113, 0.25);
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.25);
+}
+
+.btn-red {
+  background: rgba(231, 76, 60, 0.12);
+  border-color: rgba(231, 76, 60, 0.3);
+}
+.btn-red:hover {
+  background: rgba(231, 76, 60, 0.25);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.25);
+}
+
+.btn-gray {
+  background: rgba(127, 140, 141, 0.12);
+  border-color: rgba(127, 140, 141, 0.3);
+}
+.btn-gray:hover {
+  background: rgba(127, 140, 141, 0.25);
+}
+
+.content {
+  width: 90%;
+  max-width: 1100px;
+  margin: 25px auto 0 auto;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  color: var(--text-main);
+  font-size: 15px;
+  text-align: center;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.yellow {
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.hue {
+  color: var(--accent-gold);
+  padding: 6px 14px;
+  border-radius: 8px;
+  animation: hue 6s linear infinite;
+  background: rgba(243, 156, 18, 0.1);
+  border: 1px solid rgba(243, 156, 18, 0.3);
+  display: inline-block;
+  font-weight: 600;
+}
+
+@keyframes hue {
+  0% { filter: hue-rotate(0deg); }
+  50% { border-color: rgba(52, 152, 219, 0.6); box-shadow: 0 0 15px rgba(52, 152, 219, 0.3); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+#loader3 {
+  font-size: 16px;
+  color: var(--accent-blue);
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* Hidden elements maintained for backend functionality */
+#head, #msgs, #donate, #donate2, #done1, #done2, #done3, #fail, .ib { display: none; }
+</style>
+<script src="cal.js"></script>
+<script>
+    function showdate() {
+      var dt = new Date();
+      var Hour = dt.getHours();
+      var Minute = dt.getMinutes();
+      var Day = dt.getDate();
+      var Month = dt.getMonth() + 1;
+      var Year = dt.getFullYear();
+      if (Minute < 10) { Minute = "0" + Minute; }
+      if (Hour < 10) { Hour = "0" + Hour; }
+      if (document.getElementById("date") && document.getElementById("clock")) {
+        document.getElementById("date").innerHTML = (Day + "/" + Month + "/" + Year);
+        document.getElementById("clock").innerHTML = (Hour + ":" + Minute);
+      }
+    }
+    setInterval(showdate, 1000);
+</script>
+</head>
+<body>
+
+<header>
+  <span id="date"></span>
+  <span id="clock"></span>
+</header>
+
+<div class="main-container">
+  <h1 class="title">Elya Host Gold 5.05 FW</h1>
+  <div id="msgs2">Status</div>
+  <div id="loader3" style="display:none;">Loading exploit, please wait...</div>
+  <div id="done2" style="display:none;"></div>
+
+  <!-- MAIN MENU -->
+  <div id="all" style="text-align:center;">
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v2.4b18.2 by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen24();">GoldHen V2.4b18.2</button>
+    <button class="pointer btn-blue" onMouseOver="msgs2.innerHTML='All Hens and Mira options'" onmouseout="msgs2.innerHTML='Status'" onclick="allhens();">All Hens & Mira</button>
+    <button class="pointer btn-green" onMouseOver="msgs2.innerHTML='Payload Bin Loader'" onmouseout="msgs2.innerHTML='Status'" onclick="load_binloader();">Bin Loader</button>
+    <button class="pointer btn-blue" onMouseOver="msgs2.innerHTML='GTA V Mod Menus'" onmouseout="msgs2.innerHTML='Status'" onclick="allmods();">GTA V Mods</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='GTA V Lotus 1.04'" onmouseout="msgs2.innerHTML='Status'" onclick="load_gtav();">GTA Lotus 1.04</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='GTAV Mode Hold R1 then press []'" onmouseout="msgs2.innerHTML='Status'" onclick="load_gtav2();">GTAV ap 2</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='GTAV Expulsion Mode Menu 1.32 v1.1 by x_WildeModz_x'" onmouseout="msgs2.innerHTML='Status'" onclick="load_gtavwm132();">GTAV WildeModz 1.32</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='GTAV Expulsion Mode Menu 1.33 v1.1 by x_WildeModz_x'" onmouseout="msgs2.innerHTML='Status'" onclick="load_gtavwm133();">GTAV WildeModz 1.33</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='GTAV Expulsion Mode Menu 1.38 v1.7 by x_WildeModz_x'" onmouseout="msgs2.innerHTML='Status'" onclick="load_gtavwm138();">GTAV WildeModz 1.38</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='GTAV Lamance v9.00 Mode Menu for 1.38 by david1337hax'" onmouseout="msgs2.innerHTML='Status'" onclick="load_gtavl9();">GTAV Lamance 1.38</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.00 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr100();">RDR2 V1.00</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.13 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr113();">RDR2 V1.13</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.19 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr119();">RDR2 V1.19</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.24 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr124();">RDR2 V1.24</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.29 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr129();">RDR2 V1.29</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.29 by 0x199'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr129H();">RDR2 Havana V1.29</button>
+  </div>
+
+  <!-- HENS GROUP -->
+  <div id="hens" style="text-align:center; display:none;">
+    <button class="pointer btn-red" onMouseOver="msgs2.innerHTML='back to base menu'" onmouseout="msgs2.innerHTML='Status'" onclick="backall();">Back to Menu</button>
+    <br><br>
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v1.0 by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen1();">GoldHen V1.0</button>
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v1.1 by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen11();">GoldHen V1.1</button>
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v2.0b by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen2b();">GoldHen V2.0b</button>
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v2.0b2 by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen2b2();">GoldHen V2.0b2</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Hen 2.1.2'" onmouseout="msgs2.innerHTML='Status'" onclick="load_hen212();">Hen v2.1.2</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Hen 2.1.3'" onmouseout="msgs2.innerHTML='Status'" onclick="load_hen213();">Hen v2.1.3</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Hen 2.1.4b Spoof to 9.99 by Elya'" onmouseout="msgs2.innerHTML='Status'" onclick="load_hen214b();">Hen v2.1.4b</button>
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v2.2.2 by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen22();">GoldHen V2.2.2</button>
+    <br><br>
+    <button class="pointer btn-gold" onMouseOver="msgs2.innerHTML='GoldHen v2.2.4 by Sistro'" onmouseout="msgs2.innerHTML='Status'" onclick="load_goldhen224();">GoldHen V2.2.4</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='hen+mira'" onmouseout="msgs2.innerHTML='Status'" onclick="load_mirahen();">MiraHen18</button>
+  </div>
+</div>
+
+<!-- CREDITS SECTION -->
+<div class="content">
+  <span class="yellow">Designed, Ported and Compiled by :</span>&nbsp;&nbsp; <a class="hue">elyaali</a>
+  <br><br>
+  <span class="yellow">Super Special Thanks To :</span>&nbsp;&nbsp; <span style="color:var(--text-muted);">Leeful , AlAzif , SiSTRo. , Karo Sharifi , ...</span>
+</div>
+
+<script>
+function getScript(source,callback){var gs = document.createElement('script');gs.src = source;gs.onload = callback;gs.async = false;document.body.appendChild(gs);}
+function loadScript(){getScript('exploit.js',function(){setTimeout(exploit,1000);});}
+function loadScript2(){getScript('exploit_bin_x2.js',function(){setTimeout(exploit,1000);});}
+function loadScript3(){getScript('exploit_bin_x3.js',function(){setTimeout(exploit,1000);});}
+function loadScriptb(){getScript('binloader.js',function(){setTimeout(exploit,1000);});}
+function anim(){document.getElementById('loader3').style.display='block';document.getElementById('done2').style.display='block';}
+function allset() {
+window.msgs2.innerHTML="Payload Loaded";
+}
+
+function failload() {
+alert("Error Loading. try again");
+}
+
+function Binset() {
+window.msgs2.innerHTML="Payload Loaded. Send payloads to port 9020";
+alert("Payload Loaded. Send payloads to port 9020");
+}
+function load_copych(){
+  bin="CopyCH.bin";loadScript();anim();
+}
+function load_goldhen1(){
+  bin="goldhen505v1.bin";loadScript();anim();
+}
+function load_goldhen11(){
+  bin="goldhen505v1.1.bin";loadScript();anim();
+}
+function load_goldhen2b(){
+  bin="goldhen2b505.bin";loadScript();anim();
+}
+function load_goldhen2b2(){
+  bin="goldhen2b2505.bin";loadScript();anim();
+}
+function load_goldhen212(){
+  bin="goldhen_212_505.bin";loadScript();anim();
+}
+function load_goldhen22(){
+  bin="goldhen_2.2.2_505.bin";loadScript();anim();
+}
+function load_goldhen23(){
+  bin="goldhen_2.3_505.bin";loadScript();anim();
+}
+function load_goldhen24(){
+  bin="goldhen.bin";loadScript();anim();
+}
+function load_goldhen224(){
+  bin="goldhen_2.2.4_505.bin";loadScript();anim();
+}
+function load_hen212(){
+  bin="hen212.bin";loadScript();anim();
+}
+function load_hen213(){
+  bin="hen213.bin";loadScript();anim();
+}
+function load_hen214b(){
+  bin="hen214b.bin";loadScript();anim();
+}
+function load_mirahen(){
+  bin1="Mira.bin";bin2="Hen19Mira.bin";loadScript2();anim();
+}
+function load_orbisafr(){
+bin1="Mira.bin";bin2="OrbisAFR.bin";bin3="Hen19Mira.bin";loadScript3();anim();
+}
+function load_binloader(){
+loadScriptb();anim();
+}
+function load_gtav(){
+  bin="gta_v_lotus104.bin";loadScript();anim();
+}
+function load_gtav2(){
+  bin="gta_v_ap_ii_intense.bin";loadScript();anim();
+}
+function load_gtava127(){
+  bin="gtava127.bin";loadScript();anim();
+}
+function load_gtava132(){
+  bin="gtava132.bin";loadScript();anim();
+}
+function load_gtava133(){
+  bin="gtava133.bin";loadScript();anim();
+}		
+function load_gtavwm132(){
+  bin="WildeModz-1.32.bin";loadScript();anim();
+}
+function load_gtavwm133(){
+  bin="WildeModz-1.33.bin";loadScript();anim();
+}
+function load_gtavwm138(){
+  bin="WildeModz-1.38.bin";loadScript();anim();
+}
+function load_gtavl9(){
+  bin="Lamance9.bin";loadScript();anim();
+}
+function load_rdr100(){
+  bin="Oysters1.00.bin";loadScript();anim();
+}
+function load_rdr113(){
+  bin="Oysters1.13.bin";loadScript();anim();
+}
+function load_rdr119(){
+  bin="Oysters1.19.bin";loadScript();anim();
+}
+function load_rdr124(){
+  bin="Oysters1.24.bin";loadScript();anim();
+}
+function load_rdr129(){
+  bin="Oysters1.29.bin";loadScript();anim();
+}
+function load_rdr129H(){
+  bin="rdr2-129-505-havana.bin";loadScript();anim();
+}
+function allhens(){
+  document.getElementById('all').style.display = "none";
+  document.getElementById('hens').style.display = "block";
+}
+function backall(){
+  document.getElementById('all').style.display = "block";
+  document.getElementById('hens').style.display = "none";
+}
+function allmods(){
+  // Reserved for custom expansion if needed
+}
+</script>
+</body>
+</html>

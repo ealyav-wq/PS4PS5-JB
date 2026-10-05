@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html manifest="offlinexmb.cache" lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - Offline XMB 7.02 Exploit</title>
+<style type="text/css">
+    :root {
+        --bg-color: #0b0e14;
+        --card-bg: #161b22;
+        --accent-blue: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.25);
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --accent-gold: #e3b341;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 24px 20px;
+        overflow: hidden;
+    }
+
+    .main-container {
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .status-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 30px 40px;
+        width: 100%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    #progressx {
+        color: var(--accent-blue);
+        font-size: 22px;
+        font-weight: 700;
+        text-shadow: 0 0 15px var(--accent-glow);
+        margin: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .content-footer {
+        width: 100%;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--text-secondary);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .credits-author {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: 4px;
+    }
+
+    .yellow {
+        color: var(--accent-gold);
+    }
+</style>
+
+<script>
+if (window.applicationCache.status == 2) { 
+    localStorage.is702LCached = true; 
+}
+window.applicationCache.ondownloading = function() {
+    document.getElementById("progressx").innerHTML = "Page Caching Started!!";
+    localStorage.is702LCached = false;
+};
+window.applicationCache.onprogress = function(a) {
+    document.getElementById("progressx").innerHTML = (Math.round(100 * (a.loaded / a.total))) + "%";
+};
+window.applicationCache.oncached = function() {
+    document.getElementById("progressx").innerHTML = "Page Cached Successfully!!";
+    localStorage.is702LCached = true;
+    setTimeout(function() {
+        document.getElementById("progressx").innerHTML = "Turn Off the Internet & Reopen the Page to Run the Exploit!!";
+    }, 1500);
+};
+</script>
+
+<script>
+function print() {}
+
+var scriptCode = '';
+
+function preloadScripts(lst) {
+    scriptCode = '';
+    for(var i = 0; i < lst.length; i++) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', lst[i], false);
+        xhr.send('');
+        scriptCode += xhr.responseText + '\n';
+    }
+}
+
+function done() {
+    document.getElementById("progressx").innerHTML = 'Send Payload to port 9021';
+    var footerEl = document.getElementById("footer-author");
+    if(footerEl) footerEl.style.display = "block";
+}
+
+window.midExploit = function() {
+    preloadScripts(['702.js', 'jb.js', 'preloader.js', 'loader.js']);
+}
+
+window.postExploit = function() {
+    setTimeout(function() {
+        eval.call(window, scriptCode);
+        done();
+    }, 100);
+};
+
+window.postPayload = function() {
+    setTimeout(function() {
+        eval.call(window, scriptCode);
+    }, 100);
+};
+</script>
+
+<script src="utils.js"></script>
+<script src="int64.js"></script>
+<script src="ps4.js"></script>
+</head>
+<body onload="go()">
+
+<div class="main-container">
+    <div class="status-card">
+        <h1 id="progressx">Loading ...</h1>
+    </div>
+
+    <div id="footer-author" class="content-footer" style="display:none;">
+        <div>Designed, Ported and Compiled By</div>
+        <div class="credits-author">Elya (Originally by Karo Sharifi)</div>
+    </div>
+</div>
+
+<button style="opacity:0; position:absolute;" id="input1" onfocus="handle2()"></button>
+<button style="opacity:0; position:absolute;" id="input2"></button>
+<button style="opacity:0; position:absolute;" id="input3" onfocus="handle2()"></button>
+<select style="opacity:0; position:absolute;" id="select1">
+    <option value="value1">Value1</option>
+</select>
+
+</body>
+</html>

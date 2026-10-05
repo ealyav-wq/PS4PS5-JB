@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>ReactPSPlus By elya for FW 5.05</title>
+<link rel="stylesheet prefetch" href="Style_00.css"><link rel="stylesheet prefetch" href="Style_01.css" title="css1"><link rel="alternate stylesheet" href="Style_02.css" title="css2"><link rel="alternate stylesheet" href="Style_03.css" title="css3">
+<script src="StyleSwitch.js"></script><script>parent.Hide();</script>
+<style>
+:root {
+    --bg-color: #0f0e13;
+    --card-bg: #1a1924;
+    --accent-glow: rgba(120, 80, 255, 0.15);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-main: #f3f3f6;
+    --text-muted: #94939e;
+    --btn-yes: #6c5ce7;
+    --btn-yes-hover: #5b4be2;
+    --btn-no: #2d2c38;
+    --btn-no-hover: #3d3c4a;
+}
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+#Title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 35px 50px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+}
+.info {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+.warning-title {
+    color: #ff7675;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+.highlight-text {
+    color: var(--text-main);
+    font-weight: 500;
+}
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+button {
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 12px 35px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+button:first-child {
+    background-color: var(--btn-yes);
+}
+button:first-child:hover {
+    background-color: var(--btn-yes-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(108, 92, 231, 0.4);
+}
+button:last-child {
+    background-color: var(--btn-no);
+    color: var(--text-main);
+}
+button:last-child:hover {
+    background-color: var(--btn-no-hover);
+    transform: translateY(-1px);
+}
+.special-thanks {
+    margin-top: 35px;
+    font-size: 13px;
+    color: #6c6b78;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+    letter-spacing: 0.5px;
+}
+</style>
+</head>
+<body>
+<div id="Title">ReactPSPlus By elya</div>
+<div class="card">
+    <div class="warning-title">W a r n i n g ! !</div>
+    <div class="info">
+        This will change the current internal system clock to <span class="highlight-text">2012</span><br>
+        Do you want to continue?
+    </div>
+    <div class="button-container">
+        <button onclick="YESchange()">YES</button> 
+        <button onclick="NOchange()">NO</button>
+    </div>
+    <div class="special-thanks">
+        Special Thanks: Zer0xFF, Al Azif, and the PS4 Scene Developers
+    </div>
+</div>
+<script>
+function YESchange() {window.open("react2.html","_self");}
+function NOchange() {window.open("index.html","_parent");}
+</script>
+</body>
+</html>

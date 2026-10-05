@@ -1,0 +1,259 @@
+<!-- name=index_13.html -->
+<!DOCTYPE html>
+<html lang="en" manifest="offlinexmb.cache">
+<head>
+    <meta charset="utf-8">
+    <title>Elya Host for PS4 7.02 FW</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        --bg-color: #0f111a;
+        --card-bg: #1a1e29;
+        --accent-blue: #3b82f6;
+        --accent-green: #00ff66;
+        --accent-red: #ff4444;
+        --text-main: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border-color: #2a324b;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: 620px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 35px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        margin: 0 0 5px 0;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        color: var(--text-main);
+        text-transform: uppercase;
+      }
+
+      header p {
+        color: var(--text-muted);
+        margin: 0 0 25px 0;
+        font-size: 0.95rem;
+      }
+
+      #progress {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 15px 0 25px 0;
+        color: var(--accent-blue);
+      }
+
+      #myProgress {
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        height: 24px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 25px;
+      }
+
+      #myBar {
+        width: 0%;
+        height: 100%;
+        background-color: var(--accent-green);
+        text-align: center;
+        line-height: 24px;
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: width 0.1s ease;
+      }
+
+      .button, .pointer {
+        background-color: var(--accent-blue);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      }
+
+      .button:hover, .pointer:hover {
+        background-color: #2563eb;
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+      }
+
+      .credits {
+        margin-top: 30px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+        text-align: left;
+      }
+
+      .credits-section {
+        margin-bottom: 15px;
+      }
+
+      .credits h4 {
+        margin: 0 0 6px 0;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .credits p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-main);
+      }
+
+      .credits .names {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      .hidden-inputs {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+        overflow: hidden;
+      }
+    </style>
+    <script>
+        var width = 0;
+        function frame1() {
+            var elem = document.getElementById("myBar");
+            var i = 0;
+            var id = setInterval(fra, 10);
+            function fra(){
+              if(i < 10 && width < 100){
+                  width++;
+                  elem.style.width = width + "%";
+                  elem.innerHTML = width + "%";
+              } i++;
+            }
+        }
+
+        function print(){}
+
+        var scriptCode = '';
+
+        function preloadScripts(lst)
+        {   
+            scriptCode = '';
+            for(var i = 0; i < lst.length; i++)
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', lst[i], false);
+                xhr.send('');
+                scriptCode += xhr.responseText + '\n';
+            }
+        }
+        
+        function done(){
+            setTimeout(function(){document.getElementById("progress").innerHTML="Elya Host for PS4 7.02 FW";}, 1000);
+            var pBar = document.getElementById("myProgress");
+            if(pBar) pBar.remove();
+            
+            document.getElementById('load').innerHTML = `
+                <div style="margin: 20px 0;">
+                    <a href="#" id="restore" class="button pointer" onclick="toggle_payload('restore'); return false;">Restore</a>
+                </div>
+            `;
+        }
+        
+        window.midExploit = function()
+        {
+            preloadScripts(['702.js']);
+        }
+
+        window.postExploit = function()
+        {
+            setTimeout(function()
+            {   
+                eval.call(window, scriptCode);
+                done();
+            }, 100);
+        };
+        
+        window.postPayload = function()
+        {
+            setTimeout(function()
+            {   
+                eval.call(window, scriptCode);
+            }, 100);
+        };
+    </script>
+    <script src="utils.js"></script>
+    <script src="int64.js"></script>
+    <script src="ps4.js"></script>
+</head>
+<body onload="go()">
+    <div class="wrapper">
+        <div class="card">
+            <header>
+                <h1>Elya Host 7.02</h1>
+                <p>PlayStation 4 Exploit Host</p>
+            </header>
+
+            <h1 id="progress">Loading.. Please Wait !!</h1>
+
+            <div id="myProgress">
+              <div id="myBar">0%</div>
+            </div>
+
+            <div id="load"></div>
+
+            <div class="credits">
+              <div class="credits-section">
+                <h4>Designed, Ported and Compiled By</h4>
+                <p><strong>Elya</strong>[span_2](start_span)[span_2](end_span)</p>
+              </div>
+              <div class="credits-section" style="margin-bottom: 0;">
+                <h4>Super Special Thanks To</h4>
+                <div class="names">Sleirsgoevy, Al Azif, ChendoChap, SiSTRo, DarkModderVC, ...[span_3](start_span)[span_3](end_span)</div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden elements required by original payload trigger functionality -->
+    <div class="hidden-inputs">
+        <button id="input1" onfocus="handle2()"></button>
+        <button id="input2"></button>
+        <button id="input3" onfocus="handle2()"></button>
+        <select id="select1">
+            <option value="value1">Value1</option>
+        </select>
+    </div>
+</body>
+</html>

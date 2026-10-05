@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html manifest="offlinexmb.cache" lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - GoldHEN 5.05 FW</title>
+<style type="text/css">
+    :root {
+        --bg-color: #0b0e14;
+        --card-bg: #161b22;
+        --accent-blue: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.25);
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --accent-gold: #e3b341;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 100vh;
+        padding: 24px 20px;
+        overflow: hidden;
+    }
+
+    .header-container {
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    h1.main-title {
+        color: var(--accent-blue);
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-shadow: 0 0 15px var(--accent-glow);
+        margin-bottom: 20px;
+    }
+
+    .status-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 50px;
+        padding: 12px 28px;
+        display: inline-block;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    #msgs {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .status-loader {
+        margin-top: 20px;
+        font-size: 16px;
+        color: var(--accent-blue);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .content-footer {
+        width: 100%;
+        max-width: 800px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--text-secondary);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .credits-author {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 4px;
+        margin-bottom: 16px;
+    }
+
+    .thanks-box {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 14px;
+    }
+
+    .thanks-title {
+        color: var(--accent-gold);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    .thanks-list {
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+</style>
+
+<script>
+  window.applicationCache.ondownloading = function() {
+      document.getElementById("msgs").innerHTML = "Caching Started!!";
+  };
+  window.applicationCache.onprogress = function(a) {
+      document.getElementById("msgs").innerHTML = "Caching Status: " + (Math.round(100 * (a.loaded / a.total))) + "% Completed";
+  };
+  window.applicationCache.oncached = function() {
+      document.getElementById("msgs").innerHTML = "Cached Successfully!!";
+      setTimeout(function() {
+          document.getElementById("msgs").innerHTML = "Reopen the Page !!"; 
+      }, 1500);
+      localStorage.cached505G = "yes";
+  };
+  window.applicationCache.onnoupdate = function() { localStorage.cached505G = "yes"; };
+  window.applicationCache.onerror = function() { localStorage.cached505G = "yes"; };
+</script>
+</head>
+
+<body onload="if(localStorage.cached505G=='yes')setTimeout(goldhen24,50);">
+
+<div class="header-container">
+    <h1 class="main-title">Elya Host - GoldHEN 5.05</h1>
+    <div class="status-card">
+        <span id="msgs">Initializing Host...</span>
+    </div>
+
+    <div id="loader1"></div>
+    <div id="loader2"></div>
+    <div id="loader3" class="status-loader" style="display:none">Loading Exploit Payload...</div>
+    <div id="done1" class="info"></div>
+    <div id="done2" class="info" style="display:none"></div>
+    <div id="done3" class="info" style="display:none"></div>
+    <div class="ib"></div>
+    <div id="fail" class="info" style="display:none"></div>
+</div>
+
+<div class="content-footer">
+    <div>Designed & Compiled By</div>
+    <div class="credits-author">Elya (Originally by Karo Sharifi)</div>
+
+    <div class="thanks-box">
+        <div class="thanks-title">★ Super Special Thanks To ★</div>
+        <div class="thanks-list">
+            Specter, AlAzif, SiSTRo, and the scene community.
+        </div>
+    </div>
+</div>
+
+<script>
+function getScript(source, callback) {
+    var gs = document.createElement('script');
+    gs.src = source;
+    gs.onload = callback;
+    gs.async = false;
+    document.body.appendChild(gs);
+}
+
+function loadScript() {
+    getScript('exploit.js', function() {
+        setTimeout(exploit, 1000);
+    });
+}
+
+function anim() {
+    document.getElementById('loader3').style.display = 'block';
+    document.getElementById('done2').style.display = 'block';
+}
+
+function goldhen24() {
+    bin = "goldhen.bin";
+    loadScript();
+    anim();
+}
+</script>
+
+</body>
+</html>

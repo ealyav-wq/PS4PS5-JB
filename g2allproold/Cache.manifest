@@ -1,0 +1,21 @@
+CACHE MANIFEST 
+
+CACHE: 
+700.bin
+750.bin
+800.bin
+850.bin
+900.bin
+903.bin
+950.bin
+exploit.js
+index.html
+payload.bin
+
+NETWORK: 
+* 
+
+SETTINGS:  
+prefer-online:  
+
+# 2026-09.25 12:00:00

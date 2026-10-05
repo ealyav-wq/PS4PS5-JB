@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Elya Host Auto Exploit + PSFree Webkit Light Version 7.00 - 7.02 fw</title>
+<style>
+:root {
+  --bg-color: #0f1015;
+  --card-bg: rgba(20, 21, 30, 0.75);
+  --accent-yellow: #f39c12;
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --button-hover: #0F0F53;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(circle at center, #1a1b26 0%, #0f1015 100%);
+  background-attachment: fixed;
+}
+
+header {
+  text-align: center;
+  padding: 30px 20px 10px 20px;
+}
+
+h1.main-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  text-shadow: 0 2px 10px rgba(243, 156, 18, 0.3);
+  margin: 0;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px; /* Space for fixed footer */
+}
+
+.status-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  max-width: 600px;
+  width: 85%;
+  padding: 25px 20px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+}
+
+#progress {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* Dynamic Payload Buttons */
+#load {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+  background-color: var(--button-hover);
+  border-color: var(--accent-yellow);
+  box-shadow: 0 0 15px rgba(243, 156, 18, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Footer / Credits */
+.content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 16, 21, 0.9);
+  border-top: 1px solid var(--border-color);
+  padding: 12px 20px;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.content .text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.yellow {
+  color: var(--accent-yellow);
+  font-weight: 600;
+}
+
+.hue {
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(243, 156, 18, 0.2);
+  border: 1px solid rgba(243, 156, 18, 0.4);
+  animation: hue 5s linear infinite;
+}
+
+@keyframes hue {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.credits-links {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+    <script src="utils.js"></script>
+    <script src="int64.js"></script>
+    <script src="exploit.js" defer></script>
+    <script>
+    function print(){}
+
+    function toggle_payload(pld){
+        if(pld == "restore"){
+            document.getElementById("progress").innerHTML="Loading Restore.. Please wait..";
+            setTimeout(runScriptsR, 500);
+        }
+        else if(pld == "usb"){
+            document.getElementById("progress").innerHTML="Loading Restore.. Please wait..";
+            setTimeout(runScriptsU, 500);
+        }
+        else if(pld == "copych"){
+            document.getElementById("progress").innerHTML="Loading Restore.. Please wait..";
+            setTimeout(runScriptsC, 500);
+        }
+        payload_finished(pld);
+    }
+
+    function payload_finished(payload)
+    {
+        if(payload == "binloader"){
+            setTimeout(function(){document.getElementById("progress").innerHTML="Awaiting Payload!! Send Payload To Port 9020"; }, 7000);
+        } else {
+            setTimeout(function(){document.getElementById("progress").innerHTML="Payload Loaded Succesfully !!"; }, 7000);
+        }
+    }
+
+    function done(){
+        document.getElementById("input").remove();
+        document.getElementById('load').innerHTML='<tr id="mexp">'+
+        '<td align="center" id="jailbreak" colspan="5" >'+
+        '<br>'+
+        '<a href="#" id="restore" class="button" onclick="toggle_payload(\'restore\'); return false">Without USB</a>&nbsp;'+
+        '<a href="#" id="usb" class="button" onclick="toggle_payload(\'usb\'); return false">With USB</a>&nbsp;'+
+        '<a href="#" id="copych" class="button" onclick="toggle_payload(\'copych\'); return false">Cheat Copy</a>&nbsp;'+
+        '</td>'+
+        '</tr>';
+    }
+
+    var cachedJS = {};
+
+    function runJS(path)
+    {
+        if(!(path in cachedJS))
+        {
+            var xxx = new XMLHttpRequest();
+            xxx.open("GET", path, false);
+            xxx.send('');
+            cachedJS[path] = xxx.responseText;
+        }
+        eval.call(window, cachedJS[path]);
+    }
+    function runScriptsR()
+    {
+        PLfile = 'restore702.bin';
+        runJS('jb.js');
+        runJS('loader.js');
+    }
+
+    function runScriptsU()
+    {
+        PLfile = 'usb.bin';
+        runJS('jb.js');
+        runJS('loader.js');
+    }
+
+    function runScriptsC()
+    {
+        PLfile = 'CopyCH.bin';
+        runJS('jb.js');
+        runJS('loader.js');
+    }
+
+    function runScripts()
+    {
+        setTimeout(done, 500);
+        runJS('702.js');
+    }
+    </script>
+
+<header>
+    <h1 class="main-title">Elya Host Auto Exploit + PSFree Webkit Light Version 7.00 - 7.02 fw</h1>
+</header>
+
+<div class="main-content">
+    <div class="status-container">
+        <p id="progress">Jailbreaking... Wait</p>
+    </div>
+    <table id="load" align="center"></table>
+</div>
+
+<div class="content">
+    <div class="text">
+        <span>Designed, Compiled by :</span> <span class="hue">Elya</span> &nbsp;|&nbsp; 
+        <span class="yellow">Super Special Thanks To :</span> 
+        <span class="credits-links">Sleirsgoevy , Al Azif , ChendoChap , SiSTRo , Specter , Abc , Znullptr , hippie68 ...</span>
+    </div>
+</div>
+
+</body>
+</html>

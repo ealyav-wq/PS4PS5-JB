@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html manifest="Cache.manifest" lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - PSFree Auto Exploit GoldHEN (7.50 - 7.55 FW)</title>
+<style type="text/css">
+    :root {
+        --bg-color: #0b0e14;
+        --card-bg: #161b22;
+        --accent-blue: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.25);
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --accent-gold: #e3b341;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 100vh;
+        padding: 24px 20px;
+        overflow: hidden;
+    }
+
+    .header-container {
+        text-align: center;
+        margin-top: 30px;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    h1.main-title {
+        color: var(--accent-blue);
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-shadow: 0 0 15px var(--accent-glow);
+        margin-bottom: 24px;
+    }
+
+    .status-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 50px;
+        padding: 14px 32px;
+        display: inline-block;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    #progress {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .content-footer {
+        width: 100%;
+        max-width: 800px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--text-secondary);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .credits-author {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 4px;
+        margin-bottom: 16px;
+    }
+
+    .thanks-box {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 14px;
+    }
+
+    .thanks-title {
+        color: var(--accent-gold);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    .thanks-list {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+</style>
+
+<script>
+if (window.applicationCache.status == '0') {
+    window.location.replace("cache.html");
+}
+</script>
+<script>
+function print(){}
+window.Done = function()
+{
+    if(main_ret == 0 || main_ret == 179)
+    {
+        debug_log('GoldHEN Loaded :)');
+    }
+    else
+        debug_log('Jailbreak failed! Reboot your PS4 and try again.');
+}
+var cachedJS = {};
+
+function runJS(path)
+{
+    if(!(path in cachedJS))
+    {
+        var xxx = new XMLHttpRequest();
+        xxx.open("GET", path, false);
+        xxx.send('');
+        cachedJS[path] = xxx.responseText;
+    }
+    eval.call(window, cachedJS[path]);
+}
+
+function runScripts()
+{
+    runJS('rop.js');
+    runJS('jb.js');
+    runJS('goldhen_2.3_755.js');
+    runJS('loader.js');
+}
+</script>
+
+<script src="utils.js"></script>
+<script src="int64.js"></script>
+<script src="exploit.js" defer></script>
+
+</head>
+<body>
+
+<div class="header-container">
+    <h1 class="main-title">PSFree GoldHEN Auto Exploit (7.50 - 7.55 FW)</h1>
+    <div class="status-card">
+        <span id="progress">Jailbreaking... Wait</span>
+    </div>
+</div>
+
+<div class="content-footer">
+    <div>Designed & Compiled By</div>
+    <div class="credits-author">Elya (Originally by Karo Sharifi)</div>
+
+    <div class="thanks-box">
+        <div class="thanks-title">★ Super Special Thanks To ★</div>
+        <div class="thanks-list">
+            Sleirsgoevy, Al Azif, ChendoChap, SiSTRo, Specter, Abc, Znullptr, hippie68, and the scene community.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

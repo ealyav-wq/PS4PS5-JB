@@ -1,0 +1,559 @@
+<html manifest="Cache.manifest">
+<head>
+<style>
+    :root {
+        --bg-color: #0f1015;
+        --card-bg: rgba(20, 21, 26, 0.75);
+        --accent-yellow: #f39c12;
+        --accent-glow: rgba(243, 156, 18, 0.4);
+        --text-color: #ffffff;
+        --text-muted: #a0a0a5;
+        --border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    html, body {
+        margin: auto;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        text-align: left;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        background-size: cover;
+        padding-bottom: 80px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 10;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.6);
+        backdrop-filter: blur(4px);
+    }
+
+    .content {
+        width: 92%;
+        max-width: 1200px;
+        margin: 20px auto 0 auto;
+        background: var(--card-bg);
+        color: var(--text-color);
+        font-size: 16px;
+        text-align: center;
+        border-radius: 16px;
+        padding: 15px;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .title {
+        font-size: 28px;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .yellow {
+        color: var(--accent-yellow);
+        font-weight: 600;
+    }
+
+    .hue {
+        color: white;
+        padding: 6px 12px;
+        border-radius: 8px;
+        animation: hue 5s linear infinite;
+        -webkit-animation: hue 5s linear infinite;
+        box-shadow: 0px 0px 20px var(--accent-yellow);
+        background: rgba(243, 156, 18, 0.2);
+        display: inline-block;
+    }
+
+    @keyframes hue {
+        0% { filter: hue-rotate(0deg); }
+        50% { box-shadow: 0px 0px 35px #f1c40f; }
+        100% { filter: hue-rotate(360deg); }
+    }
+
+    .text {
+        padding-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .back {
+        font-size: 18px;
+        margin: 10px auto;
+        display: block;
+        line-height: 40px;
+        width: 180px;
+        text-decoration: none;
+        height: 40px;
+        background: #ffffff;
+        color: #000;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    
+    .back:hover {
+        background: transparent;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        font-family: inherit;
+        font-size: 16px;
+        position: relative;
+        background-color: #1e1f26;
+        color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        width: 50%;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    button {
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        width: 210px;
+        height: 46px;
+        text-align: center;
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        margin: 6px;
+    }
+
+    button:hover {
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+        color: var(--accent-yellow);
+        border-color: var(--accent-yellow);
+        background-color: rgba(243, 156, 18, 0.08);
+        transform: translateY(-2px);
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: var(--border-color);
+        margin: 15px 0;
+    }
+
+    #progress {
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        font-size: 18px;
+        color: var(--accent-yellow);
+        letter-spacing: 0.5px;
+    }
+
+    .pointer { cursor: pointer; }
+
+    .menu-container {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        width: 88%;
+        max-width: 960px;
+        margin: 20px auto;
+        padding: 25px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        backdrop-filter: blur(10px);
+    }
+
+    select {
+        background: #181920;
+        color: white;
+        border: 1px solid var(--border-color);
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+        cursor: pointer;
+    }
+</style>
+<meta charset="utf-8">
+<title>Karo Host Auto Exploit Compressed Version 9.00 fw</title>
+		<script>
+			window.applicationCache.ondownloading=function(){document.getElementById("progress").innerHTML="Page Caching Started!!";};
+			window.applicationCache.onprogress=function(a){document.getElementById("progress").innerHTML=(Math.round(100*(a.loaded/a.total)))+"%";};
+			window.applicationCache.oncached=function(){document.getElementById("progress").innerHTML="Page Cached Successfully!!";setTimeout(function(){document.getElementById("progress").innerHTML="Reopen the Page !!"; }, 1500);localStorage.cachedB="yes";};
+			window.applicationCache.onnoupdate=function(){localStorage.cachedB="yes";};
+            window.applicationCache.onerror=function(){localStorage.cachedB="yes";};
+		</script>
+<script>
+  function loadFile(fileName) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", fileName, false);
+    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+    xhr.send();
+    let array = Uint8Array.from(xhr.response, c => c.charCodeAt(0));
+    if (fileName.endsWith(".bz2")) {
+      try {
+        PLS = bzip2.simple(bzip2.array(array));
+      } catch(error) {
+        alert(fileName + ": \"" + error + "\"\n");
+        throw error;
+      }
+    }
+    return array;
+  }
+  
+function load_pocj() {
+var payload_buffer = chain.syscall(477, 0, 0x300000, 7, 0x1002, -1, 0);
+            var buf = new Uint8Array(1);
+            var buf_addr = p.leakval(buf);
+            var old_buf = p.read8(buf_addr.add32(16));
+            var old_sz = p.read4(buf_addr.add32(24));
+            p.write8(buf_addr.add32(16), payload_buffer);
+            p.write4(buf_addr.add32(24), PLS.length);
+            for(var i = 0; i < PLS.length; i++) buf[i] = PLS[i];
+            p.write8(buf_addr.add32(16), old_buf);
+            p.write4(buf_addr.add32(24), old_sz);
+            var pthread = p.malloc(0x10);
+            chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+            allset();
+}
+
+function jbdone() {
+window.progress.innerHTML="Jailbreak Done";
+localStorage.setItem('fanthreshold', tempC.value);
+for(var i=50; i<=80; i=i+5){
+    var select = document.getElementById("tempC");
+    var option = document.createElement("OPTION");
+	select.options.add(option);
+	option.text = i;
+	option.value = i;
+}
+tempC.value=60;
+all.style.display = "block";
+}
+
+function allset() {
+window.progress.innerHTML= LoadedMSG
+}
+
+function Binset() {
+window.progress.innerHTML="Payload Loaded. Send payloads to port 9020";
+alert("Payload Loaded. Send payloads to port 9020");
+}
+
+function Mset() {
+window.progress.innerHTML="Payload Loaded. Send payloads to port 9021";
+alert("Payload Loaded. Send payloads to port 9021");
+}
+
+function runScript(what)
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', what, false);
+    xhr.send('');
+    eval.call(window, xhr.responseText);
+}
+
+function print(){}
+
+function load_poc2() {
+var payload_buffer = chain.syscall(477, 0x0, 0x300000, 0x7, 0x1000, 0xFFFFFFFF, 0);
+ var payload_loader = p.malloc32(0x1000);
+ var BLDR = payload_loader.backing;
+ BLDR[0]=0x56415741;BLDR[1]=0x83485541;BLDR[2]=0x894818EC;BLDR[3]=0xC748243C;BLDR[4]=0x10082444;BLDR[5]=0x483C2302;BLDR[6]=0x102444C7;BLDR[7]=0x00000000;BLDR[8]=0x000002BF;BLDR[9]=0x0001BE00;BLDR[10]=0xD2310000;BLDR[11]=0x00009CE8;BLDR[12]=0xC7894100;BLDR[13]=0x8D48C789;BLDR[14]=0xBA082474;BLDR[15]=0x00000010;BLDR[16]=0x000095E8;BLDR[17]=0xFF894400;BLDR[18]=0x000001BE;BLDR[19]=0x0095E800;BLDR[20]=0x89440000;BLDR[21]=0x31F631FF;BLDR[22]=0x0062E8D2;BLDR[23]=0x89410000;BLDR[24]=0x2C8B4CC6;BLDR[25]=0x45C64124;BLDR[26]=0x05EBC300;BLDR[27]=0x01499848;BLDR[28]=0xF78944C5;BLDR[29]=0xBAEE894C;BLDR[30]=0x00001000;BLDR[31]=0x000025E8;BLDR[32]=0x7FC08500;BLDR[33]=0xFF8944E7;BLDR[34]=0x000026E8;BLDR[35]=0xF7894400;BLDR[36]=0x00001EE8;BLDR[37]=0x2414FF00;BLDR[38]=0x18C48348;BLDR[39]=0x5E415D41;BLDR[40]=0x31485F41;BLDR[41]=0xC748C3C0;BLDR[42]=0x000003C0;BLDR[43]=0xCA894900;BLDR[44]=0x48C3050F;BLDR[45]=0x0006C0C7;BLDR[46]=0x89490000;BLDR[47]=0xC3050FCA;BLDR[48]=0x1EC0C748;BLDR[49]=0x49000000;BLDR[50]=0x050FCA89;BLDR[51]=0xC0C748C3;BLDR[52]=0x00000061;BLDR[53]=0x0FCA8949;BLDR[54]=0xC748C305;BLDR[55]=0x000068C0;BLDR[56]=0xCA894900;BLDR[57]=0x48C3050F;BLDR[58]=0x006AC0C7;BLDR[59]=0x89490000;BLDR[60]=0xC3050FCA;
+ chain.syscall(74, payload_loader, 0x4000, (0x1 | 0x2 | 0x4));
+ var pthread = p.malloc(0x10); {
+  chain.fcall(window.syscalls[203], payload_buffer, 0x300000);
+  chain.fcall(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_loader, payload_buffer);
+ }
+ chain.run();
+ sessionStorage.Paload="yes";
+ setTimeout(load_pocl,2000);
+}
+
+function load_pocl() {
+var payload_buffer = chain.syscall(477, 0, 0x300000, 7, 0x1002, -1, 0);
+            var buf = new Uint8Array(1);
+            var buf_addr = p.leakval(buf);
+            var old_buf = p.read8(buf_addr.add32(16));
+            var old_sz = p.read4(buf_addr.add32(24));
+            p.write8(buf_addr.add32(16), payload_buffer);
+            p.write4(buf_addr.add32(24), PLS.length);
+            for(var i = 0; i < PLS.length; i++) buf[i] = PLS[i];
+            p.write8(buf_addr.add32(16), old_buf);
+            p.write4(buf_addr.add32(24), old_sz);
+            var pthread = p.malloc(0x10);
+            chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+            setTimeout(load_pocB,2000);
+}
+function load_pocB(){
+ var req = new XMLHttpRequest();
+ req.responseType = "arraybuffer";
+ req.open('GET', PLfile);
+ req.send();
+ req.onreadystatechange = function () {
+  if (req.readyState == 4) {
+   PLD = req.response;
+   var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+   var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+   var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+   var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+   tmp.set(new Uint8Array(req.response), 0);
+   tmp.set(padding, req.response.byteLength);
+   var shellcode = new Uint32Array(tmp.buffer);
+   pl.set(shellcode,0);
+   var pthread = p.malloc(0x10);
+   chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+   allset();
+  }
+ };
+}
+
+function Linux1N(){
+progress.innerHTML="LinuxLoader 1GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "payload-900-1gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux2N(){
+progress.innerHTML="LinuxLoader 2GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "payload-900-2gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux3N(){
+progress.innerHTML="LinuxLoader 3GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "payload-900-3gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux4N(){
+progress.innerHTML="LinuxLoader 4GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "payload-900-4gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux5N(){
+progress.innerHTML="LinuxLoader 5GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "payload-900-5gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux1(){
+progress.innerHTML="LinuxLoader 1GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "LinuxLoader.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux2(){
+progress.innerHTML="LinuxLoader 2GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "LinuxLoader2gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux3(){
+progress.innerHTML="LinuxLoader 3GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "LinuxLoader3gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux4(){
+progress.innerHTML="LinuxLoader 4GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "LinuxLoader4gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux5(){
+progress.innerHTML="LinuxLoader 5GB loading... please wait";
+LoadedMSG="LinuxLoader Loaded";
+PLfile = "LinuxLoader5gb.bin";
+var script = document.createElement('script');script.src = "MiraLoader.js";document.getElementsByTagName('head')[0].appendChild(script);
+if(sessionStorage.Payload!="yes"){setTimeout(load_poc2, 500);} else {load_pocB();}
+}
+
+function Linux6(){
+progress.innerHTML="Whos That Southbridge loading... please wait";
+LoadedMSG="Whos That Southbridge Loaded";
+out_jb = "AllPL";
+PLfile = "wtsb.bin";
+load_pocB();
+}
+
+function Mira(){
+progress.innerHTML="Mira loading... please wait";
+LoadedMSG="Mira Loaded";
+setTimeout(function(){
+runScript('netcat.js');
+runScript('malloc.js');
+runScript('ropb2.js');
+runScript('syscalls.js');
+runScript('syscalls2.js');
+runScript('mira2.js');
+runScript('mira.js');
+runScript('relocator.js');
+}, 1000);
+}
+
+function goldhen2(){
+    progress.innerHTML="Goldhen 2.0b2 loading... please wait";
+    LoadedMSG="GoldHEN 2.0b2 Loaded";
+    PLfile = "goldhen2b2.bin";
+    out_jb = "AllPL";
+    load_pocB();
+}
+
+function goldhen222(){
+    progress.innerHTML="Goldhen 2.2.2 loading... please wait";
+    LoadedMSG="GoldHEN 2.2.2 Loaded";
+    PLfile = "goldhen_2.2.2_900.bin";
+    out_jb = "AllPL";
+    load_pocB();
+}
+
+function goldhen224(){
+    progress.innerHTML="Goldhen 2.2.4 loading... please wait";
+    LoadedMSG="GoldHEN 2.2.4 Loaded";
+    PLfile = "goldhen_2.2.4_900.bin";
+    out_jb = "AllPL";
+    load_pocB();
+}
+
+function goldhen24(){
+    progress.innerHTML="Goldhen 2.4b 18.9 loading... please wait";
+    LoadedMSG="GoldHEN 2.4b 18.9 Loaded";
+    PLfile = "goldhen.bin";
+    out_jb = "AllPL";
+    load_pocB();
+}
+
+function goldhen212(){
+    progress.innerHTML="Goldhen 2.1.2 loading... please wait";
+    LoadedMSG="GoldHEN 2.1.2 Loaded";
+    PLfile = "goldhen_212_900.bin";
+    out_jb = "AllPL";
+    load_pocB();
+}
+
+function load_PS4Debug(){
+    progress.innerHTML="PS4Debug loading... please wait"; LoadedMSG="PS4Debug Loaded";
+    setTimeout(function(){ let array = loadFile('ps4debug.bin.bz2');}, 50);
+    out_jb = "AllPL";
+    setTimeout(load_pocj, 500);
+}
+
+function load_permanentuart(){
+    progress.innerHTML="permanentuart loading... please wait"; LoadedMSG="permanentuart Loaded";
+    setTimeout(function(){ let array = loadFile('permanentuart.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_App2USB(){
+    progress.innerHTML="app2usb loading... please wait"; LoadedMSG="app2usb Loaded";
+    setTimeout(function(){ let array = loadFile('app2usb.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_BackupDB(){
+    progress.innerHTML="backupdb loading... please wait"; LoadedMSG="backupdb Loaded";
+    setTimeout(function(){ let array = loadFile('backupdb.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_pkgb(){
+    progress.innerHTML="PKG Backup loading... please wait"; LoadedMSG="PKG Backup Loaded";
+    setTimeout(function(){ let array = loadFile('pkg-backup.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_DumperG(){
+    progress.innerHTML="Dumper Game loading... please wait"; LoadedMSG="Dumper Game Loaded";
+    setTimeout(function(){ let array = loadFile('DumperG.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_DumperU(){
+    progress.innerHTML="Dumper Game Update loading... please wait"; LoadedMSG="Dumper Game Update Loaded";
+    setTimeout(function(){ let array = loadFile('DumperU.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_DumperMGU(){
+    progress.innerHTML="Dumper Merged Games and Update loading... please wait"; LoadedMSG="Dumper Merged Games and Update Loaded";
+    setTimeout(function(){ let array = loadFile('DumperMGU.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_DumperSGU(){
+    progress.innerHTML="Dumper Seperate Games and Update loading... please wait"; LoadedMSG="Dumper Seperate Games and Update Loaded";
+    setTimeout(function(){ let array = loadFile('DumperSGU.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_KernelDumper(){
+    progress.innerHTML="kerneldumper loading... please wait"; LoadedMSG="kerneldumper Loaded";
+    setTimeout(function(){ let array = loadFile('kerneldumper.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_ModuleDumper(){
+    progress.innerHTML="ModuleDumper loading... please wait"; LoadedMSG="ModuleDumper Loaded";
+    setTimeout(function(){ let array = loadFile('mdumper.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_RestoreDB(){
+    progress.innerHTML="RestoreDB loading... please wait"; LoadedMSG="RestoreDB Loaded";
+    setTimeout(function(){ let array = loadFile('restoredb.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_DisableASLR(){
+    progress.innerHTML="DisableASLR loading... please wait"; LoadedMSG="DisableASLR Loaded";
+    setTimeout(function(){ let array = loadFile('disableaslr.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_DisableUpdates(){
+    progress.innerHTML="DisableUpdates loading... please wait"; LoadedMSG="DisableUpdates Loaded";
+    setTimeout(function(){ let array = loadFile('disableupdates.bin.bz2');}, 50);
+    out_jb = "AllPL";
+    setTimeout(load_pocj, 500);
+}
+
+function load_EnableUpdates(){
+    progress.innerHTML="EnableUpdates loading... please wait"; LoadedMSG="EnableUpdates Loaded";
+    setTimeout(function(){ let array = loadFile('enableupdates.bin.bz2');}, 50);
+    out_jb = "AllPL";     setTimeout(load_pocj, 500);
+}
+
+function load_EnableBrowser(){
+    progress.innerH

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - 7.0X FW</title>
+<style type="text/css">
+:root {
+  --bg-color: #060709;
+  --panel-bg: rgba(12, 14, 20, 0.85);
+  --accent-gold: #f39c12;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+}
+
+body.bg {
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% -20%, #1e2235 0%, var(--bg-color) 70%);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 25px;
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#container-box {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.titleheadx {
+  background: transparent;
+  color: var(--accent-gold);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 20px rgba(243, 156, 18, 0.4);
+}
+
+.content {
+  margin-top: 30px;
+  background: rgba(8, 9, 13, 0.75);
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.hue {
+  color: white;
+  padding: 6px 18px;
+  border-radius: 25px;
+  animation: hue 6s linear infinite;
+  -webkit-animation: hue 6s linear infinite;
+  box-shadow: 0 0 25px rgba(243, 156, 18, 0.5);
+  background: rgba(243, 156, 18, 0.2);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+@keyframes hue {
+  0% { filter: hue-rotate(0deg); }
+  50% { box-shadow: 0 0 35px var(--accent-gold); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.special-thanks {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.special-thanks span {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.text-yellow { color: var(--accent-gold); }
+</style>
+
+<script>
+function print(){}
+
+var scriptCode = '';
+
+function preloadScripts(lst)
+{
+    for(var i = 0; i < lst.length; i++)
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', lst[i], false);
+        xhr.send('');
+        scriptCode += xhr.responseText + '\n';
+    }
+}
+
+function done()
+{
+    if(main_ret == 0 || main_ret == 179)
+    {
+        alert("You're all set!");
+        read_ptr_at(0);
+    }
+    else
+        alert("Jailbreak failed! Reboot your PS4 and try again.");
+}
+
+window.midExploit = function()
+{
+var scripts = ['702.js', 'jb.js'];
+  scripts.push('preloader.js');
+  scripts.push('payload.js');
+  scripts.push('loader.js');
+
+  preloadScripts(scripts, go);
+}
+
+window.postExploit = function()
+{
+    setTimeout(function() //update the screen one last time...
+    {
+        eval.call(window, scriptCode);
+        done();
+    }, 100);
+};
+</script>
+<script src="utils.js"></script>
+<script src="int64.js"></script>
+<script src="ps4.js"></script>
+</head>
+<body onload="go()" class="bg">
+
+<div id="container-box">
+  <h1 id="progressx" class="titleheadx">Loading ...</h1>
+
+  <div class="content">
+    <div class="text">
+      <span class="text-yellow">Designed, Ported and Compiled by :</span>&nbsp;&nbsp; <span class="hue">elya</span>
+      <div class="special-thanks">
+        <span>Special Thanks:</span> Scene Developers, Exploit Contributors, &amp; Testers
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden inputs and selects required by the 7.0X exploit trigger chain -->
+<button style="opacity:0; position:absolute; left:-9999px;" id="input1" onfocus="handle2()"></button>
+<button style="opacity:0; position:absolute; left:-9999px;" id="input2"></button>
+<button style="opacity:0; position:absolute; left:-9999px;" id="input3" onfocus="handle2()"></button>
+<select style="opacity:0; position:absolute; left:-9999px;" id="select1">
+    <option value="value1">Value1</option>
+</select>
+
+</body>
+</html>
+</html>

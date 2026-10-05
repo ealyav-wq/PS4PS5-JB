@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elya Host - PS4Trainer Offline Restore</title>
+<style>
+    :root {
+        --bg-color: #0b0e14;
+        --card-bg: #161b22;
+        --accent-blue: #00e5ff;
+        --accent-glow: rgba(0, 229, 255, 0.25);
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+        --button-bg: #21262d;
+        --button-hover: #30363d;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .top-bar {
+        width: 100%;
+        max-width: 900px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--accent-blue);
+    }
+
+    .header-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h1.main-title {
+        color: var(--accent-blue);
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-shadow: 0 0 15px var(--accent-glow);
+        margin-bottom: 10px;
+    }
+
+    .status-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        padding: 8px 24px;
+        display: inline-block;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    #msgs2 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #ffffff;
+    }
+
+    .section-box {
+        width: 100%;
+        max-width: 900px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .section-title {
+        color: #e3b341;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    button.btn-opt {
+        background: var(--button-bg);
+        color: var(--text-primary);
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        min-width: 130px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    button.btn-opt:hover {
+        background: var(--button-hover);
+        border-color: var(--accent-blue);
+        color: var(--accent-blue);
+        box-shadow: 0 0 12px var(--accent-glow);
+        transform: translateY(-2px);
+    }
+
+    .content-footer {
+        width: 100%;
+        max-width: 900px;
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+
+    .credits-author {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 4px;
+    }
+</style>
+<script>
+  function showdate() {
+    var dt = new Date();
+    Hour = dt.getHours();
+    Minute = dt.getMinutes();
+    Day = dt.getDate();
+    Month = dt.getMonth() + 1;
+    Year = dt.getFullYear();
+    if (Minute < 10) { Minute = "0" + Minute; }
+    if (Hour < 10) { Hour = "0" + Hour; }
+    document.getElementById("date").innerHTML = (Day + "/" + Month + "/" + Year);
+    document.getElementById("clock").innerHTML = (Hour + ":" + Minute);
+  }
+  setInterval(showdate, 1000);
+</script>
+</head>
+<body onload="showdate()">
+
+<div class="top-bar">
+    <span id="date"></span>
+    <span id="clock"></span>
+</div>
+
+<div class="header-container">
+    <h1 class="main-title">Elya Host - PS4Trainer Offline Restore</h1>
+    <div class="status-card">
+        <span id="msgs2">Status: Ready</span>
+    </div>
+</div>
+
+<div id="MyItems">
+    <!-- Without USB Section -->
+    <div class="section-box">
+        <div class="section-title">Restore Without USB</div>
+        <div class="button-group">
+            <a href="505/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore Without USB for 5.05 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">5.05</button></a>
+            <a href="672/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore Without USB for 6.72 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">6.72</button></a>
+            <a href="702/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore Without USB for 7.02 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">7.02</button></a>
+            <a href="755/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore Without USB for 7.5X FW'" onmouseout="msgs2.innerHTML='Status: Ready'">7.5X</button></a>
+            <a href="900/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore Without USB for 9.00 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">9.00</button></a>
+        </div>
+    </div>
+
+    <!-- With USB Section -->
+    <div class="section-box">
+        <div class="section-title">Restore With USB</div>
+        <div class="button-group">
+            <a href="505/usb.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore With USB for 5.05 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">5.05 USB</button></a>
+            <a href="672/usb.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore With USB for 6.72 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">6.72 USB</button></a>
+            <a href="702/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore With USB for 7.02 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">7.02 USB</button></a>
+            <a href="755/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore With USB for 7.5X FW'" onmouseout="msgs2.innerHTML='Status: Ready'">7.5X USB</button></a>
+            <a href="900/usb.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Restore With USB for 9.00 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">9.00 USB</button></a>
+        </div>
+    </div>
+
+    <!-- Cheat Copy Section -->
+    <div class="section-box">
+        <div class="section-title">Cheat Copy</div>
+        <div class="button-group">
+            <a href="505/copych.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Copy Cheats to PS4 for 5.05 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">5.05</button></a>
+            <a href="672/copych.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Copy Cheats to PS4 for 6.72 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">6.72</button></a>
+            <a href="702/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Copy Cheats to PS4 for 7.02 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">7.02</button></a>
+            <a href="755/index.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Copy Cheats to PS4 for 7.5X FW'" onmouseout="msgs2.innerHTML='Status: Ready'">7.5X</button></a>
+            <a href="900/copych.html"><button class="btn-opt" onMouseOver="msgs2.innerHTML='Copy Cheats to PS4 for 9.00 FW'" onmouseout="msgs2.innerHTML='Status: Ready'">9.00</button></a>
+        </div>
+    </div>
+</div>
+
+<div class="content-footer">
+    <div>Designed, Ported and Compiled by</div>
+    <div class="credits-author">Elya (Originally by Karo Sharifi)</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!-- name=index_12.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Elya Host Auto Exploit + PSFree Webkit Light Version 7.50 - 7.55 fw</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        --bg-color: #0f111a;
+        --card-bg: #1a1e29;
+        --accent-blue: #3b82f6;
+        --accent-green: #00ff66;
+        --accent-red: #ff4444;
+        --text-main: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border-color: #2a324b;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: 620px;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 35px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        margin: 0 0 5px 0;
+        font-size: 1.5rem;
+        letter-spacing: 0.5px;
+        color: var(--text-main);
+        text-transform: uppercase;
+      }
+
+      header p {
+        color: var(--text-muted);
+        margin: 0 0 25px 0;
+        font-size: 0.9rem;
+      }
+
+      #progress {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 25px 0;
+        color: var(--accent-green);
+        text-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
+      }
+
+      .credits {
+        margin-top: 30px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+        text-align: left;
+      }
+
+      .credits-section {
+        margin-bottom: 15px;
+      }
+
+      .credits h4 {
+        margin: 0 0 6px 0;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .credits p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-main);
+      }
+
+      .credits .names {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+    </style>
+    <script src="utils.js"></script>
+    <script src="int64.js"></script>
+    <script src="exploit.js" defer></script>
+    <script>
+      function print(){}
+
+      var cachedJS = {};
+
+      function runJS(path)
+      {
+          if(!(path in cachedJS))
+          {
+              var xxx = new XMLHttpRequest();
+              xxx.open("GET", path, false);
+              xxx.send('');
+              cachedJS[path] = xxx.responseText;
+          }
+          eval.call(window, cachedJS[path]);
+      }
+
+      function runScripts()
+      {
+          var inputElem = document.getElementById("input");
+          if(inputElem) inputElem.remove();
+          runJS('rop.js');
+          runJS('jb.js');
+          runJS('preloader.js');
+          runJS('restore.js');
+          runJS('loader.js');
+      }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="card">
+            <header>
+                <h1>Elya Host Auto Exploit</h1>
+                <p>PSFree Webkit Light Version (7.50 - 7.55 FW)</p>
+            </header>
+
+            <h1 id="progress">Jailbreaking... Wait</h1>
+
+            <table id="load" align="center"></table>
+
+            <div class="credits">
+              <div class="credits-section">
+                <h4>Designed & Compiled By</h4>
+                <p><strong>Elya</strong>[span_2](start_span)[span_2](end_span)</p>
+              </div>
+              <div class="credits-section" style="margin-bottom: 0;">
+                <h4>Super Special Thanks To</h4>
+                <div class="names">Sleirsgoevy, Al Azif, ChendoChap, SiSTRo, Specter, Abc, Znullptr, hippie68, ...[span_3](start_span)[span_3](end_span)</div>
+              </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PS5 Relapse Exploit</title>
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --panel-bg: #111318;
+      --accent: #e3b341;
+      --accent-glow: rgba(227, 179, 65, 0.2);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --border-color: rgba(227, 179, 65, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--bg-color);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 750px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    #console {
+      background: #060606;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 180px;
+      max-height: 350px;
+      overflow-y: auto;
+      text-align: left;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #3fb950;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .back-btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(227, 179, 65, 0.1);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PS5 Relapse Exploit</h1>
+    <p class="subtitle">Initializing WebKit and kernel exploit vectors. Please wait...</p>
+    
+    <!-- Original console output container -->
+    <div id="console"></div>
+
+    <a href="../index.html" class="back-btn">&larr; Back to Main Host Menu</a>
+  </div>
+
+  <!-- 100% of original functionality script loading order preserved -->
+  <script src="./src/firmware.js"></script>
+  <script src="./src/main.js"></script>
+  <script src="./src/rop.js"></script>
+  <script src="./src/utils/syscalls.js"></script>
+  <script type="module" src="./src/site.js"></script>
+</body>
+</html>

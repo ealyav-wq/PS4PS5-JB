@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html manifest="Cache.manifest">
+<head>
+<meta charset="utf-8">
+<title>Karo Host Auto Exploit + PSFree Webkit Version 7.50 - 7.55 fw</title>
+<style>
+:root {
+  --bg-color: #0f1015;
+  --card-bg: rgba(20, 21, 30, 0.75);
+  --accent-yellow: #f39c12;
+  --accent-glow: rgba(243, 156, 18, 0.4);
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(circle at center, #1a1b26 0%, #0f1015 100%);
+  background-attachment: fixed;
+}
+
+header {
+  text-align: center;
+  padding: 25px 20px 10px 20px;
+}
+
+h1.main-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  text-shadow: 0 2px 10px rgba(243, 156, 18, 0.3);
+  margin: 0 0 10px 0;
+}
+
+.status-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+  padding: 12px 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+#progress {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.container {
+  max-width: 1400px;
+  width: 92%;
+  margin: 0 auto 120px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  flex: 1;
+}
+
+.section-group {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.section-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 6px;
+}
+
+.button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Unified Button / Link Styling */
+.button, button, a.button {
+  background: rgba(25, 26, 35, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 18px;
+  height: 44px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover, button:hover, a.button:hover {
+  background: #1e2235;
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(243, 156, 18, 0.2);
+}
+
+/* Special Highlight Buttons */
+.goldhen-btn {
+  border-color: rgba(243, 156, 18, 0.4);
+  color: var(--accent-yellow);
+  font-weight: 600;
+}
+
+.special-red {
+  border-color: rgba(231, 76, 60, 0.4);
+}
+.special-red:hover {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.special-blue {
+  border-color: rgba(52, 152, 219, 0.4);
+}
+.special-blue:hover {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+select#tempC {
+  background: rgba(25, 26, 35, 0.8);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  height: 44px;
+}
+select#tempC:hover {
+  border-color: var(--accent-yellow);
+}
+
+/* Footer / Credits */
+.content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 16, 21, 0.9);
+  border-top: 1px solid var(--border-color);
+  padding: 12px 20px;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.content .text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.yellow {
+  color: var(--accent-yellow);
+  font-weight: 600;
+}
+
+.hue {
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(243, 156, 18, 0.2);
+  border: 1px solid rgba(243, 156, 18, 0.4);
+  animation: hue 5s linear infinite;
+}
+
+@keyframes hue {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.credits-links {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+</style>
+
+<script>
+if (window.applicationCache.status=='0'){window.location.replace("cache.html");}
+</script>
+</head>
+<body>
+    <script>
+    var fw = (navigator.userAgent.substring(navigator.userAgent.indexOf('5.0 (') + 19, navigator.userAgent.indexOf(') Apple'))).replace('.', '');
+    </script>
+    <script src="utils.js"></script>
+    <script src="int64.js"></script>
+    <script src="exploit.js" defer></script>
+
+    <script>
+    function print(){}
+    var scriptCode = '';
+    
+    function loadFile(fileName) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", fileName, false);
+        xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        xhr.send();
+        let array = Uint8Array.from(xhr.response, c => c.charCodeAt(0));
+        if (fileName.endsWith(".bz2")) {
+          try {
+            PLS = bzip2.simple(bzip2.array(array));
+          } catch(error) {
+            alert(fileName + ": \"" + error + "\"\n");
+            throw error;
+          }
+        }
+        return array;
+    }
+
+    function toggle_payload(pld){
+        if(pld == "binloader"){
+            document.getElementById("progress").innerHTML="Awaiting Payload.. Send Payload to port 9021..";
+            setTimeout(runScriptsB, 500);
+        }else if(pld == "mira75X"){
+            document.getElementById("progress").innerHTML="Loading MIRA.. Please wait..";
+            PLfile = 'mira.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "mirab"){
+            document.getElementById("progress").innerHTML="Loading mira2b.. Please wait..";
+            PLfile = 'mira2b.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "hen"){
+            document.getElementById("progress").innerHTML="Loading Hen v2.1.3b ... Please wait..";
+            PLfile = 'hen213b.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "goldhen"){
+            document.getElementById("progress").innerHTML="Loading GoldHenv1.1.. Please wait..";
+            if(fw=="755"){ PLfile = 'goldhen755.bin.bz2'; } 
+            else if(fw=="750"){ PLfile = 'goldhen750.bin.bz2'; }
+            else if(fw=="751"){ PLfile = 'goldhen751.bin.bz2'; }
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "goldhenb"){
+            document.getElementById("progress").innerHTML="Loading GoldHenv1.1b3.. Please wait..";
+            if(fw=="755"){ PLfile = 'goldhenb755.bin.bz2'; } 
+            else if(fw=="750"){ PLfile = 'goldhenb750.bin.bz2'; }
+            else if(fw=="751"){ PLfile = 'goldhenb751.bin.bz2'; }
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "goldhen1"){
+            document.getElementById("progress").innerHTML="Loading GoldHenv1.0.. Please wait..";
+            if(fw=="755"){ PLfile = 'goldhen1v755.bin.bz2'; } 
+            else if(fw=="750"){ PLfile = 'goldhen1v750.bin.bz2'; }
+            else if(fw=="751"){ PLfile = 'goldhen1v751.bin.bz2'; }
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "goldhen2b"){
+            document.getElementById("progress").innerHTML="Loading GoldHenv2.0b.. Please wait..";
+            if(fw=="755"){ PLfile = 'goldhen2b755.bin.bz2'; } 
+            else if(fw=="750"){ PLfile = 'goldhen2b750.bin.bz2'; }
+            else if(fw=="751"){ PLfile = 'goldhen2b751.bin.bz2'; }
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "goldhen222"){
+            document.getElementById("progress").innerHTML="Loading GoldHenv2.2.2.. Please wait..";
+            if(fw=="755"){ PLfile = 'goldhen_2.2.2_755.bin.bz2'; } 
+            else if(fw=="750"){ PLfile = 'goldhen_2.2.2_750.bin.bz2'; }
+            else if(fw=="751"){ PLfile = 'goldhen_2.2.2_751.bin.bz2'; }
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "goldhen24"){
+            document.getElementById("progress").innerHTML="Loading GoldHenv2.4b 18.9.. Please wait..";
+            PLfile = 'goldhen.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "ftp"){
+            setTimeout(function(){document.getElementById("progress").innerHTML="FTP Loaded.. Access at port 1337.."; }, 7000);
+            PLfile = 'ftp.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "copych"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'CopyCH.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "app2usb"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'app2usb.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "orbis"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'Orbis-Toolbox-755.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "webrte"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'webrte755.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "disableupdates"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'disableupdates.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "enableupdates"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'enableupdates.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "backup"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'backup.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "restore"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'restore.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "rifrenamer"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'rifrenamer.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "todex"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'todex.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "pkgb"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'pkg-backup.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "dumper"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'dumper.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "disableaslr"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'disableaslr.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "kerneldumper"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'kerneldumper.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "kernelclock"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'kernelclock.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "enablebrowser"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'enablebrowser.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "linux1G"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'linux1G.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "linux3G"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'linux3G.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "module"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'mdumper.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "historyblocker"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'historyblocker.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "ps4debug"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'ps4debug.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "web"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'payload.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(function(){runJS(['jb.js', 'preloader.js', 'payloads.js', 'loader.js', 'frontend.js']);}, 500);
+        }else if(pld == "fan"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            setTimeout(runScriptsF, 500);
+            localStorage.setItem('fanthreshold', tempC.value);
+        }else if(pld == "gtava1"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'gtava1.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "gtava2"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'gtava2.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "gtava3"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'gtava3.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "gtavl"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'gtavl.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "gtavbq"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'gtavbq133.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }else if(pld == "gtavl9"){
+            document.getElementById("progress").innerHTML="Loading Payload.. Please wait..";
+            PLfile = 'Lamance9.bin.bz2';
+            let array = loadFile(PLfile);
+            setTimeout(runScripts2, 500);
+        }
+        payload_finished(pld);
+    }
+
+    function payload_finished(payload) {
+        if(payload == "binloader"){
+            setTimeout(function(){document.getElementById("progress").innerHTML="Awaiting Payload!! Send Payload To Port 9021"; }, 7000);
+        } else if(payload != "exploit" && payload != "exploit_old"){
+            setTimeout(function(){document.getElementById("progress").innerHTML="Payload Loaded Succesfully !!"; }, 7000);
+        }
+    }
+
+    function done(){
+        document.getElementById('load-container').innerHTML = `
+            <div class="section-group">
+                <div class="section-title">Jailbreak / GoldHen</div>
+                <div class="button-grid">
+                    <a href="#" id="goldhen2b" class="button goldhen-btn" onmouseover="progress.innerHTML='GoldHen v2.0b by Sistro for All PS4 7.5X Fw'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('goldhen2b'); return false">GoldHen V2b</a>
+                    <a href="#" id="goldhen222" class="button goldhen-btn" onmouseover="progress.innerHTML='GoldHen v2.2.2 by Sistro for All PS4 7.5X Fw'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('goldhen222'); return false">GoldHen V2.2.2</a>
+                    <a href="#" id="goldhen24" class="button goldhen-btn" onmouseover="progress.innerHTML='GoldHen v2.4b 18.9 by Sistro for All PS4 7.5X Fw'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('goldhen24'); return false">GoldHen V2.4</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-title">System & Loaders</div>
+                <div class="button-grid">
+                    <a href="#" id="mira75X" class="button" onmouseover="progress.innerHTML='Mira by AlAzif for PS4 7.55 Fw'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('mira75X'); return false">Mira</a>
+                    <a href="#" id="mirab" class="button" onmouseover="progress.innerHTML='Mira2b Spoof to 9.99 & fixed Rest Mode by Karo, Fix for All PS4 7.5X Fw'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('mirab'); return false">Mira2b</a>
+                    <a href="#" id="hen" class="button" onmouseover="progress.innerHTML='Hen v2.1.3b by SISTR0, Spoof to 9.99 & Ported to PS4 7.5X Fw by Karo'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('hen'); return false">Hen213b</a>
+                    <a href="#" id="binloader" class="button" onmouseover="progress.innerHTML='For run binloader dont run another payload before it'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('binloader'); return false">Bin Loader</a>
+                    <a href="#" id="pkgb" class="button" onmouseover="progress.innerHTML='PS4 PKG Backup by Kameleon for PS4 7.55 Fw'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('pkgb'); return false">PKG Backup</a>
+                    <a href="#" id="copych" class="button" onmouseover="progress.innerHTML='Copy json and shn files from USB to PS4'" onmouseout="progress.innerHTML='Status'" onclick="toggle_payload('copych'); return false">Cheat copy</a>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="section-title">Storage & Management Tools</div>
+                <div class="button-grid">
+                    <a href="#" id="app2usb"

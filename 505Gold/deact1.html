@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DeactPSPlus By elya / Al Azif for FW 5.05</title>
+<link rel="stylesheet prefetch" href="Style_00.css">
+<link rel="stylesheet prefetch" href="Style_01.css" title="css1">
+<link rel="alternate stylesheet" href="Style_02.css" title="css2">
+<link rel="alternate stylesheet" href="Style_03.css" title="css3">
+<script src="StyleSwitch.js"></script>
+<script>parent.Hide();</script>
+<style>
+:root {
+  --bg-color: #0f1015;
+  --panel-bg: rgba(20, 21, 30, 0.85);
+  --accent-gold: #f39c12;
+  --accent-red: #e74c3c;
+  --accent-green: #2ecc71;
+  --text-main: #ecf0f1;
+  --text-muted: #95a5a6;
+  --border-glow: rgba(243, 156, 18, 0.3);
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% 30%, #1f2235 0%, var(--bg-color) 80%);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#Title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 25px;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(243, 156, 18, 0.2);
+}
+
+.info {
+  background: var(--panel-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 700px;
+  padding: 40px 30px;
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.warning-text {
+  color: var(--accent-red);
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 26px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+}
+
+.desc-text {
+  color: var(--text-main);
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.button-container {
+  margin-top: 15px;
+}
+
+button {
+  background: rgba(25, 27, 38, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-main);
+  padding: 10px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  background-color: #1a1d29;
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  box-shadow: 0 6px 20px var(--border-glow);
+}
+
+.special-thanks {
+  margin-top: 30px;
+  font-size: 15px;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 15px;
+}
+
+.special-thanks span {
+  color: var(--text-main);
+  font-weight: 500;
+}
+</style>
+</head>
+<body>
+
+<div id="Title">DeactPSPlus By elya / Al Azif</div>
+
+<div class="info">
+  <div class="warning-text">W A R N I N G ! !</div>
+  <div class="desc-text">
+    This will change the current internal system clock to today's date<br>
+    Do you want to continue?
+  </div>
+  
+  <div class="button-container">
+    <button onclick="YESchange()">YES</button>
+    <button onclick="NOchange()">NO</button>
+  </div>
+
+  <div class="special-thanks">
+    <span>Special Thanks:</span> Al Azif, Scene Contributors, &amp; Testers
+  </div>
+</div>
+
+<script>
+function YESchange() { window.open("deact2.html", "_self"); }
+function NOchange() { window.open("index.html", "_parent"); }
+</script>
+
+</body>
+</html>

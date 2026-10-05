@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head style="background-color:#050505;">
+  <title>Elya Host - Restore 505</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg-color: #060709;
+      --panel-bg: rgba(12, 14, 20, 0.85);
+      --accent-gold: #f39c12;
+      --accent-cyan: #00f2fe;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      background-image: radial-gradient(circle at 50% -20%, #1e2235 0%, var(--bg-color) 70%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-title {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+    }
+
+    .main-heading {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .loader-container {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loader {
+      border: 6px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      border-top: 6px solid var(--accent-gold);
+      border-left: 6px solid var(--accent-cyan);
+      width: 100px;
+      height: 100px;
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 30px rgba(243, 156, 18, 0.2);
+    }
+
+    .info {
+      position: fixed;
+      top: 52%;
+      left: 50%;
+      color: var(--text-main);
+      font-size: 28px;
+      font-weight: 700;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .credits {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-family: system-ui, sans-serif;
+      text-align: left;
+      background: var(--panel-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 15px 25px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      width: 85%;
+      max-width: 550px;
+    }
+
+    .credits-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .credit-row {
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    .credit-row span {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-title">Elya Host</div>
+  <div class="main-heading">Restore 505</div>
+
+  <div id="loader-box" class="loader-container">
+    <div class="loader"></div>
+  </div>
+
+  <div id="awaiting" class="info" style="display:none;">
+    Payload Loaded
+  </div>
+
+  <div id="allset" class="info" style="display:none;">
+    You're all set!
+  </div>
+
+  <div id="fail" class="info" style="display:none;">
+    Something went wrong :(
+  </div>
+
+  <div class="credits">
+    <div class="credits-title">Special Thanks &amp; Credits</div>
+    <div class="credit-row">Exploits: <span>qwertyuiopz</span></div>
+    <div class="credit-row">Implementation: <span>Specter and CelesteBlue</span></div>
+  </div>
+
+  <script src="./rop.js"></script>
+  <script src="./syscalls.js"></script>
+  <script src="./expl.js"></script>
+  <script src="./userland.js"></script>
+  <pre id="console" style="display:none;"></pre>
+</body>
+</html>

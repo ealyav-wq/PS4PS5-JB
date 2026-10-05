@@ -1,0 +1,435 @@
+<html manifest="offlinexmb.cache">
+<head>
+<meta charset="utf-8">
+<title>Elya Host 5.05 FW</title>
+<style type="text/css">
+:root {
+  --bg-dark: #0b0c10;
+  --panel-bg: rgba(20, 22, 30, 0.75);
+  --accent-gold: #f39c12;
+  --accent-blue: #3498db;
+  --text-main: #ffffff;
+  --text-muted: #a0a5b0;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  color: var(--text-main);
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(circle at 50% 20%, #1a1c29 0%, var(--bg-dark) 100%);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+header {
+  height: 3.5em;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(11, 12, 16, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 3%;
+}
+
+#date, #clock {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-muted);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#msgs {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--accent-gold);
+  text-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+  margin: 0;
+}
+
+.main-container {
+  margin-top: 5rem;
+  padding: 20px;
+}
+
+.iframe-container {
+  margin: 10px auto 20px auto;
+  width: 90%;
+  max-width: 900px;
+  background: var(--panel-bg);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+iframe {
+  width: 100%;
+  height: 130px;
+  border: none;
+  background: transparent;
+}
+
+button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  width: 240px;
+  height: 48px;
+  text-align: center;
+  margin: 6px;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--text-main);
+  background: var(--panel-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-gold);
+  box-shadow: 0 6px 20px rgba(243, 156, 18, 0.25);
+  background-color: rgba(30, 35, 48, 0.9);
+  color: var(--accent-gold);
+}
+
+.goldhen-btn {
+  color: #f1c40f !important;
+  border-color: rgba(241, 196, 15, 0.3);
+}
+
+.action-btn-blue {
+  background-color: rgba(52, 152, 219, 0.2);
+  border-color: rgba(52, 152, 219, 0.4);
+}
+
+.action-btn-green {
+  background-color: rgba(46, 204, 113, 0.2);
+  border-color: rgba(46, 204, 113, 0.4);
+}
+
+.action-btn-red {
+  background-color: rgba(231, 76, 60, 0.2);
+  border-color: rgba(231, 76, 60, 0.4);
+}
+
+.pointer { cursor: pointer; }
+
+.content {
+  width: 75%;
+  max-width: 800px;
+  margin: 40px auto 20px auto;
+  background: var(--panel-bg);
+  color: var(--text-main);
+  font-size: 20px;
+  text-align: center;
+  border-radius: 16px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  line-height: 1.6;
+}
+
+.yellow {
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.hue {
+  color: var(--accent-gold);
+  padding: 6px 14px;
+  border-radius: 8px;
+  animation: hue 6s linear infinite;
+  background: rgba(243, 156, 18, 0.15);
+  border: 1px solid rgba(243, 156, 18, 0.4);
+  display: inline-block;
+  font-weight: bold;
+}
+
+@keyframes hue {
+  0% { filter: hue-rotate(0deg); }
+  50% { box-shadow: 0 0 20px rgba(243, 156, 18, 0.4); }
+  100% { filter: hue-rotate(360deg); }
+}
+</style>
+<script>
+  window.applicationCache.ondownloading = function() { document.getElementById("msgs").innerHTML = "Caching Started!!"; };
+  window.applicationCache.onprogress = function(a) { document.getElementById("msgs").innerHTML = "Caching Status: " + (Math.round(100 * (a.loaded / a.total))) + "% Completed"; };
+  window.applicationCache.oncached = function() { document.getElementById("msgs").innerHTML = "Cached Successfully!!"; setTimeout(function() { document.getElementById("msgs").innerHTML = "Turn off internet"; }, 1500); };
+</script>
+</head>
+<body>
+
+<header>
+  <span id="date"></span>
+  <h1 id="msgs">Elya Host 5.05 FW</h1>
+  <span id="clock"></span>
+</header>
+
+<div class="main-container">
+  <div class="iframe-container">
+    <iframe src="blank.html" name="exp-loader"></iframe>
+  </div>
+
+  <script src="cal.js"></script>
+
+  <!-- MAIN MENU -->
+  <div id="all" style="text-align:center">
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.1.2 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen212(); return false">GoldHen V2.1.2</button>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.3 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen23(); return false">GoldHen V2.3</button>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.4b18.9 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen24(); return false">GoldHen V2.4b18.9</button>
+    <br><br>
+    <button class="pointer action-btn-blue" onMouseOver="msgs.innerHTML='WebRTE for Games Cheat'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_webrte(); return false">WebRTE</button>
+    <button class="pointer" style="background-color:rgba(120,125,140,0.2);" onMouseOver="msgs.innerHTML='Goldhen & Hen & Mira'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="allhens(); return false">HEN Group</button>
+    <button class="pointer action-btn-green" onMouseOver="msgs.innerHTML='Save Data mounter v1.0'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_ps4debug(); return false">PS4debug</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='All tools payloads'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="alltools(); return false">Tools Group</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='All Restore & Backup payloads'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="allrestore(); return false">Restore Group</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='All Dump payloads'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="alldump(); return false">Dump Group</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='All Trainer payloads'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="alltrainer(); return false">Trainer Group</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='All Linux payloads'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="alllinux(); return false">Linux Group</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='All Mods Gtav & RDR2 payloads'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="allmods(); return false">Gtav & RDR2 Mods</button>
+    <br><br>
+  </div>
+
+  <!-- TOOLS MENU -->
+  <div id="tools" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='binloader port 9020'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_binloader(); return false">Bin Loader</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='FTP server'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_ftp(); return false">FTP</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='FTP server with RW'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_ftprw(); return false">FTP RW</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Copy json and shn files from USB to PS4'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_copych(); return false">Cheat Copy</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='ReactPSPlus By Zer0xFF / Al Azif for FW 5.05'" onmouseout="msgs.innerHTML='Status'" onclick="load_react();">ReactPSplus</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='DeactPSPlus By Zer0xFF / Al Azif for FW 5.05'" onmouseout="msgs.innerHTML='Status'" onclick="load_deact();">DeactPSplus</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='ReactPSPlus Moddable v1.0 By Zer0xFF/Leeful 5.05'" onmouseout="msgs.innerHTML='Status'" onclick="load_reactM();">ReactPSplusMOD</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Disable Update'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_updatesdisable(); return false">Disable Updates</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Enable Update'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_updatesenable(); return false">Enable Updates</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Change License Hen to Mira'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_rif(); return false">Rif Renamer</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Fan Controller'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_fanthresh(); return false">Fan Controller</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Active Remote Play'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_ren(); return false">Remoteplay</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Install Game from Lan'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_infinix(); return false">Infinix</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='To-DEX'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_todex(); return false">ToDex</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='APP2USB'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_app2usb(); return false">App2USB</button>
+    <br><br>
+    <button class="pointer action-btn-red" onMouseOver="msgs.innerHTML='Orbis Toolbox Loader Alfa 1190'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_orbis(); return false">Orbis Toolbox</button>
+  </div>
+
+  <!-- DUMP MENU -->
+  <div id="dump" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='PS4 PKG Backup by Kameleon'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_pkgb(); return false">PKG Backup</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Kernel Dumper'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_kdumper(); return false">Kernel Dumper</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Dumper for Games'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_dumper(); return false">Dumper</button>
+  </div>
+
+  <!-- RESTORE MENU -->
+  <div id="restore" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Backup Trophy'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_trpb(); return false">Trp Backup</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Restore Trophy'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_trpr(); return false">Trp Restore</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='DB Backup'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_dbBackup(); return false">DB Backup</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='DB Restore'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_dbRestore(); return false">DB Restore</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Save Games'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_saveb(); return false">Save Backup</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Restore Save Games'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_saver(); return false">Save Restore</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Save Mount'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_savem(); return false">Save Mount</button>
+  </div>
+
+  <!-- TRAINER MENU -->
+  <div id="trainer" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer action-btn-blue" onMouseOver="msgs.innerHTML='WebRTE for Games Cheat'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_webrte(); return false">WebRTE</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Save Data mounter v1.0'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_ps4debug(); return false">PS4debug</button>
+  </div>
+
+  <!-- LINUX MENU -->
+  <div id="linux" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Linux Loader Baikal'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_linuxbaikal(); return false">Linux Baikal</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Linux Loader 1GB'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_linux1g(); return false">Linux 1Gb</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Linux Loader 2GB'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_linux2g(); return false">Linux 2Gb</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Linux Loader 3GB'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_linux3g(); return false">Linux 3Gb</button>
+  </div>
+
+  <!-- GTAV & RDR2 MODS MENU -->
+  <div id="gtav" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode ArabicGuy 1.00'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtava100(); return false">ArabicGuy 1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode ArabicGuy 1.27'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtava127(); return false">ArabicGuy 1.27</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode ArabicGuy 1.32'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtava132(); return false">ArabicGuy 1.32</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode ArabicGuy 1.33'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtava133(); return false">ArabicGuy 1.33</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Lotus -> + []'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtav(); return false">GTA Lotus 1.04</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Hold R1 then press []'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtav2(); return false">GTAV ap 2</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode GTAV Intense 1.00'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavi100(); return false">GTAV Intense 1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode GTAV Intense 1.27'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavi127(); return false">GTAV Intense 1.27</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Lamance 1,00'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavl100(); return false">GTAV Lamance 1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Lamance 1.27'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavl127(); return false">GTAV Lamance 1.27</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Not Another 1.00'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavna100(); return false">GTAV Not Another 1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Not Another 1.27'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavna127(); return false">GTAV Not Another 1.27</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Not Your Dopes 1.27'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavnyd127(); return false">Not Your Dopes 1.27</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode Psych0s 1.00'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavp100(); return false">GTAV Psych0s 1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode WildeModz 1.00'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavwm100(); return false">GTAV WildeModz 1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Gtav Mode WildeModz 1.27'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavwm127(); return false">GTAV WildeModz 1.27</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='GTAV Expulsion Mode Menu 1.32 v1.1 by x_WildeModz_x'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavwm132(); return false">GTAV WildeModz 1.32</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='GTAV Expulsion Mode Menu 1.33 v1.1 by x_WildeModz_x'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavwm133(); return false">GTAV WildeModz 1.33</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='GTAV Expulsion Mode Menu 1.38 v1.7 by x_WildeModz_x'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavwm138(); return false">GTAV WildeModz 1.38</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='GTAV Lamance v9.00 Mode Menu for 1.38 by david1337hax'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_gtavl9(); return false">GTAV Lamance 1.38</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Red dead redemption 2 mod menu V1.00 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_rdr100(); return false">RDR2 V1.00</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Red dead redemption 2 mod menu V1.13 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_rdr113(); return false">RDR2 V1.13</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Red dead redemption 2 mod menu V1.19 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_rdr119(); return false">RDR2 V1.19</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Red dead redemption 2 mod menu V1.24 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_rdr124(); return false">RDR2 V1.24</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Red dead redemption 2 mod menu V1.29 by RF0oDxM0Dz (R1 + Square)'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_rdr129(); return false">RDR2 V1.29</button>
+    <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.29 by 0x199'" onmouseout="msgs2.innerHTML='Status'" onclick     <button class="pointer" onMouseOver="msgs2.innerHTML='Red dead redemption 2 mod menu V1.29 by 0x199'" onmouseout="msgs2.innerHTML='Status'" onclick="load_rdr129H();">RDR2 Havana V1.29</button>
+  </div>
+
+  <!-- HENS MENU -->
+  <div id="hens" style="text-align:center;display:none">
+    <button class="pointer" onMouseOver="msgs.innerHTML='back to base menu'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="backall(); return false">Back to Menu</button>
+    <br><br>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v1.0 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen1(); return false">GoldHen V1.0</button>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v1.1 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen(); return false">GoldHen V1.1</button>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.0b by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen2b(); return false">GoldHen V2.0b</button>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.0b2 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen2b2(); return false">GoldHen V2.0b2</button>
+    <br><br>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Hen 2.1.2'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_hen212(); return false">Hen v2.1.2</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Hen 2.1.3'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_hen213(); return false">Hen v2.1.3</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='Hen 2.1.4b Spoof to 9.99 by Karo'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_hen214b(); return false">Hen v2.1.4b</button>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.2.2 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen22(); return false">GoldHen V2.2.2</button>
+    <br><br>
+    <button class="pointer goldhen-btn" onMouseOver="msgs.innerHTML='GoldHen v2.2.4 by Sistro'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_goldhen224(); return false">GoldHen V2.2.4</button>
+    <button class="pointer" onMouseOver="msgs.innerHTML='hen+mira'" onmouseout="msgs.innerHTML='Elya Host 5.05 fw'" onclick="load_mirahen(); return false">MiraHen18</button>
+  </div>
+
+  <!-- CREDITS & SPECIAL THANKS SECTION -->
+  <div class="content">
+    <span class="yellow">Designed, Ported and Compiled by :</span>&nbsp;&nbsp;<span class="hue">Elya</span>
+    <br><br>
+    <span class="yellow">Special Thanks To :</span>&nbsp;&nbsp;<span style="color:var(--text-muted); font-size: 17px;">Karo Sharifi</span>
+    <br><br>
+    <span class="yellow">Super Special Thanks To :</span>&nbsp;&nbsp;<span style="color:var(--text-muted); font-size: 17px;">Leeful , AlAzif , SiSTRo. , ...</span>
+  </div>
+</div>
+
+<script>
+function load_react(){var l=document.createElement('a');document.body.appendChild(l);l.href='react1.html';l.target='_blank';l.click();}
+function load_deact(){var l=document.createElement('a');document.body.appendChild(l);l.href='deact1.html';l.target='_blank';l.click();}
+function load_reactM(){var l=document.createElement('a');document.body.appendChild(l);l.href='reactM.html';l.target='_blank';l.click();}
+function load_copych(){var l=document.createElement('a');document.body.appendChild(l);l.href='copych.html';l.target='exp-loader';l.click();}
+function load_goldhen(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen.html';l.target='exp-loader';l.click();}
+function load_goldhen1(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen1.html';l.target='exp-loader';l.click();}
+function load_goldhen2b(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen2.html';l.target='exp-loader';l.click();}
+function load_goldhen2b2(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen2b2.html';l.target='exp-loader';l.click();}
+function load_goldhen212(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen212.html';l.target='exp-loader';l.click();}
+function load_goldhen22(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen22.html';l.target='exp-loader';l.click();}
+function load_goldhen224(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen224.html';l.target='exp-loader';l.click();}
+function load_goldhen23(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen23.html';l.target='exp-loader';l.click();}
+function load_goldhen24(){var l=document.createElement('a');document.body.appendChild(l);l.href='goldhen24.html';l.target='exp-loader';l.click();}
+function load_hen212(){var l=document.createElement('a');document.body.appendChild(l);l.href='hen212.html';l.target='exp-loader';l.click();}
+function load_hen213(){var l=document.createElement('a');document.body.appendChild(l);l.href='hen213.html';l.target='exp-loader';l.click();}
+function load_hen214b(){var l=document.createElement('a');document.body.appendChild(l);l.href='hen214b.html';l.target='exp-loader';l.click();}
+function load_mirahen(){var l=document.createElement('a');document.body.appendChild(l);l.href='mirahen18.html';l.target='exp-loader';l.click();}
+function load_binloader(){var l=document.createElement('a');document.body.appendChild(l);l.href='binloader.html';l.target='exp-loader';l.click();}
+function load_ftp(){var l=document.createElement('a');document.body.appendChild(l);l.href='vtxftp.html';l.target='exp-loader';l.click();}
+function load_ftprw(){var l=document.createElement('a');document.body.appendChild(l);l.href='ftprw.html';l.target='exp-loader';l.click();}
+function load_dumper(){var l=document.createElement('a');document.body.appendChild(l);l.href='vtxdump.html';l.target='exp-loader';l.click();}
+function load_app2usb(){var l=document.createElement('a');document.body.appendChild(l);l.href='apptousb.html';l.target='exp-loader';l.click();}
+function load_updatesdisable(){var l=document.createElement('a');document.body.appendChild(l);l.href='blocker.html';l.target='exp-loader';l.click();}
+function load_updatesenable(){var l=document.createElement('a');document.body.appendChild(l);l.href='unblock.html';l.target='exp-loader';l.click();}
+function load_dbBackup(){var l=document.createElement('a');document.body.appendChild(l);l.href='db_backup.html';l.target='exp-loader';l.click();}
+function load_pkgb(){var l=document.createElement('a');document.body.appendChild(l);l.href='pkgb.html';l.target='exp-loader';l.click();}
+function load_kdumper(){var l=document.createElement('a');document.body.appendChild(l);l.href='kdamper.html';l.target='exp-loader';l.click();}
+function load_dbRestore(){var l=document.createElement('a');document.body.appendChild(l);l.href='db_restore.html';l.target='exp-loader';l.click();}
+function load_todex(){var l=document.createElement('a');document.body.appendChild(l);l.href='todex.html';l.target='exp-loader';l.click();}
+function load_ps4debug(){var l=document.createElement('a');document.body.appendChild(l);l.href='ps4debug100.html';l.target='exp-loader';l.click();}
+function load_webrte(){var l=document.createElement('a');document.body.appendChild(l);l.href='rte.html';l.target='exp-loader';l.click();}
+function load_linuxbaikal(){var l=document.createElement('a');document.body.appendChild(l);l.href='baikal.html';l.target='exp-loader';l.click();}
+function load_linux1g(){var l=document.createElement('a');document.body.appendChild(l);l.href='1gblinux.html';l.target='exp-loader';l.click();}
+function load_linux2g(){var l=document.createElement('a');document.body.appendChild(l);l.href='2gblinux.html';l.target='exp-loader';l.click();}
+function load_linux3g(){var l=document.createElement('a');document.body.appendChild(l);l.href='3gblinux.html';l.target='exp-loader';l.click();}
+function load_fanthresh(){var l=document.createElement('a');document.body.appendChild(l);l.href='FanControl.html';l.target='exp-loader';l.click();}
+function load_rif(){var l=document.createElement('a');document.body.appendChild(l);l.href='RifRenamer.html';l.target='exp-loader';l.click();}
+function load_gtav(){var l=document.createElement('a');document.body.appendChild(l);l.href='gta_v_lotus104.html';l.target='exp-loader';l.click();}
+function load_gtav2(){var l=document.createElement('a');document.body.appendChild(l);l.href='gta_v_ap_ii_intense.html';l.target='exp-loader';l.click();}
+function load_gtava100(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtava100.html';l.target='exp-loader';l.click();}
+function load_gtava127(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtava127.html';l.target='exp-loader';l.click();}
+function load_gtava132(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtava132.html';l.target='exp-loader';l.click();}
+function load_gtava133(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtava133.html';l.target='exp-loader';l.click();}
+function load_gtavi100(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavi100.html';l.target='exp-loader';l.click();}
+function load_gtavi127(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavi127.html';l.target='exp-loader';l.click();}
+function load_gtavl100(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavl100.html';l.target='exp-loader';l.click();}
+function load_gtavl127(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavl127.html';l.target='exp-loader';l.click();}
+function load_gtavna100(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavna100.html';l.target='exp-loader';l.click();}
+function load_gtavna127(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavna127.html';l.target='exp-loader';l.click();}
+function load_gtavnyd127(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavnyd127.html';l.target='exp-loader';l.click();}
+function load_gtavp100(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavp100.html';l.target='exp-loader';l.click();}
+function load_gtavwm100(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavwm100.html';l.target='exp-loader';l.click();}
+function load_gtavwm127(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavwm127.html';l.target='exp-loader';l.click();}
+function load_gtavwm132(){var l=document.createElement('a');document.body.appendChild(l);l.href='Wilde32.html';l.target='exp-loader';l.click();}
+function load_gtavwm133(){var l=document.createElement('a');document.body.appendChild(l);l.href='Wilde33.html';l.target='exp-loader';l.click();}
+function load_gtavwm138(){var l=document.createElement('a');document.body.appendChild(l);l.href='Wilde38.html';l.target='exp-loader';l.click();}
+function load_gtavl9(){var l=document.createElement('a');document.body.appendChild(l);l.href='gtavl9.html';l.target='exp-loader';l.click();}
+function load_ren(){var l=document.createElement('a');document.body.appendChild(l);l.href='PS4REN.html';l.target='exp-loader';l.click();}
+function load_infinix(){var l=document.createElement('a');document.body.appendChild(l);l.href='infinix.html';l.target='exp-loader';l.click();}
+function load_trpb(){var l=document.createElement('a');document.body.appendChild(l);l.href='trp_backup.html';l.target='exp-loader';l.click();}
+function load_trpr(){var l=document.createElement('a');document.body.appendChild(l);l.href='trp_restore.html';l.target='exp-loader';l.click();}
+function load_saveb(){var l=document.createElement('a');document.body.appendChild(l);l.href='save_backup.html';l.target='exp-loader';l.click();}
+function load_saver(){var l=document.createElement('a');document.body.appendChild(l);l.href='save_restore.html';l.target='exp-loader';l.click();}
+function load_savem(){var l=document.createElement('a');document.body.appendChild(l);l.href='save_mounter.html';l.target='exp-loader';l.click();}
+function load_orbis(){var l=document.createElement('a');document.body.appendChild(l);l.href='orbis.html';l.target='exp-loader';l.click();}
+function load_rdr100(){var l=document.createElement('a');document.body.appendChild(l);l.href='RDR2v100.html';l.target='exp-loader';l.click();}
+function load_rdr113(){var l=document.createElement('a');document.body.appendChild(l);l.href='RDR2v113.html';l.target='exp-loader';l.click();}
+function load_rdr119(){var l=document.createElement('a');document.body.appendChild(l);l.href='RDR2v119.html';l.target='exp-loader';l.click();}
+function load_rdr124(){var l=document.createElement('a');document.body.appendChild(l);l.href='RDR2v124.html';l.target='exp-loader';l.click();}
+function load_rdr129(){var l=document.createElement('a');document.body.appendChild(l);l.href='RDR2v129.html';l.target='exp-loader';l.click();}
+function load_rdr129H(){var l=document.createElement('a');document.body.appendChild(l);l.href='RDR2v129H.html';l.target='exp-loader';l.click();}
+
+function allhens(){all.style.display="none";hens.style.display="block";}
+function allrestore(){all.style.display="none";restore.style.display="block";}
+function alltools(){all.style.display="none";tools.style.display="block";}
+function alltrainer(){all.style.display="none";trainer.style.display="block";}
+function alldump(){all.style.display="none";dump.style.display="block";}
+function alllinux(){all.style.display="none";linux.style.display="block";}
+function allmods(){all.style.display="none";gtav.style.display="block";}
+function backall(){
+  all.style.display="block";
+  hens.style.display="none";
+  restore.style.display="none";
+  tools.style.display="none";
+  trainer.style.display="none";
+  dump.style.display="none";
+  linux.style.display="none";
+  gtav.style.display="none";
+}
+</script>
+</body>
+</html>
