@@ -3,117 +3,136 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Elya Host Hub | Ultimate Exploit Station</title>
+<title id="page-title">Elya Host Hub</title>
 <style>
   :root {
-    --bg-base: #030206;
-    --bg-surface: #0f0a1a;
-    --border-color: #b026ff;
+    --bg-base: #020104;
+    --bg-card: #080511;
+    --border-glow: #00f0ff;
+    --border-purple: #b026ff;
     --accent-pink: #ff2a85;
-    --accent-purple: #b026ff;
     --accent-cyan: #00f0ff;
     --accent-gold: #ffb703;
     --accent-green: #00ff66;
-    --text-main: #f3e8ff;
-    --text-muted: #9d8ec4;
+    --text-main: #e2d9f3;
+    --text-muted: #8b7ca8;
   }
 
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: monospace, system-ui, sans-serif;
   }
 
   body {
     background-color: var(--bg-base);
+    background-image: linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
     color: var(--text-main);
-    padding: 20px;
-    max-width: 1000px;
+    padding: 16px;
+    max-width: 950px;
     margin: 0 auto;
   }
 
+  /* Futuristic Top Header */
   .top-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    padding: 12px 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--accent-cyan);
+    border-top: 3px solid var(--accent-cyan);
+    padding: 12px 18px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
   }
 
   #msgs2 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     color: var(--accent-cyan);
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 10px;
-  }
-
-  .widget-pill {
-    background: #1a102f;
-    border: 1px solid var(--border-color);
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    color: var(--accent-pink);
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
   }
 
   .lang-toggle {
-    background: #b026ff;
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: transparent;
+    color: var(--accent-pink);
+    border: 1px solid var(--accent-pink);
+    padding: 6px 14px;
+    border-radius: 3px;
     font-weight: bold;
     cursor: pointer;
-  }
-
-  .hero-banner {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: 18px;
-    margin-bottom: 8px;
-    color: var(--accent-pink);
-  }
-
-  .hero-desc {
-    color: var(--text-muted);
     font-size: 12px;
+    letter-spacing: 1px;
+    transition: background 0.1s, color 0.1s;
   }
 
+  .lang-toggle:hover {
+    background: var(--accent-pink);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 42, 133, 0.5);
+  }
+
+  /* Hero Banner */
+  .hero {
+    background: var(--bg-card);
+    border: 1px solid var(--border-purple);
+    padding: 14px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(176, 38, 255, 0.1);
+  }
+
+  .hero h1 {
+    font-size: 14px;
+    color: var(--accent-cyan);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .hero p {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* Section Containers */
   .section-container {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
+    background: var(--bg-card);
+    border: 1px solid rgba(176, 38, 255, 0.3);
+    border-radius: 4px;
+    padding: 14px;
+    margin-bottom: 15px;
+    position: relative;
   }
 
   .section-title {
-    font-size: 13px;
-    color: var(--accent-purple);
+    font-size: 11px;
+    color: var(--accent-pink);
     text-transform: uppercase;
+    letter-spacing: 2px;
     margin-bottom: 12px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
+  .section-title::before {
+    content: ">>";
+    color: var(--accent-cyan);
+  }
+
+  /* Card Grid */
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 8px;
   }
 
   @media (max-width: 768px) {
@@ -123,41 +142,52 @@
   }
 
   .exploit-card {
-    background: #140c23;
+    background: #0d091a;
     border: 1px solid rgba(176, 38, 255, 0.3);
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 3px;
+    padding: 10px 6px;
     text-align: center;
     text-decoration: none;
     color: var(--text-main);
-    font-weight: bold;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 45px;
+    min-height: 42px;
+    transition: transform 0.1s ease, background 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
   }
 
   .exploit-card:hover {
-    border-color: var(--accent-pink);
-    background: #20123a;
+    transform: translateY(-2px);
+    background: #170f2e;
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
   }
 
-  .card-gold { color: var(--accent-gold) !important; border-color: rgba(255, 183, 3, 0.4); }
-  .card-green { color: var(--accent-green) !important; border-color: rgba(0, 255, 102, 0.4); }
+  .card-gold { color: var(--accent-gold) !important; border-color: rgba(255, 183, 3, 0.3); }
+  .card-gold:hover { border-color: var(--accent-gold) !important; color: var(--accent-gold) !important; box-shadow: 0 0 12px rgba(255, 183, 3, 0.3) !important; }
 
+  .card-green { color: var(--accent-green) !important; border-color: rgba(0, 255, 102, 0.3); }
+  .card-green:hover { border-color: var(--accent-green) !important; color: var(--accent-green) !important; box-shadow: 0 0 12px rgba(0, 255, 102, 0.3) !important; }
+
+  /* Footer */
   .site-footer {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 15px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-purple);
+    border-radius: 4px;
+    padding: 12px;
     text-align: center;
-    font-size: 13px;
+    font-size: 11px;
+    letter-spacing: 1px;
   }
 
   .hue-badge {
     color: var(--accent-pink);
     font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 42, 133, 0.6);
   }
 </style>
 
@@ -166,18 +196,18 @@ const dictionary = {
   en: {
     dir: "ltr",
     pageTitle: "Elya Host Hub",
-    statusDefault: "System Ready - Select an Exploit",
-    heroHeading: "PS4 & PS5 Exploit Host",
-    heroText: "Optimized for high stability and zero lag on console browsers.",
-    footerCredit: "Designed, Ported and Compiled by :"
+    statusDefault: "SYSTEM_READY // SELECT_EXPLOIT",
+    heroHeading: "NEURAL_NET_CONSOLE_EXPLOITS",
+    heroText: "SECURE_HOST // ZERO_LATENCY // MAXIMUM_STABILITY",
+    footerCredit: "DESIGNED_PORTED_COMPILED_BY:"
   },
   ar: {
     dir: "rtl",
     pageTitle: "منصة إيليا للهوستات",
-    statusDefault: "النظام جاهز - اختر الثغرة",
-    heroHeading: "هوست ثغرات PS4 و PS5",
-    heroText: "مُحسّن لأقصى ثبات وسرعة بدون أي تعليق على متصفح الكونسول.",
-    footerCredit: ": تصميم، تعديل وجمع بواسطة"
+    statusDefault: "النظام جاهز // اختر الثغرة",
+    heroHeading: "شبكة ثغرات الأجهزة المحمولة والمنصات",
+    heroText: "أمان تآم // بدون تقطيع // ثبات عالي",
+    footerCredit: ": تصميم وتعديل وجمع بواسطة"
   }
 };
 
@@ -197,7 +227,7 @@ function toggleLanguage() {
 }
 
 function setStatus(text) {
-  document.getElementById('msgs2').innerText = text;
+  document.getElementById('msgs2').innerText = ">> " + text;
 }
 
 function resetStatus() {
@@ -208,28 +238,23 @@ function resetStatus() {
 <body>
 
   <div class="top-header">
-    <div class="system-status">
-      <span id="msgs2">System Ready - Select an Exploit</span>
-    </div>
-    <div class="header-actions">
-      <div id="date-widget" class="widget-pill">10/7/2026</div>
-      <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()">عربي</button>
-    </div>
+    <div id="msgs2">SYSTEM_READY // SELECT_EXPLOIT</div>
+    <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()">عربي</button>
   </div>
 
-  <div class="hero-banner">
-    <h1 id="hero-title" class="hero-title">PS4 & PS5 Exploit Host</h1>
-    <p id="hero-desc" class="hero-desc">Optimized for high stability and zero lag on console browsers.</p>
+  <div class="hero">
+    <h1 id="hero-title">NEURAL_NET_CONSOLE_EXPLOITS</h1>
+    <p id="hero-desc">SECURE_HOST // ZERO_LATENCY // MAXIMUM_STABILITY</p>
   </div>
 
   <!-- QUICK TOOLS -->
   <div class="section-container">
     <div class="section-title">Quick Tools & Cheats</div>
     <div class="cards-grid">
-      <a href="restore2/505/copych.html" class="exploit-card card-gold" onmouseover="setStatus('Copy Cheat 5.05')" onmouseout="resetStatus()"><span>Copy Cheat 5.05</span></a>
-      <a href="restore2/672/copych.html" class="exploit-card card-green" onmouseover="setStatus('Copy Cheat 6.72')" onmouseout="resetStatus()"><span>Copy Cheat 6.72</span></a>
-      <a href="restore2/900/copych.html" class="exploit-card card-gold" onmouseover="setStatus('Copy Cheat 9.00')" onmouseout="resetStatus()"><span>Copy Cheat 9.00</span></a>
-      <a href="binloader/index.html" class="exploit-card card-gold" onmouseover="setStatus('Binloader')" onmouseout="resetStatus()"><span>Binloader</span></a>
+      <a href="restore2/505/copych.html" class="exploit-card card-gold" onmouseover="setStatus('COPY_CHEAT_5.05')" onmouseout="resetStatus()"><span>Copy Cheat 5.05</span></a>
+      <a href="restore2/672/copych.html" class="exploit-card card-green" onmouseover="setStatus('COPY_CHEAT_6.72')" onmouseout="resetStatus()"><span>Copy Cheat 6.72</span></a>
+      <a href="restore2/900/copych.html" class="exploit-card card-gold" onmouseover="setStatus('COPY_CHEAT_9.00')" onmouseout="resetStatus()"><span>Copy Cheat 9.00</span></a>
+      <a href="binloader/index.html" class="exploit-card card-gold" onmouseover="setStatus('BINLOADER')" onmouseout="resetStatus()"><span>Binloader</span></a>
     </div>
   </div>
 
@@ -237,26 +262,26 @@ function resetStatus() {
   <div class="section-container">
     <div class="section-title">PS4 Firmware Hosts & GoldHen</div>
     <div class="cards-grid">
-      <a href="505/index.html" class="exploit-card" onmouseover="setStatus('5.05 Host')" onmouseout="resetStatus()"><span>5.05 Host</span></a>
-      <a href="505Gold/index.html" class="exploit-card card-gold" onmouseover="setStatus('5.05 Host Gold')" onmouseout="resetStatus()"><span>5.05 Host Gold</span></a>
-      <a href="Goldhen505/index.html" class="exploit-card card-gold" onmouseover="setStatus('Goldhen 5.05')" onmouseout="resetStatus()"><span>Goldhen 5.05</span></a>
+      <a href="505/index.html" class="exploit-card" onmouseover="setStatus('PS4_5.05_HOST')" onmouseout="resetStatus()"><span>5.05 Host</span></a>
+      <a href="505Gold/index.html" class="exploit-card card-gold" onmouseover="setStatus('PS4_5.05_GOLD')" onmouseout="resetStatus()"><span>5.05 Host Gold</span></a>
+      <a href="Goldhen505/index.html" class="exploit-card card-gold" onmouseover="setStatus('GOLDHEN_5.05')" onmouseout="resetStatus()"><span>Goldhen 5.05</span></a>
 
-      <a href="672/index.html" class="exploit-card card-green" onmouseover="setStatus('6.72 Host')" onmouseout="resetStatus()"><span>6.72 Host</span></a>
-      <a href="672A/index.html" class="exploit-card card-green" onmouseover="setStatus('6.72 Host Auto')" onmouseout="resetStatus()"><span>6.72 Host Auto</span></a>
-      <a href="672L/index.html" class="exploit-card" onmouseover="setStatus('6.72 Host Light')" onmouseout="resetStatus()"><span>6.72 Host Light</span></a>
-      <a href="Goldhen672/index.html" class="exploit-card card-gold" onmouseover="setStatus('Goldhen 6.72')" onmouseout="resetStatus()"><span>Goldhen 6.72</span></a>
+      <a href="672/index.html" class="exploit-card card-green" onmouseover="setStatus('PS4_6.72_HOST')" onmouseout="resetStatus()"><span>6.72 Host</span></a>
+      <a href="672A/index.html" class="exploit-card card-green" onmouseover="setStatus('PS4_6.72_AUTO')" onmouseout="resetStatus()"><span>6.72 Host Auto</span></a>
+      <a href="672L/index.html" class="exploit-card" onmouseover="setStatus('PS4_6.72_LIGHT')" onmouseout="resetStatus()"><span>6.72 Host Light</span></a>
+      <a href="Goldhen672/index.html" class="exploit-card card-gold" onmouseover="setStatus('GOLDHEN_6.72')" onmouseout="resetStatus()"><span>Goldhen 6.72</span></a>
 
-      <a href="702/index.html" class="exploit-card card-green" onmouseover="setStatus('7.02 Host')" onmouseout="resetStatus()"><span>7.02 Host</span></a>
-      <a href="702L/index.html" class="exploit-card" onmouseover="setStatus('7.02 Host Light')" onmouseout="resetStatus()"><span>7.02 Host Light</span></a>
-      <a href="G702/index.html" class="exploit-card card-gold" onmouseover="setStatus('Goldhen 7.02')" onmouseout="resetStatus()"><span>Goldhen 7.02</span></a>
+      <a href="702/index.html" class="exploit-card card-green" onmouseover="setStatus('PS4_7.02_HOST')" onmouseout="resetStatus()"><span>7.02 Host</span></a>
+      <a href="702L/index.html" class="exploit-card" onmouseover="setStatus('PS4_7.02_LIGHT')" onmouseout="resetStatus()"><span>7.02 Host Light</span></a>
+      <a href="G702/index.html" class="exploit-card card-gold" onmouseover="setStatus('GOLDHEN_7.02')" onmouseout="resetStatus()"><span>Goldhen 7.02</span></a>
 
-      <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('7.55 Host')" onmouseout="resetStatus()"><span>7.55 Host</span></a>
-      <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('7.55 Host Light')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
-      <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('Goldhen 7.55')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
+      <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('PS4_7.55_HOST')" onmouseout="resetStatus()"><span>7.55 Host</span></a>
+      <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('PS4_7.55_LIGHT')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
+      <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('GOLDHEN_7.55')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
 
-      <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('9.00 host light')" onmouseout="resetStatus()"><span>9.00 host light</span></a>
-      <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('G2 All Pro')" onmouseout="resetStatus()"><span>G2 All Pro</span></a>
-      <a href="g2all/index.html" class="exploit-card" onmouseover="setStatus('G2 All')" onmouseout="resetStatus()"><span>G2 All</span></a>
+      <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('PS4_9.00_LIGHT')" onmouseout="resetStatus()"><span>9.00 host light</span></a>
+      <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('G2_ALL_PRO')" onmouseout="resetStatus()"><span>G2 All Pro</span></a>
+      <a href="g2all/index.html" class="exploit-card" onmouseover="setStatus('G2_ALL')" onmouseout="resetStatus()"><span>G2 All</span></a>
     </div>
   </div>
 
@@ -264,20 +289,15 @@ function resetStatus() {
   <div class="section-container">
     <div class="section-title">PS5 Exploits</div>
     <div class="cards-grid">
-      <a href="ps5/index.html" class="exploit-card" onmouseover="setStatus('PS5 etahen')" onmouseout="resetStatus()"><span>PS5 13.60 fw (etahen)</span></a>
-      <a href="onion/index.html" class="exploit-card" onmouseover="setStatus('PS5 onionhen')" onmouseout="resetStatus()"><span>PS5 all fw (onionhen)</span></a>
-      <a href="ps5v2/index.html" class="exploit-card" onmouseover="setStatus('PS5 relapse')" onmouseout="resetStatus()"><span>PS5 relapse</span></a>
-      <a href="ps5_34/index.html" class="exploit-card card-green" onmouseover="setStatus('PS5 3.xx-4.xx')" onmouseout="resetStatus()"><span>PS5 3.xx - 4.xx</span></a>
-      <a href="ps5_kstuff/index.html" class="exploit-card card-gold" onmouseover="setStatus('PS5 Kstuff')" onmouseout="resetStatus()"><span>PS5 5.xx Kstuff</span></a>
-      <a href="ps5_loader/index.html" class="exploit-card card-gold" onmouseover="setStatus('PS5 BD-J Loader')" onmouseout="resetStatus()"><span>PS5 BD-J Loader</span></a>
+      <a href="ps5/index.html" class="exploit-card" onmouseover="setStatus('PS5_ETAHEN')" onmouseout="resetStatus()"><span>PS5 13.60 fw (etahen)</span></a>
+      <a href="onion/index.html" class="exploit-card" onmouseover="setStatus('PS5_ONIONHEN')" onmouseout="resetStatus()"><span>PS5 all fw (onionhen)</span></a>
+      <a href="ps5v2/index.html" class="exploit-card" onmouseover="setStatus('PS5_RELAPSE')" onmouseout="resetStatus()"><span>PS5 relapse</span></a>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <div>
-      <span id="footer-credit" style="color: var(--accent-gold);">Designed, Ported and Compiled by :</span>&nbsp;&nbsp;<span class="hue-badge">ايليا</span>
-    </div>
+    <span id="footer-credit" style="color: var(--accent-gold);">DESIGNED_PORTED_COMPILED_BY:</span>&nbsp;&nbsp;<span class="hue-badge">ايليا</span>
   </footer>
 
 </body>
