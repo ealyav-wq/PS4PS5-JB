@@ -7,10 +7,8 @@
 <style>
   :root {
     --bg-base: #030206;
-    --bg-surface: rgba(15, 10, 26, 0.65);
-    --bg-surface-hover: rgba(25, 16, 45, 0.85);
-    --border-color: rgba(176, 38, 255, 0.2);
-    --border-glow: rgba(255, 42, 133, 0.4);
+    --bg-surface: rgba(15, 10, 26, 0.75);
+    --border-color: rgba(176, 38, 255, 0.25);
     
     --accent-pink: #ff2a85;
     --accent-purple: #b026ff;
@@ -20,8 +18,6 @@
     
     --text-main: #f3e8ff;
     --text-muted: #9d8ec4;
-    
-    --sidebar-width: 280px;
   }
 
   * {
@@ -40,122 +36,14 @@
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
-    overflow-x: hidden;
-  }
-
-  /* SIDEBAR NAVIGATION */
-  aside {
-    width: var(--sidebar-width);
-    background: rgba(10, 6, 18, 0.85);
-    border-right: 1px solid var(--border-color);
-    backdrop-filter: blur(20px);
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 25px 20px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    transition: transform 0.3s ease;
-  }
-
-  [dir="rtl"] aside {
-    left: auto;
-    right: 0;
-    border-right: none;
-    border-left: 1px solid var(--border-color);
-  }
-
-  .brand-area {
-    display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
+    padding: 20px;
   }
 
-  .brand-logo {
-    width: 42px;
-    height: 42px;
-    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 20px;
-    color: #fff;
-    box-shadow: 0 0 20px rgba(255, 42, 133, 0.4);
-  }
-
-  .brand-title {
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, #fff, var(--text-muted));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .nav-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-grow: 1;
-  }
-
-  .nav-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    text-align: left;
-    [dir="rtl"] & { text-align: right; }
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.25s ease;
-  }
-
-  .nav-btn:hover, .nav-btn.active {
-    background: rgba(176, 38, 255, 0.15);
-    color: var(--accent-cyan);
-    box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
-    transform: translateX(4px);
-    [dir="rtl"] & { transform: translateX(-4px); }
-  }
-
-  .nav-btn svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
-
-  .sidebar-footer {
-    padding-top: 15px;
-    border-top: 1px solid var(--border-color);
-    font-size: 12px;
-    color: var(--text-muted);
-    text-align: center;
-  }
-
-  /* MAIN CONTENT AREA */
-  main {
-    flex-grow: 1;
-    margin-left: var(--sidebar-width);
-    [dir="rtl"] & {
-      margin-left: 0;
-      margin-right: var(--sidebar-width);
-    }
-    padding: 30px;
-    max-width: calc(100% - var(--sidebar-width));
+  .container {
+    width: 100%;
+    max-width: 1100px;
   }
 
   /* TOP HEADER BAR */
@@ -168,47 +56,50 @@
     padding: 15px 25px;
     border-radius: 16px;
     backdrop-filter: blur(10px);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    flex-wrap: wrap;
+    gap: 15px;
   }
 
-  .system-status {
+  .brand-area {
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
-  .status-dot {
-    width: 10px;
-    height: 10px;
-    background-color: var(--accent-green);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent-green);
-    animation: pulse 2s infinite;
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 42, 133, 0.4);
   }
 
-  @keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 255, 102, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
-  }
-
-  #msgs2 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--accent-cyan);
+  .brand-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
   }
 
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .widget-pill {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-color);
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 700;
@@ -232,42 +123,65 @@
     box-shadow: 0 0 20px var(--accent-cyan);
   }
 
+  /* STATUS BAR */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent-green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 255, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+  }
+
+  #msgs2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+  }
+
   /* HERO BANNER */
   .hero-banner {
     background: linear-gradient(135deg, rgba(20, 12, 35, 0.8), rgba(40, 15, 60, 0.4));
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 35px;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
+    padding: 30px;
+    margin-bottom: 25px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-  }
-
-  .hero-banner::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255,42,133,0.2) 0%, transparent 70%);
-    pointer-events: none;
+    text-align: center;
   }
 
   .hero-title {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-shadow: 0 0 15px rgba(255, 42, 133, 0.4);
   }
 
   .hero-desc {
     color: var(--text-muted);
-    font-size: 15px;
+    font-size: 14px;
     max-width: 700px;
+    margin: 0 auto;
     line-height: 1.5;
   }
 
@@ -276,23 +190,20 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 25px;
+    padding: 20px;
     margin-bottom: 25px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
   }
 
   .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
   }
 
   .section-title {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--accent-purple);
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -303,15 +214,15 @@
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 15px;
+    gap: 12px;
   }
 
-  /* REDESIGNED BUTTON CARDS */
+  /* BUTTON CARDS */
   .exploit-card {
-    background: rgba(15, 10, 26, 0.7);
-    border: 1px solid rgba(255, 42, 133, 0.2);
+    background: rgba(15, 10, 26, 0.85);
+    border: 1px solid rgba(255, 42, 133, 0.25);
     border-radius: 14px;
-    padding: 16px;
+    padding: 14px;
     text-align: center;
     text-decoration: none;
     color: var(--text-main);
@@ -321,41 +232,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80px;
+    min-height: 55px;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  }
-
-  .exploit-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 42, 133, 0.15), rgba(176, 38, 255, 0.15));
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    cursor: pointer;
   }
 
   .exploit-card:hover {
     border-color: var(--accent-pink);
-    box-shadow: 0 0 25px rgba(255, 42, 133, 0.35), inset 0 0 15px rgba(176, 38, 255, 0.2);
-    transform: translateY(-3px);
+    background: linear-gradient(135deg, rgba(255, 42, 133, 0.25), rgba(176, 38, 255, 0.25));
+    box-shadow: 0 0 25px rgba(255, 42, 133, 0.35);
+    transform: translateY(-2px);
+    color: #fff;
   }
 
-  .exploit-card:hover::before {
-    opacity: 1;
-  }
-
-  .exploit-card span {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Card Color Modifiers */
   .card-gold { color: var(--accent-gold) !important; border-color: rgba(255, 183, 3, 0.3); }
   .card-gold:hover { border-color: var(--accent-gold); box-shadow: 0 0 25px rgba(255, 183, 3, 0.4); }
 
@@ -367,10 +259,10 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 18px;
-    padding: 25px;
+    padding: 20px;
     text-align: center;
     backdrop-filter: blur(10px);
-    margin-top: 40px;
+    margin-bottom: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
@@ -393,14 +285,6 @@
     50% { box-shadow: 0px 0px 25px var(--accent-cyan); }
     100% { filter: hue-rotate(360deg); box-shadow: 0px 0px 15px var(--accent-purple); }
   }
-
-  /* Responsive Design */
-  @media (max-width: 900px) {
-    aside { transform: translateX(-100%); }
-    [dir="rtl"] aside { transform: translateX(100%); }
-    aside.mobile-open { transform: translateX(0); }
-    main { margin-left: 0; margin-right: 0; max-width: 100%; padding: 15px; }
-  }
 </style>
 
 <script>
@@ -418,16 +302,11 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
-// Comprehensive Full-Page Bilingual Localization Dictionary
 const dictionary = {
   en: {
     dir: "ltr",
     pageTitle: "Elya Host Hub | Ultimate Exploit Station",
     brandTitle: "ELYA HOST",
-    navTools: "Quick Tools & Cheats",
-    navPs4: "PS4 Firmware & GoldHen",
-    navPs5: "PS5 Exploits",
-    navGuides: "Guides & Restore",
     statusDefault: "System Ready - Select an Exploit",
     heroHeading: "Next-Gen Console Exploits Hub",
     heroText: "Engineered for maximum stability, advanced caching, and high compatibility across PS4 and PS5 firmware editions.",
@@ -438,7 +317,6 @@ const dictionary = {
     footerCredit: "Designed, Ported and Compiled by :",
     footerThanks: "Special Thanks : Karo Sharifi, Scene Developers, Exploit Contributors, & all the community",
     
-    // Status tooltips
     t_copy505: "Copy Cheat For Firmware 5.05",
     t_copy672: "Copy Cheat For Firmware 6.72",
     t_copy900: "Copy Cheat For Firmware 9.00",
@@ -472,10 +350,6 @@ const dictionary = {
     dir: "rtl",
     pageTitle: "منصة إيليا للهوستات | محطة الثغرات الشاملة",
     brandTitle: "مضيف إيليا",
-    navTools: "الأدوات السريعة والتشيت",
-    navPs4: "إصدارات ومضيفات PS4",
-    navPs5: "ثغرات وأدوات PS5",
-    navGuides: "الأدلة والاستعادة",
     statusDefault: "النظام جاهز - اختر الثغرة المطلوبة",
     heroHeading: "منصة ثغرات الأجهزة المتقدمة",
     heroText: "مصممة خصيصاً لأقصى درجات الثبات، التخزين المؤقت المتقدم، والتوافق العالي مع مختلف إصدارات الأنظمة لأجهزة PS4 و PS5.",
@@ -486,7 +360,6 @@ const dictionary = {
     footerCredit: ": تصميم، تعديل وجمع بواسطة",
     footerThanks: "شكر خاص: كارو شريفي، مطورو السين، مساهمو الثغرات، وكل المجتمع",
     
-    // Status tooltips translated
     t_copy505: "نسخ التشيت لإصدار 5.05",
     t_copy672: "نسخ التشيت لإصدار 6.72",
     t_copy900: "نسخ التشيت لإصدار 9.00",
@@ -528,10 +401,6 @@ function toggleLanguage() {
   document.documentElement.setAttribute('dir', t.dir);
   document.getElementById('page-title').innerText = t.pageTitle;
   document.getElementById('brand-title').innerText = t.brandTitle;
-  document.getElementById('nav-tools-text').innerText = t.navTools;
-  document.getElementById('nav-ps4-text').innerText = t.navPs4;
-  document.getElementById('nav-ps5-text').innerText = t.navPs5;
-  document.getElementById('nav-guides-text').innerText = t.navGuides;
   document.getElementById('msgs2').innerText = t.statusDefault;
   document.getElementById('hero-title').innerText = t.heroHeading;
   document.getElementById('hero-desc').innerText = t.heroText;
@@ -551,61 +420,98 @@ function setStatus(key) {
 function resetStatus() {
   document.getElementById('msgs2').innerText = dictionary[currentLang].statusDefault;
 }
-
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-}
 </script>
 </head>
 <body>
 
-  <!-- SIDEBAR NAVIGATION -->
-  <aside id="sidebar">
-    <div>
-      <div class="brand-area">
-        <div class="brand-logo">E</div>
-        <div id="brand-title" class="brand-title">ELYA HOST</div>
-      </div>
-      <div class="nav-menu">
-        <button class="nav-btn active" onclick="scrollToSection('section-tools')">
-          <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.5 7.1 1 10.1 3 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1 0-1.5z"/></svg>
-          <span id="nav-tools-text">Quick Tools & Cheats</span>
-        </button>
-        <button class="nav-btn" onclick="scrollToSection('section-ps4')">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-          <span id="nav-ps4-text">PS4 Firmware & GoldHen</span>
-        </button>
-        <button class="nav-btn" onclick="scrollToSection('section-ps5')">
-          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-          <span id="nav-ps5-text">PS5 Exploits</span>
-        </button>
-        <button class="nav-btn" onclick="scrollToSection('section-guides')">
-          <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-          <span id="nav-guides-text">Guides & Restore</span>
-        </button>
-      </div>
+<div class="container">
+  <!-- TOP HEADER BAR -->
+  <div class="top-header">
+    <div class="brand-area">
+      <div class="brand-logo">E</div>
+      <div id="brand-title" class="brand-title">ELYA HOST</div>
     </div>
-    <div class="sidebar-footer">
-      <span>v5.2.0 Ultimate Edition</span>
+    <div class="header-actions">
+      <div id="date-widget" class="widget-pill"></div>
+      <div id="clock-widget" class="widget-pill"></div>
+      <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()">عربي</button>
     </div>
-  </aside>
+  </div>
 
-  <!-- MAIN CONTAINER -->
-  <main>
-    <!-- TOP HEADER BAR -->
-    <div class="top-header">
-      <div class="system-status">
-        <div class="status-dot"></div>
-        <span id="msgs2">System Ready - Select an Exploit</span>
-      </div>
-      <div class="header-actions">
-        <div id="date-widget" class="widget-pill"></div>
-        <div id="clock-widget" class="widget-pill"></div>
-        <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()">عربي</button>
-      </div>
-    </div>
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <span id="msgs2">System Ready - Select an Exploit</span>
+  </div>
 
-    <!-- HERO BANNER -->
-    <div class="hero-banner">
-      <h1 id="hero-title" class="hero-title">Next-Gen Console Exploits Hub</h1>
-      <p id="hero-desc" class="hero-desc">Engineered for maximum stability, advanced caching, and high compatibility across PS4 and PS5 firmware e
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <h1 id="hero-title" class="hero-title">Next-Gen Console Exploits Hub</h1>
+    <p id="hero-desc" class="hero-desc">Engineered for maximum stability, advanced caching, and high compatibility across PS4 and PS5 firmware editions.</p>
+  </div>
+
+  <!-- SECTION 1: QUICK TOOLS & CHEATS -->
+  <div class="section-container">
+    <div class="section-header">
+      <div id="sec-tools-title" class="section-title">Quick Tools & Cheats</div>
+    </div>
+    <div class="cards-grid">
+      <a href="restore2/505/copych.html" class="exploit-card card-gold" onmouseover="setStatus('t_copy505')" onmouseout="resetStatus()"><span>Copy Cheat 5.05</span></a>
+      <a href="restore2/672/copych.html" class="exploit-card card-green" onmouseover="setStatus('t_copy672')" onmouseout="resetStatus()"><span>Copy Cheat 6.72</span></a>
+      <a href="restore2/900/copych.html" class="exploit-card card-gold" onmouseover="setStatus('t_copy900')" onmouseout="resetStatus()"><span>Copy Cheat 9.00</span></a>
+      <a href="binloader/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_binloader')" onmouseout="resetStatus()"><span>Binloader</span></a>
+    </div>
+  </div>
+
+  <!-- SECTION 2: PS4 FIRMWARE HOSTS & GOLDHEN -->
+  <div class="section-container">
+    <div class="section-header">
+      <div id="sec-ps4-title" class="section-title">PS4 Firmware Hosts & GoldHen</div>
+    </div>
+    <div class="cards-grid">
+      <a href="505/index.html" class="exploit-card" onmouseover="setStatus('t_505')" onmouseout="resetStatus()"><span>5.05 Host</span></a>
+      <a href="505Gold/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_505gold')" onmouseout="resetStatus()"><span>5.05 Host Gold</span></a>
+      <a href="Goldhen505/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold505')" onmouseout="resetStatus()"><span>Goldhen 5.05</span></a>
+
+      <a href="672/index.html" class="exploit-card card-green" onmouseover="setStatus('t_672')" onmouseout="resetStatus()"><span>6.72 Host</span></a>
+      <a href="672A/index.html" class="exploit-card card-green" onmouseover="setStatus('t_672a')" onmouseout="resetStatus()"><span>6.72 Host Auto</span></a>
+      <a href="672L/index.html" class="exploit-card" onmouseover="setStatus('t_672l')" onmouseout="resetStatus()"><span>6.72 Host Light</span></a>
+      <a href="Goldhen672/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold672')" onmouseout="resetStatus()"><span>Goldhen 6.72</span></a>
+
+      <a href="702/index.html" class="exploit-card card-green" onmouseover="setStatus('t_702')" onmouseout="resetStatus()"><span>7.02 Host</span></a>
+      <a href="702L/index.html" class="exploit-card" onmouseover="setStatus('t_702l')" onmouseout="resetStatus()"><span>7.02 Host Light</span></a>
+      <a href="G702/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold702')" onmouseout="resetStatus()"><span>Goldhen 7.02</span></a>
+
+      <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('t_755')" onmouseout="resetStatus()"><span>7.55 Host</span></a>
+      <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('t_755l')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
+      <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold755')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
+
+      <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_900l')" onmouseout="resetStatus()"><span>9.00 Host Light</span></a>
+      <a href="900NM/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900nm')" onmouseout="resetStatus()"><span>9.00 Host Manual</span></a>
+      <a href="900New/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900new')" onmouseout="resetStatus()"><span>9.00 Host New</span></a>
+      <a href="G900/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold900')" onmouseout="resetStatus()"><span>Goldhen 9.00</span></a>
+
+      <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gallpro')" onmouseout="resetStatus()"><span>GoldHen All Pro</span></a>
+      <a href="g2all/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gall')" onmouseout="resetStatus()"><span>GoldHen All</span></a>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PS5 EXPLOITS -->
+  <div class="section-container">
+    <div class="section-header">
+      <div id="sec-ps5-title" class="section-title">PS5 Exploits Suite</div>
+    </div>
+    <div class="cards-grid">
+      <a href="ps5/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_ps5eta')" onmouseout="resetStatus()" style="grid-column: span 2;"><span>PS5 etahen JB</span></a>
+      <a href="onion/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_ps5onion')" onmouseout="resetStatus()" style="grid-column: span 2;"><span>PS5 onionhen JB</span></a>
+      <a href="ps5v2/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_ps5rel')" onmouseout="resetStatus()" style="grid-column: span 2;"><span>PS5 relapse v2 JB</span></a>
+    </div>
+  </div>
+
+  <!-- SECTION 4: GUIDES & RESTORATION -->
+  <div class="section-container">
+    <div class="section-header">
+      <div id="sec-guides-title" class="section-title">Guides & System Restoration</div>
+    </div>
+    <div class="cards-grid">
+      <a href="restore/index.html" class="exploit
