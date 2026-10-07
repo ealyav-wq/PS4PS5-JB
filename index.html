@@ -121,6 +121,7 @@
     gap: 12px;
     transition: all 0.25s ease;
     text-decoration: none;
+    width: 100%;
   }
 
   .nav-btn:hover {
@@ -486,6 +487,14 @@ function toggleMobileSidebar() {
   document.getElementById('sidebar-aside').classList.toggle('mobile-open');
 }
 
+function scrollToSection(sectionId) {
+  toggleMobileSidebar();
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 function setStatus(key) {
   document.getElementById('msgs2').innerText = dictionary[currentLang][key] || dictionary[currentLang].statusDefault;
 }
@@ -505,10 +514,10 @@ function resetStatus() {
         <div id="brand-title" class="brand-title">ELYA HOST</div>
       </div>
       <div class="nav-menu">
-        <a href="#tools-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-tools">Quick Tools & Cheats</span></a>
-        <a href="#ps4-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-ps4">PS4 Firmware & GoldHen</span></a>
-        <a href="#ps5-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-ps5">PS5 Exploits</span></a>
-        <a href="#guides-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-guides">Guides & Restore</span></a>
+        <button class="nav-btn" onclick="scrollToSection('tools-section')"><span id="nav-tools">Quick Tools & Cheats</span></button>
+        <button class="nav-btn" onclick="scrollToSection('ps4-section')"><span id="nav-ps4">PS4 Firmware & GoldHen</span></button>
+        <button class="nav-btn" onclick="scrollToSection('ps5-section')"><span id="nav-ps5">PS5 Exploits</span></button>
+        <button class="nav-btn" onclick="scrollToSection('guides-section')"><span id="nav-guides">Guides & Restore</span></button>
       </div>
     </div>
     <div class="sidebar-footer">
@@ -584,5 +593,4 @@ function resetStatus() {
         <a href="900New/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900new')" onmouseout="resetStatus()"><span>9.00 Host New</span></a>
         <a href="G900/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold900')" onmouseout="resetStatus()"><span>Goldhen 9.00</span></a>
 
-        <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gallpro')" onmouseout="resetStatus()"><span>GoldHen All Pro</span></a>
-        <a href="g2all/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gall')" onmouseout="resetStatus()"><span>GoldHen All</span></a
+        <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gallpro')" onmouseo
