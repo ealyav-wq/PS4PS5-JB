@@ -440,7 +440,10 @@ const dictionary = {
     menuBtn: "☰ Menu",
     t_ps5: "Loading PS5 Etahen Exploit...",
     t_onion: "Loading PS5 Onionhen Exploit...",
-    t_v2: "Loading PS5 Relapse Exploit..."
+    t_v2: "Loading PS5 Relapse Exploit...",
+    t_ps5_34: "Loading PS5 3.xx-4.xx Exploit...",
+    t_ps5_kstuff: "Loading PS5 Kstuff / Payload...",
+    t_ps5_loader: "Loading PS5 BD-J Elf Loader..."
   },
   ar: {
     dir: "rtl",
@@ -462,7 +465,10 @@ const dictionary = {
     menuBtn: "القائمة ☰",
     t_ps5: "جارٍ تحميل ثغرة PS5 Etahen...",
     t_onion: "جارٍ تحميل ثغرة PS5 Onionhen...",
-    t_v2: "جارٍ تحميل ثغرة PS5 Relapse..."
+    t_v2: "جارٍ تحميل ثغرة PS5 Relapse...",
+    t_ps5_34: "جارٍ تحميل ثغرة PS5 للإصدارات 3.xx-4.xx...",
+    t_ps5_kstuff: "جارٍ تحميل حمولة Kstuff لأجهزة PS5...",
+    t_ps5_loader: "جارٍ تحميل ملقم الحمولات BD-J لـ PS5..."
   }
 };
 
@@ -604,8 +610,50 @@ function resetStatus() {
         <a href="702L/index.html" class="exploit-card" onmouseover="setStatus('t_702l')" onmouseout="resetStatus()"><span>7.02 Host Light</span></a>
         <a href="G702/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold702')" onmouseout="resetStatus()"><span>Goldhen 7.02</span></a>
 
-        <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('t_755')" onmouseout="resetStatus()"><span>7.55 Host</span></a>
-        <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('t_755l')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
+        <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('t_755')" onmouseout="resetStatus()"><span>7.55 Host</span></a>        <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('t_755l')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
         <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold755')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
 
-        <a href="900L/inde
+        <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_900l')" onmouseout="resetStatus()"><span>9.00 host light</span></a>
+      </div>
+    </div>
+
+    <!-- SECTION 3: PS5 EXPLOITS -->
+    <div id="ps5-section" class="section-container">
+      <div class="section-header">
+        <div id="sec-ps5-title" class="section-title">PS5 exploits (etahen and onionhen)</div>
+      </div>
+      <div class="cards-grid">
+        <a href="ps5/index.html" class="exploit-card" onmouseover="setStatus('t_ps5')" onmouseout="resetStatus()"><span>PS5 13.60 fw exploit (etahen)</span></a>
+        <a href="onion/index.html" class="exploit-card" onmouseover="setStatus('t_onion')" onmouseout="resetStatus()"><span>PS5 exploit for all fw (onionhen)</span></a>
+        <a href="ps5v2/index.html" class="exploit-card" onmouseover="setStatus('t_v2')" onmouseout="resetStatus()"><span>PS5 relapse</span></a>
+        <a href="ps5_34/index.html" class="exploit-card card-green" onmouseover="setStatus('t_ps5_34')" onmouseout="resetStatus()"><span>PS5 3.xx - 4.xx Exploit</span></a>
+        <a href="ps5_kstuff/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_ps5_kstuff')" onmouseout="resetStatus()"><span>PS5 5.xx Kstuff / Payload</span></a>
+        <a href="ps5_loader/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_ps5_loader')" onmouseout="resetStatus()"><span>PS5 BD-J Elf Loader</span></a>
+      </div>
+    </div>
+
+    <!-- SECTION 4: GUIDES & RESTORATION -->
+    <div id="guides-section" class="section-container">
+      <div class="section-header">
+        <div id="sec-guides-title" class="section-title">Guides & System Restoration</div>
+      </div>
+      <div class="cards-grid">
+        <a href="restore/index.html" class="exploit-card card-gold" style="grid-column: span 2;"><span>Restore Hosts Guide</span></a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div style="line-height: 1.8;">
+        <span id="footer-credit" style="color: var(--accent-gold); font-weight: 700;">Designed, Ported and Compiled by :</span>&nbsp;&nbsp;<span class="hue-badge">ايليا</span>
+        <br>
+        <span id="footer-thanks" style="color: var(--text-muted); font-size: 14px;">Special Thanks : Karo Sharifi, Scene Developers, Exploit Contributors, &amp; all the community</span>
+      </div>
+    </footer>
+  </main>
+
+<script>
+  updateClock();
+</script>
+</body>
+</html>
