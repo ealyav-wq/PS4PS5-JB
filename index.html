@@ -124,7 +124,7 @@
     width: 100%;
   }
 
-  .nav-btn:hover {
+  .nav-btn:hover, .nav-btn.active {
     background: rgba(176, 38, 255, 0.15);
     color: var(--accent-cyan);
     transform: translateX(4px);
@@ -280,6 +280,7 @@
 
   /* SECTION & CARDS GRID */
   .section-container {
+    display: none; /* Hidden by default, shown via JS tab switcher */
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 20px;
@@ -287,7 +288,10 @@
     margin-bottom: 25px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    scroll-margin-top: 20px;
+  }
+
+  .section-container.active-view {
+    display: block;
   }
 
   .section-header {
@@ -487,11 +491,25 @@ function toggleMobileSidebar() {
   document.getElementById('sidebar-aside').classList.toggle('mobile-open');
 }
 
-function scrollToSection(sectionId) {
-  toggleMobileSidebar();
-  const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+function switchView(sectionId, btnElement) {
+  // Close mobile drawer if open
+  document.getElementById('sidebar-aside').classList.remove('mobile-open');
+
+  // Hide all section containers
+  const sections = document.querySelectorAll('.section-container');
+  sections.forEach(sec => sec.classList.remove('active-view'));
+
+  // Show the selected section container
+  const target = document.getElementById(sectionId);
+  if (target) {
+    target.classList.add('active-view');
+  }
+
+  // Update active state on buttons
+  const buttons = document.querySelectorAll('.nav-btn');
+  buttons.forEach(b => b.classList.remove('active'));
+  if (btnElement) {
+    btnElement.classList.add('active');
   }
 }
 
@@ -514,10 +532,10 @@ function resetStatus() {
         <div id="brand-title" class="brand-title">ELYA HOST</div>
       </div>
       <div class="nav-menu">
-        <button class="nav-btn" onclick="scrollToSection('tools-section')"><span id="nav-tools">Quick Tools & Cheats</span></button>
-        <button class="nav-btn" onclick="scrollToSection('ps4-section')"><span id="nav-ps4">PS4 Firmware & GoldHen</span></button>
-        <button class="nav-btn" onclick="scrollToSection('ps5-section')"><span id="nav-ps5">PS5 Exploits</span></button>
-        <button class="nav-btn" onclick="scrollToSection('guides-section')"><span id="nav-guides">Guides & Restore</span></button>
+        <button class="nav-btn" onclick="switchView('tools-section', this)"><span id="nav-tools">Quick Tools & Cheats</span></button>
+        <button class="nav-btn active" onclick="switchView('ps4-section', this)"><span id="nav-ps4">PS4 Firmware & GoldHen</span></button>
+        <button class="nav-btn" onclick="switchView('ps5-section', this)"><span id="nav-ps5">PS5 Exploits</span></button>
+        <button class="nav-btn" onclick="switchView('guides-section', this)"><span id="nav-guides">Guides & Restore</span></button>
       </div>
     </div>
     <div class="sidebar-footer">
@@ -565,8 +583,8 @@ function resetStatus() {
       </div>
     </div>
 
-    <!-- SECTION 2: PS4 FIRMWARE HOSTS & GOLDHEN -->
-    <div id="ps4-section" class="section-container">
+    <!-- SECTION 2: PS4 FIRMWARE HOSTS & GOLDHEN (Default View) -->
+    <div id="ps4-section" class="section-container active-view">
       <div class="section-header">
         <div id="sec-ps4-title" class="section-title">PS4 Firmware Hosts & GoldHen</div>
       </div>
@@ -588,9 +606,4 @@ function resetStatus() {
         <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('t_755l')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
         <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold755')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
 
-        <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_900l')" onmouseout="resetStatus()"><span>9.00 Host Light</span></a>
-        <a href="900NM/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900nm')" onmouseout="resetStatus()"><span>9.00 Host Manual</span></a>
-        <a href="900New/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900new')" onmouseout="resetStatus()"><span>9.00 Host New</span></a>
-        <a href="G900/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold900')" onmouseout="resetStatus()"><span>Goldhen 9.00</span></a>
-
-        <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gallpro')" onmouseo
+        <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_900l')" onmou
