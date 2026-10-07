@@ -1,204 +1,520 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<title id="page-title">Elya Host For PS4 505 & 672 & 7.XX - 13.52</title>
-<style type="text/css">
-:root {
-  --bg-dark: #0b0e14;
-  --card-bg: rgba(22, 27, 34, 0.75);
-  --accent-cyan: #00e5ff;
-  --accent-gold: #e3b341;
-  --text-main: #f0f6fc;
-  --text-muted: #8b949e;
-  --border-glow: rgba(0, 229, 255, 0.3);
-}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Elya Host Hub | Ultimate Exploit Station</title>
+<style>
+  :root {
+    --bg-base: #030206;
+    --bg-surface: rgba(15, 10, 26, 0.65);
+    --bg-surface-hover: rgba(25, 16, 45, 0.85);
+    --border-color: rgba(176, 38, 255, 0.2);
+    --border-glow: rgba(255, 42, 133, 0.4);
+    
+    --accent-pink: #ff2a85;
+    --accent-purple: #b026ff;
+    --accent-cyan: #00f0ff;
+    --accent-gold: #ffb703;
+    --accent-green: #00ff66;
+    
+    --text-main: #f3e8ff;
+    --text-muted: #9d8ec4;
+    
+    --sidebar-width: 280px;
+  }
 
-body {
-  background-color: var(--bg-dark);
-  background-image: radial-gradient(circle at 50% 0%, #161b22 0%, var(--bg-dark) 75%);
-  color: var(--text-main);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  margin: 0;
-  padding: 20px;
-  min-height: 95vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
 
-#container {
-  width: 100%;
-  max-width: 1000px;
-  text-align: center;
-}
+  body {
+    background-color: var(--bg-base);
+    background-image: 
+      radial-gradient(circle at 15% 15%, rgba(176, 38, 255, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(255, 42, 133, 0.12) 0%, transparent 45%),
+      linear-gradient(135deg, #030206 0%, #0a0414 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
 
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
+  /* SIDEBAR NAVIGATION */
+  aside {
+    width: var(--sidebar-width);
+    background: rgba(10, 6, 18, 0.85);
+    border-right: 1px solid var(--border-color);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
 
-#clock, #date, #lang-btn {
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--accent-cyan);
-  background: var(--card-bg);
-  padding: 8px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
+  [dir="rtl"] aside {
+    left: auto;
+    right: 0;
+    border-right: none;
+    border-left: 1px solid var(--border-color);
+  }
 
-#lang-btn {
-  cursor: pointer;
-  color: var(--accent-gold);
-  transition: all 0.25s ease;
-}
+  .brand-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
 
-#lang-btn:hover {
-  box-shadow: 0 0 20px var(--border-glow);
-  background-color: #1f6feb;
-  color: white;
-  border-color: var(--accent-cyan);
-}
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 20px;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 42, 133, 0.4);
+  }
 
-h1.main-title {
-  font-size: 24px;
-  text-align: center;
-  color: var(--accent-gold);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 10px 0;
-  text-shadow: 0 0 15px rgba(227, 179, 65, 0.3);
-}
+  .brand-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #fff, var(--text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-#msgs2 {
-  font-size: 16px;
-  text-align: center;
-  color: var(--text-main);
-  background: var(--card-bg);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 10px;
-  border-radius: 12px;
-  margin: 15px auto 25px auto;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
 
-#MyItems {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+  .nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    text-align: left;
+    [dir="rtl"] & { text-align: right; }
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.25s ease;
+  }
 
-button {
-  background: var(--card-bg);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  width: 170px;
-  height: 45px;
-  text-align: center;
-  padding: 6px;
-  margin: 4px;
-  color: var(--text-main);
-  font-weight: 600;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(5px);
-}
+  .nav-btn:hover, .nav-btn.active {
+    background: rgba(176, 38, 255, 0.15);
+    color: var(--accent-cyan);
+    box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+    transform: translateX(4px);
+    [dir="rtl"] & { transform: translateX(-4px); }
+  }
 
-button:hover {
-  box-shadow: 0 0 20px var(--border-glow);
-  background-color: #1f6feb;
-  color: white;
-  border-color: var(--accent-cyan);
-  transform: translateY(-2px);
-}
+  .nav-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
 
-.content {
-  width: 90%;
-  max-width: 800px;
-  margin: 30px auto 10px auto;
-  background: var(--card-bg);
-  color: white;
-  font-size: 18px;
-  text-align: center;
-  border-radius: 20px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-}
+  .sidebar-footer {
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+  }
 
-.yellow {
-  color: var(--accent-gold);
-  font-weight: 700;
-}
+  /* MAIN CONTENT AREA */
+  main {
+    flex-grow: 1;
+    margin-left: var(--sidebar-width);
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: var(--sidebar-width);
+    }
+    padding: 30px;
+    max-width: calc(100% - var(--sidebar-width));
+  }
 
-.hue {
-  color: white;
-  padding: 6px 16px;
-  border-radius: 10px;
-  animation: hue 5s linear infinite;
-  -webkit-animation: hue 5s linear infinite;
-  box-shadow: 0px 0px 25px var(--accent-gold);
-  background: rgba(227, 179, 65, 0.2);
-  display: inline-block;
-  font-weight: bold;
-}
+  /* TOP HEADER BAR */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 15px 25px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 25px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
 
-.hue:hover {
-  color: var(--accent-gold);
-  background: transparent;
-}
+  .system-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 
-@keyframes hue {
-  0% { filter: hue-rotate(0deg); -webkit-filter: hue-rotate(0deg); }
-  50% { box-shadow: 0px 0px 15px var(--accent-cyan); }
-  100% { filter: hue-rotate(360deg); -webkit-filter: hue-rotate(360deg); }
-}
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent-green);
+    animation: pulse 2s infinite;
+  }
 
-.pointer { cursor: pointer; }
-a { text-decoration: none; }
+  @keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 255, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+  }
+
+  #msgs2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .widget-pill {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-pink);
+  }
+
+  .lang-toggle {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.2));
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    color: var(--accent-cyan);
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .lang-toggle:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-base);
+    box-shadow: 0 0 20px var(--accent-cyan);
+  }
+
+  /* HERO BANNER */
+  .hero-banner {
+    background: linear-gradient(135deg, rgba(20, 12, 35, 0.8), rgba(40, 15, 60, 0.4));
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+
+  .hero-banner::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,42,133,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(255, 42, 133, 0.4);
+  }
+
+  .hero-desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 700px;
+    line-height: 1.5;
+  }
+
+  /* SECTION & CARDS GRID */
+  .section-container {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .section-title {
+    font-size: 16px;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(176, 38, 255, 0.4);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 15px;
+  }
+
+  /* REDESIGNED BUTTON CARDS */
+  .exploit-card {
+    background: rgba(15, 10, 26, 0.7);
+    border: 1px solid rgba(255, 42, 133, 0.2);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+
+  .exploit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 42, 133, 0.15), rgba(176, 38, 255, 0.15));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .exploit-card:hover {
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 25px rgba(255, 42, 133, 0.35), inset 0 0 15px rgba(176, 38, 255, 0.2);
+    transform: translateY(-3px);
+  }
+
+  .exploit-card:hover::before {
+    opacity: 1;
+  }
+
+  .exploit-card span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Card Color Modifiers */
+  .card-gold { color: var(--accent-gold) !important; border-color: rgba(255, 183, 3, 0.3); }
+  .card-gold:hover { border-color: var(--accent-gold); box-shadow: 0 0 25px rgba(255, 183, 3, 0.4); }
+
+  .card-green { color: var(--accent-green) !important; border-color: rgba(0, 255, 102, 0.3); }
+  .card-green:hover { border-color: var(--accent-green); box-shadow: 0 0 25px rgba(0, 255, 102, 0.4); }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .hue-badge {
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 12px;
+    animation: hueCycle 6s linear infinite;
+    box-shadow: 0 0 20px var(--accent-pink);
+    background: rgba(255, 42, 133, 0.3);
+    border: 1px solid rgba(255, 42, 133, 0.6);
+    display: inline-block;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  @keyframes hueCycle {
+    0% { filter: hue-rotate(0deg); box-shadow: 0px 0px 15px var(--accent-pink); }
+    50% { box-shadow: 0px 0px 25px var(--accent-cyan); }
+    100% { filter: hue-rotate(360deg); box-shadow: 0px 0px 15px var(--accent-purple); }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    aside { transform: translateX(-100%); }
+    [dir="rtl"] aside { transform: translateX(100%); }
+    aside.mobile-open { transform: translateX(0); }
+    main { margin-left: 0; margin-right: 0; max-width: 100%; padding: 15px; }
+  }
 </style>
 
 <script>
-function showdate() {
-  var dt = new Date();
-  var Hour = dt.getHours();
-  var Minute = dt.getMinutes();
-  var Day = dt.getDate();
-  var Month = dt.getMonth() + 1;
-  var Year = dt.getFullYear();
-  if (Minute < 10) { Minute = "0" + Minute; }
-  if (Hour < 10) { Hour = "0" + Hour; }
-  document.getElementById("date").innerHTML = (Day + "/" + Month + "/" + Year);
-  document.getElementById("clock").innerHTML = (Hour + ":" + Minute);
+function updateClock() {
+  const dt = new Date();
+  let hour = dt.getHours();
+  let minute = dt.getMinutes();
+  let day = dt.getDate();
+  let month = dt.getMonth() + 1;
+  let year = dt.getFullYear();
+  if (minute < 10) minute = "0" + minute;
+  if (hour < 10) hour = "0" + hour;
+  document.getElementById("date-widget").innerText = day + "/" + month + "/" + year;
+  document.getElementById("clock-widget").innerText = hour + ":" + minute;
 }
-setInterval(showdate, 0);
+setInterval(updateClock, 1000);
 
-// Language Translation Dictionary
-const langData = {
+// Comprehensive Full-Page Bilingual Localization Dictionary
+const dictionary = {
   en: {
     dir: "ltr",
-    title: "Elya Host For PS4 505 & 672 & 7.XX - 13.52",
-    status: "Status",
-    toggle: "عربي",
-    footer: "Designed, Ported and Compiled by :",
-    thanks: "Special Thanks : Karo Sharifi, Scene Developers, Exploit Contributors, & all the community"
+    pageTitle: "Elya Host Hub | Ultimate Exploit Station",
+    brandTitle: "ELYA HOST",
+    navTools: "Quick Tools & Cheats",
+    navPs4: "PS4 Firmware & GoldHen",
+    navPs5: "PS5 Exploits",
+    navGuides: "Guides & Restore",
+    statusDefault: "System Ready - Select an Exploit",
+    heroHeading: "Next-Gen Console Exploits Hub",
+    heroText: "Engineered for maximum stability, advanced caching, and high compatibility across PS4 and PS5 firmware editions.",
+    secToolsTitle: "Quick Tools & Cheats",
+    secPs4Title: "PS4 Firmware Hosts & GoldHen",
+    secPs5Title: "PS5 Exploits Suite",
+    secGuidesTitle: "Guides & System Restoration",
+    footerCredit: "Designed, Ported and Compiled by :",
+    footerThanks: "Special Thanks : Karo Sharifi, Scene Developers, Exploit Contributors, & all the community",
+    
+    // Status tooltips
+    t_copy505: "Copy Cheat For Firmware 5.05",
+    t_copy672: "Copy Cheat For Firmware 6.72",
+    t_copy900: "Copy Cheat For Firmware 9.00",
+    t_binloader: "Payload Binloader for 5.05, 6.72, 7.02 & 9.00",
+    t_505: "Standard Host for Firmware 5.05",
+    t_505gold: "Gold Host variant for Firmware 5.05",
+    t_gold505: "GoldHen v2.4b18.2 for Firmware 5.05",
+    t_672: "Manual Exploit Full Cache & Compressed for 6.72",
+    t_672a: "Auto Exploit Full Cache & Compressed for 6.72",
+    t_672l: "Light Host version for Firmware 6.72",
+    t_gold672: "GoldHen v2.4b18.9 for Firmware 6.72",
+    t_702: "Auto Exploit & WebKit PSFree for 7.02",
+    t_702l: "Light WebKit PSFree Host for 7.02",
+    t_gold702: "GoldHen v2.3 with WebKit PSFree for 7.00 - 7.02",
+    t_755: "Auto Exploit & WebKit PSFree for 7.5x",
+    t_755l: "Light WebKit PSFree Host for 7.5x",
+    t_gold755: "GoldHen v2.3 with WebKit PSFree for 7.55",
+    t_900l: "Auto Exploit Light + WebKit PSFree for 9.00",
+    t_900nm: "Manual Exploit Full Cache + WebKit PSFree for 9.00",
+    t_900new: "Auto Exploit Compressed + WebKit PSFree for 9.00",
+    t_gold900: "Auto Exploit + GoldHen v2.4b18.9 + PSFree for 9.00",
+    t_gallpro: "GoldHen v2.4b18.12 All Pro for 5.05 & 7.xx - 13.52",
+    t_gall: "GoldHen v2.4b18.9 + WebKit PSFree + 13.52 Support",
+    t_ps5eta: "PS5 Jailbreak (etahen) for Firmware 7.00 to 13.60",
+    t_ps5onion: "PS5 Jailbreak (onionhen) for Firmware 7.00 to 13.60",
+    t_ps5rel: "PS5 Jailbreak Relapse for Firmware 7.00 to 13.60",
+    t_resthost: "Restore Hosts User Guide for All Supported Firmwares",
+    t_resttrainer: "Restore PS4Trainer Offline User Guide"
   },
   ar: {
     dir: "rtl",
-    title: "مضيف ايليا لأجهزة PS4 و PS5 - إصدارات متعددة",
-    status: "الحالة",
-    toggle: "English",
-    footer: ": تصميم، تعديل وجمع بواسطة",
-    thanks: "شكر خاص: كارو شريفي، مطورو السين، مساهمو الثغرات، وكل المجتمع"
+    pageTitle: "منصة إيليا للهوستات | محطة الثغرات الشاملة",
+    brandTitle: "مضيف إيليا",
+    navTools: "الأدوات السريعة والتشيت",
+    navPs4: "إصدارات ومضيفات PS4",
+    navPs5: "ثغرات وأدوات PS5",
+    navGuides: "الأدلة والاستعادة",
+    statusDefault: "النظام جاهز - اختر الثغرة المطلوبة",
+    heroHeading: "منصة ثغرات الأجهزة المتقدمة",
+    heroText: "مصممة خصيصاً لأقصى درجات الثبات، التخزين المؤقت المتقدم، والتوافق العالي مع مختلف إصدارات الأنظمة لأجهزة PS4 و PS5.",
+    secToolsTitle: "الأدوات السريعة والتشيت",
+    secPs4Title: "مضيفات وثغرات PS4 و GoldHen",
+    secPs5Title: "مجموعة ثغرات PS5",
+    secGuidesTitle: "الأدلة واستعادة النظام",
+    footerCredit: ": تصميم، تعديل وجمع بواسطة",
+    footerThanks: "شكر خاص: كارو شريفي، مطورو السين، مساهمو الثغرات، وكل المجتمع",
+    
+    // Status tooltips translated
+    t_copy505: "نسخ التشيت لإصدار 5.05",
+    t_copy672: "نسخ التشيت لإصدار 6.72",
+    t_copy900: "نسخ التشيت لإصدار 9.00",
+    t_binloader: "محمل الباي لود لإصدارات 5.05، 6.72، 7.02 و 9.00",
+    t_505: "المضيف القياسي لإصدار 5.05",
+    t_505gold: "نسخة المضيف الذهبي لإصدار 5.05",
+    t_gold505: "جولد هين v2.4b18.2 لإصدار 5.05",
+    t_672: "ثغرة يدوية تخزين كامل ومضغوط لإصدار 6.72",
+    t_672a: "ثغرة تلقائية تخزين كامل ومضغوط لإصدار 6.72",
+    t_672l: "نسخة مضيف خفيفة لإصدار 6.72",
+    t_gold672: "جولد هين v2.4b18.9 لإصدار 6.72",
+    t_702: "ثغرة تلقائية مع ويب كيت PSFree لإصدار 7.02",
+    t_702l: "مضيف ويب كيت PSFree خفيف لإصدار 7.02",
+    t_gold702: "جولد هين v2.3 مع ويب كيت PSFree لإصدارات 7.00 - 7.02",
+    t_755: "ثغرة تلقائية مع ويب كيت PSFree لإصدار 7.5x",
+    t_755l: "مضيف ويب كيت PSFree خفيف لإصدار 7.5x",
+    t_gold755: "جولد هين v2.3 مع ويب كيت PSFree لإصدار 7.55",
+    t_900l: "ثغرة تلقائية خفيفة + ويب كيت PSFree لإصدار 9.00",
+    t_900nm: "ثغرة يدوية تخزين كامل + ويب كيت PSFree لإصدار 9.00",
+    t_900new: "ثغرة تلقائية مضغوطة + ويب كيت PSFree لإصدار 9.00",
+    t_gold900: "ثغرة تلقائية + جولد هين v2.4b18.9 + PSFree لإصدار 9.00",
+    t_gallpro: "جولد هين v2.4b18.12 الشامل برو لـ 5.05 و 7.xx حتى 13.52",
+    t_gall: "جولد هين v2.4b18.9 + ويب كيت PSFree + دعم 13.52",
+    t_ps5eta: "تهكير PS5 (etahen) للإصدارات من 7.00 إلى 13.60",
+    t_ps5onion: "تهكير PS5 (onionhen) للإصدارات من 7.00 إلى 13.60",
+    t_ps5rel: "تهكير PS5 relapse للإصدارات من 7.00 إلى 13.60",
+    t_resthost: "دليل استعادة المضيفات لجميع الإصدارات المدعومة",
+    t_resttrainer: "دليل استعادة PS4Trainer بدون إنترنت"
   }
 };
 
@@ -206,81 +522,90 @@ let currentLang = 'en';
 
 function toggleLanguage() {
   currentLang = currentLang === 'en' ? 'ar' : 'en';
-  const t = langData[currentLang];
+  const t = dictionary[currentLang];
   
+  document.documentElement.setAttribute('lang', currentLang);
   document.documentElement.setAttribute('dir', t.dir);
-  document.getElementById('page-title').innerText = t.title;
-  document.getElementById('main-title').innerText = t.title;
-  document.getElementById('msgs2').innerText = t.status;
-  document.getElementById('lang-btn').innerText = t.toggle;
-  document.getElementById('footer-text').innerText = t.footer;
-  document.getElementById('thanks-text').innerText = t.thanks;
+  document.getElementById('page-title').innerText = t.pageTitle;
+  document.getElementById('brand-title').innerText = t.brandTitle;
+  document.getElementById('nav-tools-text').innerText = t.navTools;
+  document.getElementById('nav-ps4-text').innerText = t.navPs4;
+  document.getElementById('nav-ps5-text').innerText = t.navPs5;
+  document.getElementById('nav-guides-text').innerText = t.navGuides;
+  document.getElementById('msgs2').innerText = t.statusDefault;
+  document.getElementById('hero-title').innerText = t.heroHeading;
+  document.getElementById('hero-desc').innerText = t.heroText;
+  document.getElementById('sec-tools-title').innerText = t.secToolsTitle;
+  document.getElementById('sec-ps4-title').innerText = t.secPs4Title;
+  document.getElementById('sec-ps5-title').innerText = t.secPs5Title;
+  document.getElementById('sec-guides-title').innerText = t.secGuidesTitle;
+  document.getElementById('footer-credit').innerText = t.footerCredit;
+  document.getElementById('footer-thanks').innerText = t.footerThanks;
+  document.getElementById('lang-btn').innerText = currentLang === 'en' ? 'عربي' : 'English';
+}
+
+function setStatus(key) {
+  document.getElementById('msgs2').innerText = dictionary[currentLang][key] || dictionary[currentLang].statusDefault;
+}
+
+function resetStatus() {
+  document.getElementById('msgs2').innerText = dictionary[currentLang].statusDefault;
+}
+
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 </head>
-<body class="bg-darker">
-<div id="container">
-  <div class="top-bar">
-    <span id="date"></span>
-    <button id="lang-btn" onclick="toggleLanguage()">عربي</button>
-    <span id="clock"></span>
-  </div>
+<body>
 
-  <h1 id="main-title" class="main-title">Elya Host For PS4 505 & 672 & 7.XX - 13.52</h1>
-  <h1 id="msgs2">Status</h1>
+  <!-- SIDEBAR NAVIGATION -->
+  <aside id="sidebar">
+    <div>
+      <div class="brand-area">
+        <div class="brand-logo">E</div>
+        <div id="brand-title" class="brand-title">ELYA HOST</div>
+      </div>
+      <div class="nav-menu">
+        <button class="nav-btn active" onclick="scrollToSection('section-tools')">
+          <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.5 7.1 1 10.1 3 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1 0-1.5z"/></svg>
+          <span id="nav-tools-text">Quick Tools & Cheats</span>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('section-ps4')">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          <span id="nav-ps4-text">PS4 Firmware & GoldHen</span>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('section-ps5')">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+          <span id="nav-ps5-text">PS5 Exploits</span>
+        </button>
+        <button class="nav-btn" onclick="scrollToSection('section-guides')">
+          <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+          <span id="nav-guides-text">Guides & Restore</span>
+        </button>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <span>v5.2.0 Ultimate Edition</span>
+    </div>
+  </aside>
 
-  <div id="MyItems">
-    <!-- Firmware-Specific Copy Cheat Buttons -->
-    <a href="restore2/505/copych.html"><button style="width: 170px; height: 40px; font-size: 16px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Copy Cheat For 5.05'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Copy Cheat 5.05</b></button></a>
-    <a href="restore2/672/copych.html"><button style="width: 170px; height: 40px; font-size: 16px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='Copy Cheat For 6.72'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Copy Cheat 6.72</b></button></a>
-    <a href="restore2/900/copych.html"><button style="width: 170px; height: 40px; font-size: 16px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Copy Cheat For 9.00'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Copy Cheat 9.00</b></button></a>
-
-    <a href="binloader/index.html"><button style="width: 200px; height: 40px; font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Binloader For 505 & 672 & 702 & 900'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Binloader</b></button></a>
-
-    <a href="505/index.html"><button style="font-size: 18px; color: white;" class="pointer" onMouseOver="msgs2.innerHTML='Host For 505'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>5.05 Host</b></button></a>
-    <a href="505Gold/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Gold For 505'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>5.05 Host Gold</b></button></a>
-    <a href="Goldhen505/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Goldhen V2.4b18.2 For 505'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Goldhen 5.05</b></button></a>
-
-    <a href="672/index.html"><button style="font-size: 18px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='Host Manual Exploit Full Cache and Compressed version For 672'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>6.72 Host</b></button></a>
-    <a href="672A/index.html"><button style="font-size: 18px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='Host Auto Exploit Full Cache and Compressed version For 672'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>6.72 Host Auto</b></button></a>
-    <a href="672L/index.html"><button style="font-size: 18px; color: white;" class="pointer" onMouseOver="msgs2.innerHTML='Host Light For 672'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>6.72 Host Light</b></button></a>
-    <a href="Goldhen672/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Goldhen V2.4b18.9 For 672'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Goldhen 6.72</b></button></a>
-
-    <a href="702/index.html"><button style="font-size: 18px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='New Host Auto Exploit and Compressed New Webkit PSFree version For 702'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>7.02 Host</b></button></a>
-    <a href="702L/index.html"><button style="font-size: 18px; color: white;" class="pointer" onMouseOver="msgs2.innerHTML='Host For 702 New Webkit PSFree Light version'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>7.02 Host Light</b></button></a>
-    <a href="G702/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Goldhen V2.3 with New Webkit PSFree For 700 - 702'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Goldhen 7.02</b></button></a>
-
-    <a href="755/index.html"><button style="font-size: 18px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='Host Auto Exploit and Compressed New Webkit PSFree version For 75X'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>7.55 Host</b></button></a>
-    <a href="755L/index.html"><button style="font-size: 18px; color: white;" class="pointer" onMouseOver="msgs2.innerHTML='Host For 75X New Webkit PSFree Light version'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>7.55 Host Light</b></button></a>
-    <a href="G755/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Goldhen 2.3 For 755 New Webkit PSFree'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Goldhen 7.55</b></button></a>
-
-    <a href="900L/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Auto Explot Light + New Webkit PSFree For 900'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>9.00 Host Light</b></button></a>
-    <a href="900NM/index.html"><button style="font-size: 18px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='Host Manual Exploit Full Cache and New Webkit PSFree + Compressed version For 900'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>9.00 Host Manual</b></button></a>
-    <a href="900New/index.html"><button style="font-size: 18px; color: #3fb950;" class="pointer" onMouseOver="msgs2.innerHTML='Host Auto Exploit Compressed + New Webkit PSFree Version 9.00 fw'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>9.00 Host New</b></button></a>
-    <a href="G900/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host auto Exploit + Goldhen V2.4b18.9 + New Webkit PSFree For 900'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Goldhen 9.00</b></button></a>
-
-    <a href="g2allpro/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host Auto Exploit GoldHen 2.4b18.12 PS4 5.05 & 7.XX - 13.52'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>GoldHen All Pro</b></button></a>
-    <a href="g2all/index.html"><button style="font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Host auto Exploit + Goldhen 2.4b18.9 + New Webkit PSFree + 13.52 support'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>GoldHen All</b></button></a>
-
+  <!-- MAIN CONTAINER -->
+  <main>
+    <!-- TOP HEADER BAR -->
+    <div class="top-header">
+      <div class="system-status">
+        <div class="status-dot"></div>
+        <span id="msgs2">System Ready - Select an Exploit</span>
+      </div>
+      <div class="header-actions">
+        <div id="date-widget" class="widget-pill"></div>
+        <div id="clock-widget" class="widget-pill"></div>
+        <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()">عربي</button>
+      </div>
     </div>
 
-        <a href="ps5/index.html"><button style="width: 290px; height: 45px; font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='PS5 Jailbreak (etahen) for fw 7.00 to 13.60'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>PS5 etahen JB</b></button></a>
-    <a href="onion/index.html"><button style="width: 290px; height: 45px; font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='PS5 Jailbreak (onionhen) for fw 7.00 to 13.60'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>PS5 onionhen JB</b></button></a>
-    <a href="ps5v2/index.html"><button style="width: 290px; height: 45px; font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='PS5 Jailbreak relapse for fw 7.00 to 13.60'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>PS5 relapse v2 JB</b></button></a>
-    </div>
-    </div>
-    
-    <a href="restore/index.html"><button style="width: 290px; height: 45px; font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Restore Hosts to Users Guide For All Supported Firmwares'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Restore Hosts Guide</b></button></a>
-    <a href="restore2/index.html"><button style="width: 290px; height: 45px; font-size: 18px; color: var(--accent-gold);" class="pointer" onMouseOver="msgs2.innerHTML='Restore PS4Trainer Offline to Users Guide'" onMouseOut="msgs2.innerHTML='Status'" type="button"><b>Restore PS4Trainer</b></button></a>
-  </div>
-
-  <div class="content">
-    <div style="line-height: 1.8;">
-      <span id="footer-text" class="yellow">Designed, Ported and Compiled by :</span>&nbsp;&nbsp;<span class="hue">ايليا</span>
-      <br>
-      <span id="thanks-text" class="yellow" style="font-size: 15px;">Special Thanks : Karo Sharifi, Scene Developers, Exploit Contributors, &amp; all the community</span>
-    </div>
-  </div>
-</div>
-</body>
-</html>
+    <!-- HERO BANNER -->
+    <div class="hero-banner">
+      <h1 id="hero-title" class="hero-title">Next-Gen Console Exploits Hub</h1>
+      <p id="hero-desc" class="hero-desc">Engineered for maximum stability, advanced caching, and high compatibility across PS4 and PS5 firmware e
