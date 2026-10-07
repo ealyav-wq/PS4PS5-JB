@@ -44,7 +44,7 @@
   /* SIDEBAR NAVIGATION */
   aside {
     width: var(--sidebar-width);
-    background: rgba(10, 6, 18, 0.85);
+    background: rgba(10, 6, 18, 0.95);
     border-right: 1px solid var(--border-color);
     backdrop-filter: blur(20px);
     display: flex;
@@ -55,7 +55,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 1000;
+    transition: transform 0.3s ease;
   }
 
   [dir="rtl"] aside {
@@ -137,6 +138,29 @@
     text-align: center;
   }
 
+  /* MOBILE HAMBURGER HEADER */
+  .mobile-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .menu-toggle-btn {
+    background: rgba(176, 38, 255, 0.2);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
   /* MAIN CONTENT AREA */
   main {
     flex-grow: 1;
@@ -196,15 +220,16 @@
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   .widget-pill {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-color);
-    padding: 8px 14px;
+    padding: 8px 12px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--accent-pink);
   }
@@ -213,7 +238,7 @@
     background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.2));
     border: 1px solid rgba(0, 240, 255, 0.4);
     color: var(--accent-cyan);
-    padding: 8px 18px;
+    padding: 8px 16px;
     border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
@@ -231,13 +256,13 @@
     background: linear-gradient(135deg, rgba(20, 12, 35, 0.8), rgba(40, 15, 60, 0.4));
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 35px;
+    padding: 30px;
     margin-bottom: 25px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.6);
   }
 
   .hero-title {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -261,6 +286,7 @@
     margin-bottom: 25px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    scroll-margin-top: 20px;
   }
 
   .section-header {
@@ -280,7 +306,7 @@
 
   .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 12px;
   }
 
@@ -294,7 +320,7 @@
     text-decoration: none;
     color: var(--text-main);
     font-weight: 700;
-    font-size: 15px;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -354,8 +380,22 @@
   }
 
   @media (max-width: 900px) {
-    aside { display: none; }
-    main { margin-left: 0; margin-right: 0; max-width: 100%; padding: 15px; }
+    aside {
+      transform: translateX(-100%);
+      [dir="rtl"] & { transform: translateX(100%); }
+    }
+    aside.mobile-open {
+      transform: translateX(0);
+    }
+    main {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 100%;
+      padding: 15px;
+    }
+    .mobile-header {
+      display: flex;
+    }
   }
 </style>
 
@@ -392,35 +432,7 @@ const dictionary = {
     secGuidesTitle: "Guides & System Restoration",
     footerCredit: "Designed, Ported and Compiled by :",
     footerThanks: "Special Thanks : Karo Sharifi, Scene Developers, Exploit Contributors, & all the community",
-    
-    t_copy505: "Copy Cheat For Firmware 5.05",
-    t_copy672: "Copy Cheat For Firmware 6.72",
-    t_copy900: "Copy Cheat For Firmware 9.00",
-    t_binloader: "Payload Binloader for 5.05, 6.72, 7.02 & 9.00",
-    t_505: "Standard Host for Firmware 5.05",
-    t_505gold: "Gold Host variant for Firmware 5.05",
-    t_gold505: "GoldHen v2.4b18.2 for Firmware 5.05",
-    t_672: "Manual Exploit Full Cache & Compressed for 6.72",
-    t_672a: "Auto Exploit Full Cache & Compressed for 6.72",
-    t_672l: "Light Host version for Firmware 6.72",
-    t_gold672: "GoldHen v2.4b18.9 for Firmware 6.72",
-    t_702: "Auto Exploit & WebKit PSFree for 7.02",
-    t_702l: "Light WebKit PSFree Host for 7.02",
-    t_gold702: "GoldHen v2.3 with WebKit PSFree for 7.00 - 7.02",
-    t_755: "Auto Exploit & WebKit PSFree for 7.5x",
-    t_755l: "Light WebKit PSFree Host for 7.5x",
-    t_gold755: "GoldHen v2.3 with WebKit PSFree for 7.55",
-    t_900l: "Auto Exploit Light + WebKit PSFree for 9.00",
-    t_900nm: "Manual Exploit Full Cache + WebKit PSFree for 9.00",
-    t_900new: "Auto Exploit Compressed + WebKit PSFree for 9.00",
-    t_gold900: "Auto Exploit + GoldHen v2.4b18.9 + PSFree for 9.00",
-    t_gallpro: "GoldHen v2.4b18.12 All Pro for 5.05 & 7.xx - 13.52",
-    t_gall: "GoldHen v2.4b18.9 + WebKit PSFree + 13.52 Support",
-    t_ps5eta: "PS5 Jailbreak (etahen) for Firmware 7.00 to 13.60",
-    t_ps5onion: "PS5 Jailbreak (onionhen) for Firmware 7.00 to 13.60",
-    t_ps5rel: "PS5 Jailbreak Relapse for Firmware 7.00 to 13.60",
-    t_resthost: "Restore Hosts User Guide for All Supported Firmwares",
-    t_resttrainer: "Restore PS4Trainer Offline User Guide"
+    menuBtn: "☰ Menu"
   },
   ar: {
     dir: "rtl",
@@ -439,35 +451,7 @@ const dictionary = {
     secGuidesTitle: "الأدلة واستعادة النظام",
     footerCredit: ": تصميم، تعديل وجمع بواسطة",
     footerThanks: "شكر خاص: كارو شريفي، مطورو السين، مساهمو الثغرات، وكل المجتمع",
-    
-    t_copy505: "نسخ التشيت لإصدار 5.05",
-    t_copy672: "نسخ التشيت لإصدار 6.72",
-    t_copy900: "نسخ التشيت لإصدار 9.00",
-    t_binloader: "محمل الباي لود لإصدارات 5.05، 6.72، 7.02 و 9.00",
-    t_505: "المضيف القياسي لإصدار 5.05",
-    t_505gold: "نسخة المضيف الذهبي لإصدار 5.05",
-    t_gold505: "جولد هين v2.4b18.2 لإصدار 5.05",
-    t_672: "ثغرة يدوية تخزين كامل ومضغوط لإصدار 6.72",
-    t_672a: "ثغرة تلقائية تخزين كامل ومضغوط لإصدار 6.72",
-    t_672l: "نسخة مضيف خفيفة لإصدار 6.72",
-    t_gold672: "جولد هين v2.4b18.9 لإصدار 6.72",
-    t_702: "ثغرة تلقائية مع ويب كيت PSFree لإصدار 7.02",
-    t_702l: "مضيف ويب كيت PSFree خفيف لإصدار 7.02",
-    t_gold702: "جولد هين v2.3 مع ويب كيت PSFree لإصدارات 7.00 - 7.02",
-    t_755: "ثغرة تلقائية مع ويب كيت PSFree لإصدار 7.5x",
-    t_755l: "مضيف ويب كيت PSFree خفيف لإصدار 7.5x",
-    t_gold755: "جولد هين v2.3 مع ويب كيت PSFree لإصدار 7.55",
-    t_900l: "ثغرة تلقائية خفيفة + ويب كيت PSFree لإصدار 9.00",
-    t_900nm: "ثغرة يدوية تخزين كامل + ويب كيت PSFree لإصدار 9.00",
-    t_900new: "ثغرة تلقائية مضغوطة + ويب كيت PSFree لإصدار 9.00",
-    t_gold900: "ثغرة تلقائية + جولد هين v2.4b18.9 + PSFree لإصدار 9.00",
-    t_gallpro: "جولد هين v2.4b18.12 الشامل برو لـ 5.05 و 7.xx حتى 13.52",
-    t_gall: "جولد هين v2.4b18.9 + ويب كيت PSFree + دعم 13.52",
-    t_ps5eta: "تهكير PS5 (etahen) للإصدارات من 7.00 إلى 13.60",
-    t_ps5onion: "تهكير PS5 (onionhen) للإصدارات من 7.00 إلى 13.60",
-    t_ps5rel: "تهكير PS5 relapse للإصدارات من 7.00 إلى 13.60",
-    t_resthost: "دليل استعادة المضيفات لجميع الإصدارات المدعومة",
-    t_resttrainer: "دليل استعادة PS4Trainer بدون إنترنت"
+    menuBtn: "القائمة ☰"
   }
 };
 
@@ -494,7 +478,12 @@ function toggleLanguage() {
   document.getElementById('sec-guides-title').innerText = t.secGuidesTitle;
   document.getElementById('footer-credit').innerText = t.footerCredit;
   document.getElementById('footer-thanks').innerText = t.footerThanks;
+  document.getElementById('menu-btn').innerText = t.menuBtn;
   document.getElementById('lang-btn').innerText = currentLang === 'en' ? 'عربي' : 'English';
+}
+
+function toggleMobileSidebar() {
+  document.getElementById('sidebar-aside').classList.toggle('mobile-open');
 }
 
 function setStatus(key) {
@@ -509,17 +498,17 @@ function resetStatus() {
 <body>
 
   <!-- SIDEBAR NAVIGATION -->
-  <aside>
+  <aside id="sidebar-aside">
     <div>
       <div class="brand-area">
         <div class="brand-logo">E</div>
         <div id="brand-title" class="brand-title">ELYA HOST</div>
       </div>
       <div class="nav-menu">
-        <a href="#tools-section" class="nav-btn"><span id="nav-tools">Quick Tools & Cheats</span></a>
-        <a href="#ps4-section" class="nav-btn"><span id="nav-ps4">PS4 Firmware & GoldHen</span></a>
-        <a href="#ps5-section" class="nav-btn"><span id="nav-ps5">PS5 Exploits</span></a>
-        <a href="#guides-section" class="nav-btn"><span id="nav-guides">Guides & Restore</span></a>
+        <a href="#tools-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-tools">Quick Tools & Cheats</span></a>
+        <a href="#ps4-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-ps4">PS4 Firmware & GoldHen</span></a>
+        <a href="#ps5-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-ps5">PS5 Exploits</span></a>
+        <a href="#guides-section" class="nav-btn" onclick="toggleMobileSidebar()"><span id="nav-guides">Guides & Restore</span></a>
       </div>
     </div>
     <div class="sidebar-footer">
@@ -529,6 +518,12 @@ function resetStatus() {
 
   <!-- MAIN CONTENT -->
   <main>
+    <!-- MOBILE HEADER BAR -->
+    <div class="mobile-header">
+      <button id="menu-btn" class="menu-toggle-btn" onclick="toggleMobileSidebar()">☰ Menu</button>
+      <div style="font-weight: 800; color: var(--accent-cyan);">ELYA HOST HUB</div>
+    </div>
+
     <!-- TOP HEADER BAR -->
     <div class="top-header">
       <div class="system-status">
@@ -576,4 +571,18 @@ function resetStatus() {
         <a href="672L/index.html" class="exploit-card" onmouseover="setStatus('t_672l')" onmouseout="resetStatus()"><span>6.72 Host Light</span></a>
         <a href="Goldhen672/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold672')" onmouseout="resetStatus()"><span>Goldhen 6.72</span></a>
 
-        <a href="702/index.html" class="exploit-card card-green" onmouseover="setStatus('t_702')" on
+        <a href="702/index.html" class="exploit-card card-green" onmouseover="setStatus('t_702')" onmouseout="resetStatus()"><span>7.02 Host</span></a>
+        <a href="702L/index.html" class="exploit-card" onmouseover="setStatus('t_702l')" onmouseout="resetStatus()"><span>7.02 Host Light</span></a>
+        <a href="G702/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold702')" onmouseout="resetStatus()"><span>Goldhen 7.02</span></a>
+
+        <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('t_755')" onmouseout="resetStatus()"><span>7.55 Host</span></a>
+        <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('t_755l')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
+        <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold755')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
+
+        <a href="900L/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_900l')" onmouseout="resetStatus()"><span>9.00 Host Light</span></a>
+        <a href="900NM/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900nm')" onmouseout="resetStatus()"><span>9.00 Host Manual</span></a>
+        <a href="900New/index.html" class="exploit-card card-green" onmouseover="setStatus('t_900new')" onmouseout="resetStatus()"><span>9.00 Host New</span></a>
+        <a href="G900/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gold900')" onmouseout="resetStatus()"><span>Goldhen 9.00</span></a>
+
+        <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gallpro')" onmouseout="resetStatus()"><span>GoldHen All Pro</span></a>
+        <a href="g2all/index.html" class="exploit-card card-gold" onmouseover="setStatus('t_gall')" onmouseout="resetStatus()"><span>GoldHen All</span></a
