@@ -3,21 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">fsociety // Elya Host Hub</title>
+<title id="page-title">fsociety // Kali Terminal Hub</title>
 <style>
   :root {
-    --bg-base: #000000;
-    --bg-surface: #040d05;
-    --border-color: #004411;
-    
-    --accent-green: #00ff66;
+    --bg-base: #090d14;
+    --bg-surface: #111823;
+    --border-color: #1f2d42;
+    --kali-blue: #007acc;
+    --fsociety-red: #ff1b3a;
     --accent-cyan: #00f0ff;
-    --accent-red: #ff1b3a;
     --accent-amber: #ffbb00;
-    
-    --text-main: #e0fde0;
-    --text-muted: #669970;
-    
+    --accent-green: #00ff66;
+    --text-main: #e2e8f0;
+    --text-muted: #798696;
     --sidebar-width: 280px;
   }
 
@@ -72,23 +70,23 @@
   .brand-logo {
     width: 42px;
     height: 42px;
-    background: #021a06;
-    border: 1px solid var(--accent-green);
-    border-radius: 4px;
+    background: #080c12;
+    border: 1px solid var(--fsociety-red);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
     font-size: 20px;
-    color: var(--accent-green);
-    text-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+    color: var(--fsociety-red);
+    text-shadow: 0 0 8px rgba(255, 27, 58, 0.5);
   }
 
   .brand-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     letter-spacing: 2px;
-    color: var(--accent-green);
+    color: var(--fsociety-red);
   }
 
   .nav-menu {
@@ -105,7 +103,7 @@
     text-align: left;
     [dir="rtl"] & { text-align: right; }
     padding: 12px 16px;
-    border-radius: 4px;
+    border-radius: 12px;
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
@@ -118,9 +116,9 @@
   }
 
   .nav-btn:hover, .nav-btn.active {
-    background: #08220d;
+    background: #172235;
     color: var(--accent-cyan);
-    border-color: var(--accent-cyan);
+    border-color: var(--kali-blue);
   }
 
   .sidebar-footer {
@@ -140,16 +138,16 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     padding: 12px 20px;
-    border-radius: 4px;
+    border-radius: 14px;
     margin-bottom: 20px;
   }
 
   .menu-toggle-btn {
-    background: #08220d;
-    border: 1px solid var(--accent-green);
-    color: var(--accent-green);
+    background: #172235;
+    border: 1px solid var(--fsociety-red);
+    color: var(--fsociety-red);
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
     font-family: monospace;
@@ -175,9 +173,9 @@
     align-items: center;
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--accent-green);
+    border-left: 4px solid var(--fsociety-red);
     padding: 15px 25px;
-    border-radius: 4px;
+    border-radius: 16px;
     margin-bottom: 25px;
     flex-wrap: wrap;
     gap: 15px;
@@ -212,10 +210,10 @@
   }
 
   .widget-pill {
-    background: #020803;
+    background: #080c12;
     border: 1px solid var(--border-color);
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 10px;
     font-size: 12px;
     font-weight: bold;
     color: var(--accent-amber);
@@ -226,7 +224,7 @@
     border: 1px solid var(--accent-amber);
     color: var(--accent-amber);
     padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.1s ease, color 0.1s ease;
@@ -237,14 +235,19 @@
     color: #000;
   }
 
-  /* HERO BANNER */
+  /* HERO BANNER & SEARCH BAR */
   .hero-banner {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-top: 3px solid var(--accent-red);
-    border-radius: 4px;
+    border-top: 3px solid var(--fsociety-red);
+    border-radius: 18px;
     padding: 25px;
     margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 
   .hero-title {
@@ -252,17 +255,32 @@
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 10px;
-    color: var(--accent-red);
+    margin-bottom: 8px;
+    color: var(--fsociety-red);
     text-shadow: 0 0 6px rgba(255, 27, 58, 0.4);
   }
 
   .hero-desc {
     color: var(--text-muted);
     font-size: 11px;
-    max-width: 700px;
-    line-height: 1.6;
     letter-spacing: 0.5px;
+  }
+
+  .search-box {
+    background: #080c12;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 12px;
+    outline: none;
+    width: 240px;
+    font-family: monospace;
+    transition: border-color 0.1s ease;
+  }
+
+  .search-box:focus {
+    border-color: var(--accent-cyan);
   }
 
   /* SECTION & CARDS GRID */
@@ -270,7 +288,7 @@
     display: none; 
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 18px;
     padding: 20px;
     margin-bottom: 25px;
   }
@@ -296,16 +314,16 @@
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    gap: 12px;
   }
 
   /* BUTTON CARDS */
   .exploit-card {
-    background: #020803;
+    background: #080c12;
     border: 1px solid var(--border-color);
-    border-top: 2px solid var(--accent-green);
-    border-radius: 4px;
-    padding: 12px;
+    border-top: 2px solid var(--kali-blue);
+    border-radius: 14px;
+    padding: 14px;
     text-align: center;
     text-decoration: none;
     color: var(--text-main);
@@ -316,7 +334,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 50px;
+    min-height: 52px;
     position: relative;
     transition: transform 0.08s ease, background 0.08s ease, border-color 0.08s ease, color 0.08s ease;
   }
@@ -324,23 +342,23 @@
   .exploit-card:hover {
     border-color: var(--accent-cyan);
     border-top-color: var(--accent-cyan);
-    background: #08220d;
+    background: #172235;
     transform: translateY(-2px);
     color: var(--accent-cyan);
   }
 
-  .card-gold { color: var(--accent-amber) !important; border-top-color: var(--accent-amber) !important; border-color: #553300 !important; }
-  .card-gold:hover { border-color: var(--accent-amber) !important; border-top-color: var(--accent-amber) !important; background: #221500 !important; }
+  .card-gold { color: var(--accent-amber) !important; border-top-color: var(--accent-amber) !important; border-color: #4a3500 !important; }
+  .card-gold:hover { border-color: var(--accent-amber) !important; background: #261f10 !important; }
 
-  .card-green { color: var(--accent-green) !important; }
-  .card-green:hover { border-color: var(--accent-green) !important; background: #08220d !important; }
+  .card-green { color: var(--accent-green) !important; border-top-color: var(--accent-green) !important; border-color: #004411 !important; }
+  .card-green:hover { border-color: var(--accent-green) !important; background: #112618 !important; }
 
   /* FOOTER */
   .site-footer {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--accent-red);
-    border-radius: 4px;
+    border-left: 4px solid var(--fsociety-red);
+    border-radius: 18px;
     padding: 20px;
     text-align: center;
     margin-bottom: 20px;
@@ -349,10 +367,10 @@
   .hue-badge {
     color: var(--accent-cyan);
     font-weight: bold;
-    background: #021a1a;
-    padding: 4px 12px;
-    border: 1px solid var(--accent-cyan);
-    border-radius: 3px;
+    background: #080c12;
+    padding: 4px 14px;
+    border: 1px solid var(--kali-blue);
+    border-radius: 10px;
     display: inline-block;
     letter-spacing: 1px;
     margin-top: 8px;
@@ -394,18 +412,33 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
+// Real-time card filtering function (Zero lag)
+function filterExploits(query) {
+  const filter = query.toLowerCase();
+  const cards = document.querySelectorAll('.exploit-card');
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    if (text.includes(filter)) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
 const dictionary = {
   en: {
     dir: "ltr",
-    pageTitle: "fsociety // Elya Host Hub",
-    brandTitle: "ELYA HOST",
+    pageTitle: "fsociety // Kali Terminal Hub",
+    brandTitle: "FSOCIETY@KALI",
     navTools: "Quick Tools & Cheats",
     navPs4: "PS4 Firmware & GoldHen",
     navPs5: "PS5 Exploits",
     navGuides: "Guides & Restore",
-    statusDefault: "ROOT@FSOCIETY:~# INITIALIZE_PAYLOAD",
-    heroHeading: "ANONYMOUS_CONSOLE_EXPLOIT_DAEMON",
-    heroText: "SECURE_SHELL // ZERO_LATENCY // ENCRYPTED_KERNEL",
+    statusDefault: "root@fsociety:~# INITIALIZE_PAYLOAD",
+    heroHeading: "FSOCIETY_KALI_SECURITY_DAEMON",
+    heroText: "SECURE_SHELL // ZERO_LATENCY // KERNEL_EXPLOIT",
+    searchPlaceholder: "FILTER_PAYLOADS...",
     secToolsTitle: "Quick Tools & Cheats",
     secPs4Title: "PS4 Firmware Hosts & GoldHen",
     secPs5Title: "PS5 exploits (etahen and onionhen)",
@@ -416,19 +449,20 @@ const dictionary = {
   },
   ar: {
     dir: "rtl",
-    pageTitle: "fsociety // منصة إيليا",
-    brandTitle: "مضيف إيليا",
+    pageTitle: "fsociety // طرفية كالي",
+    brandTitle: "إف-سوسايتي @ كالي",
     navTools: "الأدوات السريعة والتشيت",
     navPs4: "إصدارات ومضيفات PS4",
     navPs5: "ثغرات وأدوات PS5",
     navGuides: "الأدلة والاستعادة",
-    statusDefault: "ROOT@FSOCIETY:~# جاهز لاختيار الثغرة",
+    statusDefault: "root@fsociety:~# جاهز لاختيار الثغرة",
     heroHeading: "برنامج استغلال ثغرات الأجهزة الآمن",
     heroText: "اتصال آمن // بدون تقطيع // نواة مشفرة",
+    searchPlaceholder: "ابحث عن ثغرة أو إصدار...",
     secToolsTitle: "الأدوات السريعة والتشيت",
     secPs4Title: "مضيفات وثغرات PS4 و GoldHen",
     secPs5Title: "ثغرات PS5 (etahen و onionhen)",
-    secGuidesTitle: "الأدلة واستعادة النظام",
+    secGuidesTitle: "الأدلة والاستعادة النظام",
     footerCredit: ": تصميم وتنفيذ بواسطة",
     sonyMessage: "هذا ما تستحقينه يا سوني لإيقافك إنتاج الأقراص الفيزيائية",
     menuBtn: "القائمة ☰"
@@ -452,6 +486,7 @@ function toggleLanguage() {
   document.getElementById('msgs2').innerText = t.statusDefault;
   document.getElementById('hero-title').innerText = t.heroHeading;
   document.getElementById('hero-desc').innerText = t.heroText;
+  document.getElementById('search-input').placeholder = t.searchPlaceholder;
   document.getElementById('sec-tools-title').innerText = t.secToolsTitle;
   document.getElementById('sec-ps4-title').innerText = t.secPs4Title;
   document.getElementById('sec-ps5-title').innerText = t.secPs5Title;
@@ -485,7 +520,7 @@ function switchView(sectionId, btnElement) {
 }
 
 function setStatus(text) {
-  document.getElementById('msgs2').innerText = "ROOT@FSOCIETY:~# " + text;
+  document.getElementById('msgs2').innerText = "root@fsociety:~# " + text;
 }
 
 function resetStatus() {
@@ -499,8 +534,8 @@ function resetStatus() {
   <aside id="sidebar-aside">
     <div>
       <div class="brand-area">
-        <div class="brand-logo">E</div>
-        <div id="brand-title" class="brand-title">ELYA HOST</div>
+        <div class="brand-logo">FS</div>
+        <div id="brand-title" class="brand-title">FSOCIETY@KALI</div>
       </div>
       <div class="nav-menu">
         <button class="nav-btn" onclick="switchView('tools-section', this)"><span id="nav-tools">Quick Tools & Cheats</span></button>
@@ -510,7 +545,7 @@ function resetStatus() {
       </div>
     </div>
     <div class="sidebar-footer">
-      <span>fsociety // core v4.0</span>
+      <span>kali-rolling // fsociety_core</span>
     </div>
   </aside>
 
@@ -519,14 +554,14 @@ function resetStatus() {
     <!-- MOBILE HEADER BAR -->
     <div class="mobile-header">
       <button id="menu-btn" class="menu-toggle-btn" onclick="toggleMobileSidebar()">☰ MENU</button>
-      <div style="font-weight: bold; color: var(--accent-cyan); letter-spacing: 1px;">ELYA HOST HUB</div>
+      <div style="font-weight: bold; color: var(--accent-cyan); letter-spacing: 1px;">FSOCIETY TERMINAL</div>
     </div>
 
     <!-- TOP HEADER BAR -->
     <div class="top-header">
       <div class="system-status">
         <div class="status-dot"></div>
-        <span id="msgs2">ROOT@FSOCIETY:~# INITIALIZE_PAYLOAD</span>
+        <span id="msgs2">root@fsociety:~# INITIALIZE_PAYLOAD</span>
       </div>
       <div class="header-actions">
         <div id="date-widget" class="widget-pill"></div>
@@ -537,8 +572,13 @@ function resetStatus() {
 
     <!-- HERO BANNER -->
     <div class="hero-banner">
-      <h1 id="hero-title" class="hero-title">ANONYMOUS_CONSOLE_EXPLOIT_DAEMON</h1>
-      <p id="hero-desc" class="hero-desc">SECURE_SHELL // ZERO_LATENCY // ENCRYPTED_KERNEL</p>
+      <div>
+        <h1 id="hero-title" class="hero-title">FSOCIETY_KALI_SECURITY_DAEMON</h1>
+        <p id="hero-desc" class="hero-desc">SECURE_SHELL // ZERO_LATENCY // KERNEL_EXPLOIT</p>
+      </div>
+      <div>
+        <input type="text" id="search-input" class="search-box" placeholder="FILTER_PAYLOADS..." oninput="filterExploits(this.value)">
+      </div>
     </div>
 
     <!-- SECTION 1: QUICK TOOLS & CHEATS -->
@@ -578,6 +618,7 @@ function resetStatus() {
 
         <a href="755/index.html" class="exploit-card card-green" onmouseover="setStatus('MOUNT_HOST_7.55')" onmouseout="resetStatus()"><span>7.55 Host</span></a>
         <a href="755L/index.html" class="exploit-card" onmouseover="setStatus('MOUNT_HOST_7.55_LIGHT')" onmouseout="resetStatus()"><span>7.55 Host Light</span></a>
+        <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('INJECT_GOLDHEN_7.55')" onmouseout="resetStatus()"><span>Goldhen 7.55 Host Light</span></a>
         <a href="G755/index.html" class="exploit-card card-gold" onmouseover="setStatus('INJECT_GOLDHEN_7.55')" onmouseout="resetStatus()"><span>Goldhen 7.55</span></a>
         <a href="esp755/index.html" class="exploit-card card-green" onmouseover="setStatus('MOUNT_ESP_7.55')" onmouseout="resetStatus()"><span>ESP 7.55</span></a>
 
@@ -586,7 +627,7 @@ function resetStatus() {
         <a href="g2allpro/index.html" class="exploit-card card-gold" onmouseover="setStatus('EXEC_G2_ALL_PRO')" onmouseout="resetStatus()"><span>G2 All Pro</span></a>
         <a href="g2all/index.html" class="exploit-card" onmouseover="setStatus('EXEC_G2_ALL')" onmouseout="resetStatus()"><span>G2 All</span></a>
         
-                <a href="ps4trainer/index.html" class="exploit-card card-gold" onmouseover="setStatus('LAUNCH_PS4_TRAINER')" onmouseout="resetStatus()"><span>PS4Trainer</span></a>
+        <a href="ps4trainer/index.html" class="exploit-card card-gold" onmouseover="setStatus('LAUNCH_PS4_TRAINER')" onmouseout="resetStatus()"><span>PS4Trainer</span></a>
         <a href="restore/hosts.html" class="exploit-card" onmouseover="setStatus('RESTORE_HOSTS')" onmouseout="resetStatus()"><span>Restore Hosts</span></a>
         <a href="restore/trainer.html" class="exploit-card" onmouseover="setStatus('RESTORE_TRAINER')" onmouseout="resetStatus()"><span>Restore Trainer</span></a>
         <a href="restore/esp.html" class="exploit-card" onmouseover="setStatus('RESTORE_ESP')" onmouseout="resetStatus()"><span>Restore ESP</span></a>
@@ -617,7 +658,7 @@ function resetStatus() {
 
     <!-- FOOTER -->
     <footer class="site-footer">
-      <div style="margin-bottom: 10px; color: var(--accent-red); font-weight: bold; font-size: 12px; text-shadow: 0 0 6px rgba(255, 27, 58, 0.4);" id="sony-msg">This is what you get Sony for stopping physical disk production</div>
+      <div style="margin-bottom: 10px; color: var(--fsociety-red); font-weight: bold; font-size: 12px; text-shadow: 0 0 6px rgba(255, 27, 58, 0.4);" id="sony-msg">This is what you get Sony for stopping physical disk production</div>
       <div>
         <span id="footer-credit" style="color: var(--accent-amber);">COMPILED_AND_EXECUTED_BY:</span>&nbsp;&nbsp;<span class="hue-badge">ايليا</span>
       </div>
