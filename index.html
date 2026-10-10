@@ -6,20 +6,22 @@
 <title id="page-title" data-en="fsociety // Kali Terminal Hub" data-ar="fsociety // طرفية كالي">fsociety // Kali Terminal Hub</title>
 <style>
   :root {
-    --bg-base: #090d14;
-    --bg-surface: #111823;
-    --border-color: #1f2d42;
-    --kali-blue: #007acc;
-    --fsociety-red: #ff1b3a;
-    --accent-cyan: #00f0ff;
-    --accent-amber: #ffbb00;
-    --accent-green: #00ff66;
-    --text-main: #e2e8f0;
-    --text-muted: #798696;
+    --bg-base: #0a0d12;
+    --bg-surface: #10141b;
+    --bg-deep: #0d1117;
+    --bg-hover: #141b24;
+    --border-color: #242c38;
+    --kali-blue: #58a6ff;
+    --fsociety-red: #f85149;
+    --accent-cyan: #79c0ff;
+    --accent-amber: #d29922;
+    --accent-green: #3fb950;
+    --text-main: #e6edf3;
+    --text-muted: #8b949e;
     --sidebar-width: 280px;
-    --radius-sm: 2px;
-    --radius-md: 3px;
-    --radius-lg: 3px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 9px;
   }
 
   * {
@@ -31,10 +33,7 @@
 
   body {
     background-color: var(--bg-base);
-    background-image:
-      radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
-      linear-gradient(180deg, rgba(0, 122, 204, 0.06), transparent 160px),
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0px, rgba(255, 255, 255, 0.025) 1px, transparent 1px, transparent 3px);
+    background-image: linear-gradient(180deg, rgba(88, 166, 255, 0.05), transparent 160px);
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
@@ -66,52 +65,6 @@
   .winbar .wdot:nth-child(1) { background: #ff5f57; }
   .winbar .wdot:nth-child(2) { background: #febc2e; }
   .winbar .wdot:nth-child(3) { background: #28c840; }
-
-  /* ASCII BANNER -- plain text, zero render cost beyond normal text layout.
-     white-space:pre keeps the character grid intact; overflow-x:auto means
-     a narrow viewport scrolls it instead of breaking the layout. */
-  .ascii-banner {
-    overflow-x: auto;
-    margin-bottom: 18px;
-  }
-
-  .ascii-banner pre {
-    color: var(--kali-blue);
-    font-size: 10px;
-    line-height: 1.25;
-    letter-spacing: 1px;
-    white-space: pre;
-    text-shadow: 0 0 6px rgba(0, 122, 204, 0.5);
-  }
-
-  /* HUD-style corner brackets -- static absolutely-positioned pseudo
-     elements, no extra DOM, no animation */
-  .hud-frame {
-    position: relative;
-  }
-
-  .hud-frame::before,
-  .hud-frame::after {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-  }
-
-  .hud-frame::before {
-    top: -1px;
-    left: -1px;
-    border-top: 2px solid var(--accent-cyan);
-    border-left: 2px solid var(--accent-cyan);
-  }
-
-  .hud-frame::after {
-    bottom: -1px;
-    right: -1px;
-    border-bottom: 2px solid var(--accent-cyan);
-    border-right: 2px solid var(--accent-cyan);
-  }
 
   .winbar-label {
     margin-left: 10px;
@@ -161,16 +114,16 @@
   .brand-logo {
     width: 42px;
     height: 42px;
-    background: #080c12;
+    background: var(--bg-deep);
     border: 1px solid var(--fsociety-red);
-    border-radius: 2px;
+    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 900;
     font-size: 20px;
     color: var(--fsociety-red);
-    text-shadow: 0 0 8px rgba(255, 27, 58, 0.5);
+    text-shadow: 0 0 8px rgba(248, 81, 73, 0.5);
     margin-right: 12px;
   }
 
@@ -202,7 +155,7 @@
     color: var(--text-muted);
     text-align: left;
     padding: 12px 16px;
-    border-radius: 2px;
+    border-radius: 7px;
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
@@ -218,10 +171,9 @@
   }
 
   .nav-btn:hover, .nav-btn.active {
-    background: #172235;
+    background: var(--bg-hover);
     color: var(--accent-cyan);
     border-color: var(--kali-blue);
-    text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
   }
 
   .nav-btn:focus-visible,
@@ -271,16 +223,16 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     padding: 12px 20px;
-    border-radius: 3px;
+    border-radius: 9px;
     margin-bottom: 20px;
   }
 
   .menu-toggle-btn {
-    background: #172235;
+    background: var(--bg-hover);
     border: 1px solid var(--fsociety-red);
     color: var(--fsociety-red);
     padding: 8px 12px;
-    border-radius: 2px;
+    border-radius: 7px;
     font-weight: bold;
     cursor: pointer;
     font-family: monospace;
@@ -309,7 +261,7 @@
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--fsociety-red);
     padding: 15px 25px;
-    border-radius: 3px;
+    border-radius: 9px;
     margin-bottom: 25px;
     flex-wrap: wrap;
   }
@@ -366,10 +318,10 @@
   }
 
   .widget-pill {
-    background: #080c12;
+    background: var(--bg-deep);
     border: 1px solid var(--border-color);
     padding: 8px 12px;
-    border-radius: 2px;
+    border-radius: 7px;
     font-size: 12px;
     font-weight: bold;
     color: var(--accent-amber);
@@ -380,7 +332,7 @@
     border: 1px solid var(--accent-amber);
     color: var(--accent-amber);
     padding: 8px 16px;
-    border-radius: 2px;
+    border-radius: 7px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.1s ease, color 0.1s ease;
@@ -396,7 +348,7 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-top: 3px solid var(--fsociety-red);
-    border-radius: 3px;
+    border-radius: 9px;
     padding: 25px;
     margin-bottom: 25px;
     display: flex;
@@ -416,27 +368,6 @@
     letter-spacing: 2px;
     margin-bottom: 8px;
     color: var(--fsociety-red);
-    text-shadow: 0 0 6px rgba(255, 27, 58, 0.6), 0 0 16px rgba(255, 27, 58, 0.3);
-  }
-
-  .hero-title::after {
-    content: "▊";
-    margin-left: 6px;
-    font-size: 14px;
-    color: var(--accent-cyan);
-    animation: cursor-blink 1s steps(1) infinite;
-  }
-
-  [dir="rtl"] .hero-title::after {
-    margin-left: 0;
-    margin-right: 6px;
-  }
-
-  /* Single small glyph, visibility-only -- same negligible cost as the
-     status dot's pulse; steps(1) means no interpolation to compute */
-  @keyframes cursor-blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
   }
 
   .hero-title::before {
@@ -465,11 +396,11 @@
   }
 
   .search-box {
-    background: #080c12;
+    background: var(--bg-deep);
     border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 10px 32px 10px 15px;
-    border-radius: 2px;
+    border-radius: 7px;
     font-size: 12px;
     outline: none;
     width: 240px;
@@ -519,7 +450,7 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--kali-blue);
-    border-radius: 3px;
+    border-radius: 9px;
     padding: 20px;
     margin-bottom: 25px;
   }
@@ -540,7 +471,6 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
-    text-shadow: 0 0 6px rgba(0, 240, 255, 0.35);
   }
 
   .section-title::before {
@@ -638,8 +568,8 @@
   .exploit-card {
     --card-accent: var(--kali-blue);
     --card-hover-accent: var(--accent-cyan);
-    --card-hover-bg: #172235;
-    background: #080c12;
+    --card-hover-bg: var(--bg-hover);
+    background: var(--bg-deep);
     border: 1px solid var(--border-color);
     border-top: 3px solid var(--card-accent);
     border-radius: var(--radius-md);
@@ -663,14 +593,14 @@
   .card-gold {
     --card-accent: var(--accent-amber);
     --card-hover-accent: var(--accent-amber);
-    --card-hover-bg: #261f10;
+    --card-hover-bg: #241c0d;
     color: var(--card-accent);
   }
 
   .card-green {
     --card-accent: var(--accent-green);
     --card-hover-accent: var(--accent-green);
-    --card-hover-bg: #112618;
+    --card-hover-bg: #112118;
     color: var(--card-accent);
   }
 
@@ -697,33 +627,16 @@
     font-size: 8px;
     font-weight: bold;
     letter-spacing: 0.5px;
-    color: #060a10;
+    color: #0a0d12;
     background: var(--text-muted);
     padding: 1px 5px;
-    border-radius: 2px;
+    border-radius: 7px;
     opacity: 0.55;
   }
 
   [dir="rtl"] .exploit-card::before {
     left: auto;
     right: 8px;
-  }
-
-  /* Type-indicator dot, mirrors the section legend -- static, no JS */
-  .exploit-card::after {
-    content: "";
-    position: absolute;
-    top: 9px;
-    right: 10px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--card-accent);
-  }
-
-  [dir="rtl"] .exploit-card::after {
-    right: auto;
-    left: 10px;
   }
 
   .subheading {
@@ -763,7 +676,7 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-left: 4px solid var(--fsociety-red);
-    border-radius: 3px;
+    border-radius: 9px;
     padding: 20px;
     text-align: center;
     margin-bottom: 20px;
@@ -772,14 +685,14 @@
   .hue-badge {
     color: var(--accent-cyan);
     font-weight: bold;
-    background: #080c12;
+    background: var(--bg-deep);
     padding: 4px 14px;
     border: 1px solid var(--kali-blue);
-    border-radius: 2px;
+    border-radius: 7px;
     display: inline-block;
     letter-spacing: 1px;
     margin-top: 8px;
-    text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+    text-shadow: 0 0 6px rgba(121, 192, 255, 0.4);
   }
 
   @media (max-width: 900px) {
@@ -1022,13 +935,8 @@ window.onload = function () {
       </div>
     </div>
 
-    <!-- ASCII BANNER -- plain text, no images, no cost -->
-    <div class="ascii-banner"><pre>╔═══════════════════════════════════════════════╗
-║   F S O C I E T Y   : :   K A L I   C O R E   ║
-╚═══════════════════════════════════════════════╝</pre></div>
-
     <!-- HERO BANNER -->
-    <div class="hero-banner hud-frame">
+    <div class="hero-banner">
       <div>
         <div class="winbar"><span class="wdot"></span><span class="wdot"></span><span class="wdot"></span><span class="winbar-label">guest@fsociety:~/home</span></div>
         <h1 id="hero-title" class="hero-title" data-en="FSOCIETY_KALI_SECURITY_DAEMON" data-ar="البرنامج الآمن لاستغلال الثغرات">FSOCIETY_KALI_SECURITY_DAEMON</h1>
@@ -1159,9 +1067,9 @@ window.onload = function () {
     </div>
 
     <!-- FOOTER -->
-    <footer class="site-footer hud-frame">
+    <footer class="site-footer">
       <div class="winbar" style="justify-content: center; margin-bottom: 10px;"><span class="wdot"></span><span class="wdot"></span><span class="wdot"></span><span class="winbar-label">~/credits</span></div>
-      <div style="margin-bottom: 10px; color: var(--fsociety-red); font-weight: bold; font-size: 12px; text-shadow: 0 0 6px rgba(255, 27, 58, 0.4);" id="sony-msg" data-en="This is what you get Sony for stopping physical disk production" data-ar="هذا جزاؤك يا سوني على إيقاف إنتاج الأقراص الفيزيائية">This is what you get Sony for stopping physical disk production</div>
+      <div style="margin-bottom: 10px; color: var(--fsociety-red); font-weight: bold; font-size: 12px; text-shadow: 0 0 6px rgba(248, 81, 73, 0.4);" id="sony-msg" data-en="This is what you get Sony for stopping physical disk production" data-ar="هذا جزاؤك يا سوني على إيقاف إنتاج الأقراص الفيزيائية">This is what you get Sony for stopping physical disk production</div>
       <div>
         <span id="footer-credit" style="color: var(--accent-amber);" data-en="COMPILED_AND_EXECUTED_BY:" data-ar="تم التصميم والتنفيذ بواسطة:">COMPILED_AND_EXECUTED_BY:</span>&nbsp;&nbsp;<span class="hue-badge">ايليا</span>
       </div>
