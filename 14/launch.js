@@ -2,13 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("pick");
   const autoCheckbox = document.getElementById("auto");
   const countDisplay = document.getElementById("count");
-  const btn = form.querySelector("button[type='submit']");
 
-  let delaySeconds = 10; // مدة زمنية مريحة (10 ثوانٍ) قبل بدء التشغيل التلقائي
+  let delaySeconds = 10; // مهلة 10 ثوانٍ
   let timer = null;
 
   function startCountdown() {
-    if (!autoCheckbox.checked) {
+    if (!autoCheckbox || !autoCheckbox.checked) {
       if (countDisplay) countDisplay.textContent = "";
       return;
     }
@@ -26,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (remaining <= 0) {
         clearInterval(timer);
-        form.requestSubmit ? form.requestSubmit() : form.submit();
+        // توجيه المتصفح فور انتهاء العداد إلى مسار الفورم (jb.html)
+        form.submit();
       }
     }, 1000);
   }
@@ -41,19 +41,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // بدء العد التنازلي عند فتح الصفحة
   startCountdown();
 
-  // إلغاء العد التنازلي فور تفاعل المستخدم مع الصفحة
-  autoCheckbox.addEventListener("change", (e) => {
-    if (!e.target.checked) {
-      stopCountdown();
-    } else {
-      startCountdown();
-    }
-  });
+  if (autoCheckbox) {
+    autoCheckbox.addEventListener("change", (e) => {
+      if (!e.target.checked) {
+        stopCountdown();
+      } else {
+        startCountdown();
+      }
+    });
+  }
 
-  // إلغاء التشغيل التلقائي إذا تحرك المستخدم بأسهم يد التحكم (D-Pad)
+  // إلغاء التشغيل التلقائي عند الضغط على أي زر في يد التحكم أو النقر
   document.addEventListener("keydown", stopCountdown);
   document.addEventListener("click", stopCountdown);
 });
