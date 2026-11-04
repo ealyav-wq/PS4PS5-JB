@@ -17,8 +17,7 @@
 
     body {
       background-color: #050505;
-      background-image:
-        radial-gradient(ellipse at 50% 0%, #200008 0%, #050505 75%);
+      background-image: radial-gradient(ellipse at 50% 0%, #200008 0%, #050505 75%);
       color: #f0f0f0;
       font-family: Consolas, "Courier New", monospace;
       min-height: 100vh;
@@ -30,7 +29,7 @@
       -webkit-user-select: none;
     }
 
-    /* SUBTLE SCANLINE EFFECT FOR MR. ROBOT VIBE */
+    /* SCANLINE EFFECT */
     body::before {
       content: "";
       position: fixed;
@@ -241,7 +240,7 @@
       font-weight: 700;
     }
 
-    /* OPTION CARDS (PAYLOADS) */
+    /* OPTION CARDS */
     .pick {
       display: flex;
       flex-direction: column;
@@ -294,7 +293,6 @@
       justify-content: center;
     }
 
-    /* SELECTED & D-PAD FOCUS STATES FOR PS4 BROWSER */
     .opt:has(input:checked) {
       border-color: #ff003c;
       background: rgba(255, 0, 60, 0.08);
@@ -306,7 +304,7 @@
       box-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
     }
 
-    /* PS4 CONTROLLER D-PAD FOCUS HIGHLIGHT (YELLOW/AMBER FOR VISIBILITY) */
+    /* D-PAD FOCUS HIGHLIGHT */
     .opt:focus,
     .opt:focus-within,
     .auto-label:focus-within,
@@ -483,6 +481,90 @@
     <section class="panel">
 
       <div class="panel-heading">
+        <div>
+          <span class="section-label">CONFIGURATION</span>
+          <h2>Payload Selection</h2>
+        </div>
+
+        <span class="panel-indicator">01 / 02</span>
+      </div>
+
+      <form class="pick" id="pick">
+
+        <label class="opt" tabindex="0">
+          <input
+            type="radio"
+            name="payload"
+            value="hen"
+          >
+
+          <span class="opt-content">
+            <span class="opt-name">PS4 HEN</span>
+            <span class="opt-description">Homebrew Enabler</span>
+          </span>
+
+          <span class="opt-check"></span>
+        </label>
+
+        <label class="opt selected" tabindex="0">
+          <input
+            type="radio"
+            name="payload"
+            value="goldhen"
+            checked
+          >
+
+          <span class="opt-content">
+            <span class="opt-name">GoldHEN</span>
+            <span class="opt-description">GoldHEN Payload</span>
+          </span>
+
+          <span class="opt-check"></span>
+        </label>
+
+        <div class="auto-container">
+          <label class="auto-label" for="auto" tabindex="0">
+            <span class="auto-text">
+              <strong>Automatic Start</strong>
+              <small>Launch host automatically (10s delay)</small>
+            </span>
+
+            <input
+              type="checkbox"
+              id="auto"
+              checked
+            >
+
+            <span class="toggle"></span>
+          </label>
+        </div>
+
+        <button class="btn" type="submit" tabindex="0">
+          <span>START EXPLOIT</span>
+          <span class="btn-arrow">&rarr;</span>
+        </button>
+
+        <p class="count" id="count"></p>
+
+      </form>
+
+      <div class="panel-footer">
+        <span>ELYA CORP SYSTEMS</span>
+        <span>FW 14.00</span>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="byline">
+    ELYA PS4 HOST &copy; 2026 // HELLO, FRIEND.
+  </footer>
+
+  <script src="launch.js"></script>
+
+</body>
+</html>s="panel-heading">
         <div>
           <span class="section-label">CONFIGURATION</span>
           <h2>Payload Selection</h2>
