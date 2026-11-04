@@ -1,86 +1,59 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("pick");
+  const autoCheckbox = document.getElementById("auto");
+  const countDisplay = document.getElementById("count");
+  const btn = form.querySelector("button[type='submit']");
 
-/* The landing page: pick a payload, then start the run.
- *
- * Leaving this page has to be a real navigation from it -- the referrer guard
- * in jb.js arms the chain only when the run page was reached from here. */
+  let delaySeconds = 10; // عدد الثواني قبل التشغيل التلقائي (يمكنك تغييرها إلى 8 أو 10)
+  let timer = null;
 
-var TARGET = {
-  hen: "log=1&afterglow=run&payload=hen.bin",
-  goldhen: "log=1&afterglow=run&mode=goldhen",
-};
+  function startCountdown() {
+    if (!autoCheckbox.checked) {
+      if (countDisplay) countDisplay.textContent = "";
+      return;
+    }
 
-var AUTOSTART_SECONDS = 5;
-var STORE_KEY = "afterglow.choice";
+    let remaining = delaySeconds;
+    if (countDisplay) {
+      countDisplay.textContent = `Auto-launching in ${remaining}s... (Press any button to cancel)`;
+    }
 
-var form = document.getElementById("pick");
-var autoBox = document.getElementById("auto");
-var countEl = document.getElementById("count");
-var ticker = null;
+    timer = setInterval(() => {
+      remaining--;
+      if (countDisplay) {
+        countDisplay.textContent = `Auto-launching in ${remaining}s... (Press any button to cancel)`;
+      }
 
-function remember() {
-  try {
-    localStorage.setItem(
-      STORE_KEY,
-      JSON.stringify({ payload: picked(), autostart: autoBox.checked }),
-    );
-  } catch (e) {}
-}
-
-function restore() {
-  var saved = null;
-  try {
-    saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
-  } catch (e) {}
-  if (!saved) return;
-
-  if (saved.payload && TARGET[saved.payload]) {
-    var radio = form.querySelector(
-      'input[name="payload"][value="' + saved.payload + '"]',
-    );
-    if (radio) radio.checked = true;
+      if (remaining <= 0) {
+        clearInterval(timer);
+        form.requestSubmit ? form.requestSubmit() : form.submit();
+      }
+    }, 1000);
   }
-  if (typeof saved.autostart === "boolean") autoBox.checked = saved.autostart;
-}
 
-function picked() {
-  var radio = form.querySelector('input[name="payload"]:checked');
-  return radio ? radio.value : "goldhen";
-}
-
-function start() {
-  stopClock();
-  location.href = "jb.html?" + TARGET[picked()];
-}
-
-function stopClock() {
-  if (ticker !== null) {
-    clearInterval(ticker);
-    ticker = null;
+  function stopCountdown() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+      if (countDisplay) {
+        countDisplay.textContent = "AUTO-START CANCELLED";
+      }
+    }
   }
-  countEl.textContent = "";
-}
 
-function startClock() {
-  start();
-}
+  // بدء العد التنازلي عند فتح الصفحة
+  startCountdown();
 
-form.addEventListener("submit", function (ev) {
-  ev.preventDefault();
-  start();
+  // إلغاء العد التنازلي فور تفاعل المستخدم مع الصفحة
+  autoCheckbox.addEventListener("change", (e) => {
+    if (!e.target.checked) {
+      stopCountdown();
+    } else {
+      startCountdown();
+    }
+  });
+
+  // إلغاء التشغيل التلقائي إذا تحرك المستخدم بأسهم يد التحكم (D-Pad)
+  document.addEventListener("keydown", stopCountdown);
+  document.addEventListener("click", stopCountdown);
 });
-
-form.addEventListener("change", function (ev) {
-  remember();
-  if (ev.target === autoBox) {
-    if (autoBox.checked) startClock();
-    else stopClock();
-    return;
-  }
-  if (ev.target.name === "payload" && autoBox.checked) {
-    stopClock();
-    startClock();
-  }
-});
-
-restore();
-if (autoBox.checked) startClock();
