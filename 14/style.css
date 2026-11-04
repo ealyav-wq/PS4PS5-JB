@@ -1,0 +1,724 @@
+/* =========================================================
+   CRYSTALLIZE PS4 HOST
+   Premium Console Interface
+   Target: PS4 Firmware 14.00
+
+   Landing page: redesigned
+   Run page: original styling preserved
+   ========================================================= */
+
+:root {
+  --bg: #070d1b;
+  --panel: #101b30;
+  --panel-light: #142440;
+  --line: #243958;
+
+  --fg: #dce8fa;
+  --bright: #ffffff;
+  --dim: #8498b8;
+  --faint: #506582;
+
+  --blue: #398bff;
+  --cyan: #54d9ff;
+
+  --ok: #6cdbad;
+  --bad: #d08a7f;
+  --warn: #d8c07f;
+
+  --sans: "Segoe UI", Arial, sans-serif;
+  --mono: Consolas, "DejaVu Sans Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.45 var(--sans);
+}
+
+/* =========================================================
+   SHARED HEADER
+   ========================================================= */
+
+#brand {
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--line);
+  background: #0a1325;
+}
+
+.brand-inner {
+  display: flex;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.brand-mark {
+  width: 39px;
+  height: 39px;
+  margin-right: 12px;
+  border: 1px solid #438bff;
+  border-radius: 10px;
+  background: #132b4e;
+  color: #ffffff;
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 37px;
+  text-align: center;
+  box-shadow: 0 0 18px rgba(57,139,255,0.22);
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.brand-name b {
+  color: var(--bright);
+  font-size: 16px;
+  letter-spacing: 0.19em;
+}
+
+.brand-name span {
+  color: var(--dim);
+  font-size: 9px;
+  letter-spacing: 0.19em;
+}
+
+.brand-version {
+  margin-left: auto;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--cyan);
+  font: 11px var(--mono);
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   LANDING PAGE
+   All landing styles are scoped to html.landing
+   ========================================================= */
+
+html.landing {
+  background: var(--bg);
+}
+
+html.landing body {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 20% 45%,
+      rgba(25, 83, 164, 0.19),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 85% 15%,
+      rgba(0, 174, 255, 0.09),
+      transparent 38%
+    ),
+    var(--bg);
+}
+
+html.landing .shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 65px;
+  max-width: 1120px;
+  min-height: calc(100vh - 115px);
+  margin: 0 auto;
+  padding: 65px 30px 85px;
+}
+
+/* HERO */
+
+.hero {
+  flex: 1;
+  min-width: 280px;
+  max-width: 490px;
+}
+
+.hero-label {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 7px 12px;
+  border: 1px solid #234b65;
+  border-radius: 4px;
+  background: #0e2134;
+  color: var(--cyan);
+  font: 10px var(--mono);
+  letter-spacing: 0.13em;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 9px var(--ok);
+}
+
+.hero h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -1.8px;
+}
+
+.hero h1 span {
+  color: var(--blue);
+}
+
+.hero-description {
+  max-width: 390px;
+  margin: 20px 0 32px;
+  color: var(--dim);
+  font-size: 14px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+/* FIRMWARE INFORMATION */
+
+.firmware-card {
+  display: flex;
+  align-items: center;
+  max-width: 350px;
+  padding: 17px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(16, 27, 48, 0.85);
+}
+
+.firmware-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.info-label {
+  margin-bottom: 5px;
+  color: var(--dim);
+  font: 9px var(--mono);
+  letter-spacing: 0.1em;
+}
+
+.firmware-info strong {
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.firmware-divider {
+  width: 1px;
+  height: 35px;
+  margin: 0 22px;
+  background: var(--line);
+}
+
+/* =========================================================
+   CONFIGURATION PANEL
+   ========================================================= */
+
+html.landing .panel {
+  flex: 0 1 370px;
+  width: 370px;
+  max-width: 100%;
+  padding: 26px;
+  border: 1px solid #294365;
+  border-radius: 12px;
+  background: rgba(15, 27, 47, 0.97);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 35px rgba(37, 117, 255, 0.08);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 23px;
+}
+
+.section-label {
+  color: var(--cyan);
+  font: 9px var(--mono);
+  letter-spacing: 0.15em;
+}
+
+.panel-heading h2 {
+  margin: 5px 0 0;
+  color: #ffffff;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.panel-indicator {
+  color: var(--faint);
+  font: 10px var(--mono);
+}
+
+/* PAYLOAD OPTIONS */
+
+.pick {
+  margin: 0;
+}
+
+.opt {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-height: 69px;
+  margin-bottom: 11px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #101d32;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.opt:hover,
+.opt:focus-within {
+  border-color: var(--blue);
+  background: #142746;
+}
+
+.opt input {
+  width: 17px;
+  height: 17px;
+  margin: 0 13px 0 0;
+  accent-color: var(--blue);
+}
+
+.opt-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.opt-name {
+  color: #eaf2ff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.opt-description {
+  margin-top: 3px;
+  color: var(--dim);
+  font-size: 11px;
+}
+
+.opt-check {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #344761;
+}
+
+.opt input:checked ~ .opt-check {
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+.opt input:checked ~ .opt-content .opt-name {
+  color: var(--cyan);
+}
+
+/* AUTOSTART */
+
+.auto-container {
+  margin-top: 20px;
+  margin-bottom: 21px;
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.auto-label {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.auto-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.auto-text strong {
+  color: #dce8fa;
+  font-size: 13px;
+}
+
+.auto-text small {
+  margin-top: 3px;
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.auto-label input {
+  position: absolute;
+  opacity: 0;
+}
+
+.toggle {
+  position: relative;
+  width: 39px;
+  height: 21px;
+  border: 1px solid #40516b;
+  border-radius: 20px;
+  background: #24344c;
+}
+
+.toggle:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #9aa9bd;
+  transition: left 0.2s, background 0.2s;
+}
+
+.auto-label input:checked + .toggle {
+  border-color: var(--blue);
+  background: #173d70;
+}
+
+.auto-label input:checked + .toggle:after {
+  left: 21px;
+  background: #ffffff;
+}
+
+/* START BUTTON */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 19px;
+  border: 1px solid #398bff;
+  border-radius: 6px;
+  background: linear-gradient(110deg, #1764cf, #278ce9);
+  color: #ffffff;
+  font: 700 13px var(--sans);
+  letter-spacing: 0.13em;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(36, 119, 255, 0.18);
+}
+
+.btn:hover,
+.btn:focus {
+  border-color: #8adfff;
+  outline: none;
+  background: linear-gradient(110deg, #2478e5, #36a8f4);
+}
+
+.btn-arrow {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* COUNTDOWN */
+
+.count {
+  min-height: 17px;
+  margin: 12px 0 0;
+  color: var(--cyan);
+  text-align: center;
+  font: 11px/1.4 var(--mono);
+  letter-spacing: 0.07em;
+}
+
+/* PANEL FOOTER */
+
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+  font: 8px var(--mono);
+  letter-spacing: 0.08em;
+}
+
+/* PAGE FOOTER */
+
+html.landing .byline {
+  position: fixed;
+  bottom: 12px;
+  left: 20px;
+  z-index: 9;
+  margin: 0;
+  color: var(--faint);
+  font: 9px var(--mono);
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   RUN PAGE
+   Original execution page styling preserved.
+   ========================================================= */
+
+html.run {
+  --bg: #0b0d10;
+  --panel: #0e1116;
+  --sunk: #11151b;
+  --line: #1e2732;
+
+  --fg: #c8ced8;
+  --bright: #e6ebf2;
+  --dim: #7c8798;
+  --faint: #4d5765;
+
+  --ok: #7fd0a0;
+  --bad: #d08a7f;
+  --warn: #d8c07f;
+}
+
+html.run #brand {
+  background: #0e1116;
+  border-bottom: 1px solid #1e2732;
+}
+
+html.run #brand {
+  padding: 8px 10px;
+  text-align: center;
+}
+
+html.run #brand b {
+  color: var(--bright);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+html.run .byline {
+  position: fixed;
+  bottom: 9px;
+  left: 11px;
+  z-index: 9;
+  margin: 0;
+  color: var(--faint);
+  font: 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+}
+
+/* SPINNER */
+
+#spin {
+  position: fixed;
+  top: calc(50% + 20px);
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border: 4px solid var(--line);
+  border-top-color: var(--ok);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#msg {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: none;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+#wrap {
+  padding: 0;
+}
+
+#state,
+#out {
+  display: none;
+}
+
+body.done #spin,
+body.fail #spin {
+  display: none;
+}
+
+body.fail #msg {
+  display: block;
+}
+
+body.done #msg {
+  display: block;
+  color: var(--ok);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* LOG PAGE */
+
+body.log {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+body.log #spin,
+body.log #msg {
+  display: none;
+}
+
+body.log #wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 14px 18px 30px;
+}
+
+body.log #state {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+body.log #out {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel);
+  font: 12px/1.45 var(--mono);
+  white-space: pre-wrap;
+}
+
+/* MEMORY READOUT */
+
+#ramBox {
+  overflow: hidden;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ok);
+  font: 11px/1.4 var(--mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* RETRY NOTICE */
+
+.notice {
+  margin: 1em 0;
+  padding: 0.7em 1em;
+  border: 2px solid #e66;
+  background: #2a1414;
+  color: #f99;
+  font: 700 20px/1.4 var(--sans);
+}
+
+.ok {
+  color: var(--ok);
+}
+
+.bad {
+  color: var(--bad);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+code {
+  color: #9fb3d0;
+}
+
+/* =========================================================
+   SMALL SCREEN
+   ========================================================= */
+
+@media screen and (max-width: 760px) {
+
+  html.landing .shell {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 35px;
+    padding: 45px 20px 65px;
+  }
+
+  .hero {
+    max-width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 37px;
+  }
+
+  html.landing .panel {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+}
+
+@media screen and (max-width: 420px) {
+
+  #brand {
+    padding: 12px 15px;
+  }
+
+  .brand-name b {
+    font-size: 13px;
+  }
+
+  .brand-version {
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  html.landing .shell {
+    padding: 35px 15px 65px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  html.landing .panel {
+    padding: 19px;
+  }
+
+}
