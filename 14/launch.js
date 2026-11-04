@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const countDisplay = document.getElementById("count");
   const btn = form.querySelector("button[type='submit']");
 
-  let delaySeconds = 10; // عدد الثواني قبل التشغيل التلقائي (يمكنك تغييرها إلى 8 أو 10)
+  let delaySeconds = 10; // مدة زمنية مريحة (10 ثوانٍ) قبل بدء التشغيل التلقائي
   let timer = null;
 
   function startCountdown() {
