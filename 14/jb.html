@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" manifest="cache.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Zeroday</title>
+    <!-- This page carries its own styles and starts its own module, and it
+         loads NOTHING else. That duplicates a little of style.css, and it is
+         deliberate: every subresource is one more allocation and one more
+         timing shift in the process that core.js is about to groom, and this
+         exploit is decided by exactly that. The landing page may use the
+         shared stylesheet; this one may not. -->
+    <!-- jb.js contract preserved exactly:
+         IDs  : #brand #ramBox #spin #msg #wrap #state #out
+         body : .done  .fail  .log
+         misc : .notice .byline .ok .bad .warn code          -->
+    <style>
+      :root {
+        --bg:     #090909;
+        --surf:   #0f0f0f;
+        --deep:   #060606;
+        --bdr:    #1e1e1e;
+        --bdr2:   #2e2e2e;
+        --text:   #c0c0c0;
+        --bright: #e8e8e8;
+        --dim:    #585858;
+        --faint:  #2a2a2a;
+        --red:    #cc2222;
+        --amber:  #c8a000;
+        --white:  #f0f0f0;
+        --mono:   "Courier New", Courier, monospace;
+        --sans:   "Courier New", Courier, monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.5 var(--mono);
+      }
+
+      /* ── brand bar ───────────────────────────────────────────── */
+      #brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 20px;
+        background: var(--surf);
+        border-bottom: 1px solid var(--bdr);
+        border-left: 3px solid var(--red);
+      }
+
+      #brand b {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.3em;
+        color: var(--white);
+        text-transform: uppercase;
+      }
+
+      .brand-sub {
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        color: var(--red);
+        text-transform: uppercase;
+      }
+
+      /* ── ram readout ─────────────────────────────────────────── */
+      #ramBox {
+        overflow: hidden;
+        padding: 6px 20px;
+        border-bottom: 1px solid var(--bdr);
+        background: var(--deep);
+        color: var(--text);
+        font: 11px/1.4 var(--mono);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── spinner ─────────────────────────────────────────────── */
+      #spin {
+        position: fixed;
+        top: calc(50% + 20px);
+        left: 50%;
+        width: 44px;
+        height: 44px;
+        margin: -22px 0 0 -22px;
+        border: 2px solid var(--bdr2);
+        border-top-color: var(--white);
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ── loading label above spinner ─────────────────────────── */
+      #spin-label {
+        position: fixed;
+        top: calc(50% - 24px);
+        left: 0;
+        right: 0;
+        text-align: center;
+        font: 11px/1 var(--mono);
+        letter-spacing: 0.25em;
+        color: var(--dim);
+        text-transform: uppercase;
+      }
+
+      /* hide label whenever body has a state class */
+      body.done #spin-label,
+      body.fail #spin-label,
+      body.log  #spin-label { display: none; }
+
+      /* ── status message ──────────────────────────────────────── */
+      #msg {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        display: none;
+        text-align: center;
+        font: 16px/1.5 var(--mono);
+        letter-spacing: 0.08em;
+        padding: 0 20px;
+      }
+
+      #state, #out { display: none; }
+
+      body.done #spin,
+      body.fail #spin { display: none; }
+
+      body.fail #msg {
+        display: block;
+        color: var(--red);
+      }
+
+      body.done #msg {
+        display: block;
+        color: var(--white);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+      }
+
+      /* ── log view ────────────────────────────────────────────── */
+      body.log {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      body.log #spin,
+      body.log #msg { display: none; }
+
+      body.log #wrap {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        padding: 16px 20px 32px;
+      }
+
+      body.log #state {
+        display: block;
+        margin: 0 0 10px;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--white);
+        text-transform: uppercase;
+      }
+
+      body.log #out {
+        display: block;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 14px 16px;
+        border: 1px solid var(--bdr);
+        border-left: 3px solid var(--red);
+        background: var(--deep);
+        font: 12px/1.6 var(--mono);
+        white-space: pre-wrap;
+        color: var(--text);
+      }
+
+      /* ── retry notice (raised by jb.js) ──────────────────────── */
+      .notice {
+        margin: 1em 0;
+        padding: 0.8em 1em;
+        border: 1px solid var(--red);
+        border-left: 4px solid var(--red);
+        background: #120808;
+        color: #e08080;
+        font: 700 16px/1.5 var(--mono);
+        letter-spacing: 0.04em;
+      }
+
+      /* ── byline ──────────────────────────────────────────────── */
+      .byline {
+        position: fixed;
+        bottom: 10px;
+        left: 20px;
+        margin: 0;
+        color: var(--faint);
+        font: 10px/1 var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      /* ── jb.js utility classes ───────────────────────────────── */
+      .ok   { color: var(--bright); }
+      .bad  { color: var(--red);    }
+      .warn { color: var(--amber);  }
+      code  { color: var(--white);  font-family: var(--mono); }
+    </style>
+  </head>
+  <body>
+
+    <div id="brand">
+      <b>Zeroday</b>
+      <span class="brand-sub">by&nbsp;ELYA</span>
+    </div>
+
+    <div id="ramBox">RAM: checking...</div>
+
+    <div id="spin"></div>
+    <div id="spin-label">executing</div>
+
+    <div id="msg">Restart your console</div>
+
+    <div id="wrap">
+      <div id="state"></div>
+      <div id="out"></div>
+    </div>
+
+    <p class="byline">exploit by well0nez / m0zz</p>
+
+    <script type="module">
+      import "./jb.js";
+    </script>
+  </body>
+</html>
